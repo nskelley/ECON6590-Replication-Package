@@ -1,0 +1,52 @@
+# Data files
+*.csv
+*.dta
+*.xlsx
+*.rds
+*.qs
+*.sav
+*.sas7bdat
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.json
+*.xml
+*.sqlite
+*.db
+*.zip
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Backup files
+*.bak
+*.backup
+
+# Misc
+*.cls
+
+# Literature review
+09literature/**/*
+!09literature/*.xlsx
+09literature/~*.xlsx
