@@ -47,7 +47,11 @@
 # Misc
 *.cls
 
+# Allow subsample data
+!05prepdata/demo_subsamples/*.csv
+
 # Literature review
 09literature/**/*
 !09literature/*.xlsx
 09literature/~*.xlsx
+.Rproj.user
