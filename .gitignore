@@ -24,6 +24,7 @@
 # OS generated files
 .DS_Store
 .DS_Store?
+**.DS_Store
 ._*
 
 # Editor files
