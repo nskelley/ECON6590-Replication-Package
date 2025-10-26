@@ -1,7 +1,8 @@
 # Data files
-*.csv
+*.csv*
 *.dta
 *.xlsx
+*.xls
 *.rds
 *.qs
 *.sav
@@ -32,6 +33,7 @@
 .idea/
 *.swp
 *.swo
+*.Rhistory
 
 # TeX auxiliary files
 *.aux
