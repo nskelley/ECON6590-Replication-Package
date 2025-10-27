@@ -52,6 +52,9 @@
 # Allow subsample data
 !05prepdata/demo_subsamples/*.csv
 
+# Allow BLS relevant-industry data
+!01data/bls/combined/combined_qcew_relevant_industry.csv.gz
+
 # Literature review
 09literature/**/*
 !09literature/*.xlsx

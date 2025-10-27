@@ -31,7 +31,8 @@ ds <- open_dataset(here("01data/bls/combined/all_parquet"))
 lazy_filter <- ds |>
   filter(year %in% years_keep,
          grepl(state_pattern, area_fips),
-         !grepl("000$", area_fips)) |>
+         !grepl("000$", area_fips),
+         industry_code %in% c("10", "2121", "221112")) |>
   select(-any_of("qtr"))
 
 dt <- as.data.table(collect(lazy_filter))
@@ -40,5 +41,4 @@ dt <- as.data.table(collect(lazy_filter))
 nrow(dt) == nrow(unique(dt, by = c("year", "area_fips", "industry_code", 
                                    "own_code")))
 
-fwrite(dt, here("01data/bls/combined/combined_qcew_raw.csv.gz"))
-
+fwrite(dt, here("01data/bls/combined/combined_qcew_relevant_industry.csv.gz"))
