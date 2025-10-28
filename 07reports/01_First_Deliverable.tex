@@ -1,5 +1,10 @@
 \documentclass{../10extra/creport}
 
+% \usepackage{xcolor} -- xcolor with dvipscolors is imported by the class wait how did you get it red and why does it say TK
+% TK is a thing to help search for areas that still need work (CMD+F "TK" will almost always give only the areas where you've flagged "TK"/"to come") -- I have a command \tk defined in the class that makes it red and flags "TK" in the document
+%perffffff love it
+
+
 \title{ECON6590 Final Project: First Deliverable}
 \author{Robert Betancourt\\Connor Bulgrin\\Jenny Duan\\Nicholas Skelley\\Adeline Sutton}
 
@@ -24,16 +29,32 @@
     \end{itemize}
 \end{tcolorbox}
 
+\setstretch{1.5}
+
 \section{Introduction}
+Our broad question of interest is ``How does deindustrialization impact crime outcomes?''  Specifically, we plan to examine the collapse of the coal industry in Appalachia, where coal was a significant industry up until the rise of natural gas in the United States in the early 2000's.  
 
 \section{Design and Data}
+
+\subsection{Data}
+
+\subsubsection{Employment share}
+
+Quarterly Census of Wages and Employment (QCEW), administered by the Bureau of Labor Statistics (BLS).
+
+\subsection{Design and specification}
 
 For county $k$ and year $t$, 2SLS specification:
 \begin{align*}
     D_{kt} &= \mu + \phi_1 \; \texttt{coal\_share}_{k,2000} + \phi_2 \; \texttt{gas\_reserves}_{t} + \phi_3 \; \texttt{coal\_share}_{k,2000} \cdot \texttt{gas\_reserves}_{t} + \nu_{kt} \\
     Y_{kt} &= \alpha + \beta \widehat{D}_{kt} + \gamma X_{kt} + \gamma_k + \psi_t + \varepsilon_{kt}
 \end{align*}
+where $Y_{kt}$ is a crime outcome, $\gamma_k$ are county fixed effects, $\psi_t$ are time fixed effects, and $X_{kt}$ is a vector of covariates, including \tk{demographics, etc.?}.  $D_{kt}$ is extent of deindustrialization. \\
+We use a \ref{Bartik_1991)} shift-share instrument for deindustrialization that proxies exposure (i.e. vulnerability) to coal firms in county $k$ exiting the market via an interaction between \textbf{coal\_share} and \textbf{gas\_reserves}.  
+\textbf{coal\_share} is the share of the county's population employed by a coal firm in 2000, which proxies coal dependence of county $k$.  Time-independence allows this measure to be exogenous to a gas shock.  
+\textbf{gas\_reserves} is nation-wide gas production in year $t$, which proxies the level of the gas shock. The resulting instrument \tk{$Z_{kt}$ is increasing in both of the component variables}.  If a county has no coal jobs, they are not exposed to deindustrialization of the coal industry for any level of gas shock.  Similarly, when there is no gas production, 
 
 \section{Summary Statistics}
+
 
 \end{document}
