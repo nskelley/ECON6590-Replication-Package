@@ -7,10 +7,14 @@
 \RequirePackage[margin=1in, top=0.75in]{geometry}
 \RequirePackage[utf8x]{inputenc}
 \RequirePackage[dvipsnames]{xcolor}
+% Links
+\RequirePackage[colorlinks=true, allcolors={blue}]{hyperref}
 \RequirePackage{amssymb, amsfonts, amsmath, mathrsfs, enumitem, tcolorbox, bbm, bm, graphicx, fullpage, parskip, mathtools, float, amsthm, xfrac, babel}
+% References
 % \RequirePackage[round]{natbib}
 \RequirePackage[natbibapa]{apacite}
 % \RequirePackage[makeroom]{cancel}
+% Figures/graphics
 \RequirePackage{tikz}
 \RequirePackage{pgfplots}
 % \RequirePackage{listings}
@@ -19,9 +23,7 @@
 \RequirePackage{setspace}
 
 \pgfplotsset{compat=1.18}
- 
-% Links (and references)
-\RequirePackage[colorlinks=true, allcolors={blue}]{hyperref}
+
 
 
 %-------------------------------------------------------------------------------
