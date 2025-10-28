@@ -43,6 +43,10 @@ qcew_outer <- full_join(county_coal, county_overall,
          rel_coal_estabs = coal_annual_estabs / tot_annual_estabs) |>
   mutate(across(where(is.numeric), ~ ifelse(is.nan(.x) | is.infinite(.x), NA, 
                                             .x)))
+
+length(unique(qcew_outer$area_fips[qcew_outer$rel_coal_emp >= 1e-5]))
+length(unique(qcew_outer$area_fips[qcew_outer$year == 2009]))
+
 qcew_outer |>
   filter(!is.na(rel_coal_emp),
          rel_coal_emp > 0,

@@ -57,6 +57,7 @@
 
 # Literature review
 09literature/**/*
+!09literature/*.bib
 !09literature/*.xlsx
 09literature/~*.xlsx
 .Rproj.user
