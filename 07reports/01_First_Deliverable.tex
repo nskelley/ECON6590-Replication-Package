@@ -1,4 +1,4 @@
-\documentclass{../10extra/creport}
+\documentclass{10extra/creport}
 
 \title{ECON6590 Final Project: First Deliverable}
 \author{Robert Betancourt\\Connor Bulgrin\\Jenny Duan\\Nicholas Skelley\\Adeline Sutton}
@@ -24,16 +24,59 @@
     \end{itemize}
 \end{tcolorbox}
 
+\setstretch{1.5}
+
 \section{Introduction}
+Our broad question of interest is ``How does deindustrialization impact crime outcomes?''  Specifically, we plan to examine the collapse of the coal industry in Appalachia, where coal was a significant industry up until the rise of natural gas in the United States in the early 2000's.  
 
 \section{Design and Data}
 
+\subsection{Data}
+
+\subsubsection{Employment share}
+
+We measure the share of county employment accounted for by the coal industry using the Quarterly Census of Wages and Employment (QCEW) data from the U.S. Bureau of Labor Statistics (BLS). QCEW data are available at the county-year-industry-ownership level, where ownership delineates between public (government) and private ownership, and industries are available as NAICS codes down to the ``national industry''\footnote{\tk{cite \url{https://www.census.gov/programs-surveys/economic-census/year/2017/economic-census-2017/guidance/understanding-naics.html}}} level.
+
+We use data for NAICS code 10 \tk{? possibly idiosyncratic coding} as the data representing overall wages and employment in the county, and data for NAICS code 2121 for coal-industry employment. NAICS code 2121 is defined as ``coal mining'' and includes sub-industries bituminous coal and lignite surface mining (212111), bituminous coal underground mining (212112), and anthracite mining (212113). \nb{In other words, three different types of coal to mine---anthracite, bituminous coal, and lignite coal---and two types of mines---surface and underground.}
+
+\subsection{Design and specification}
+
 For county $k$ and year $t$, 2SLS specification:
-\begin{align*}
-    D_{kt} &= \mu + \phi_1 \; \texttt{coal\_share}_{k,2000} + \phi_2 \; \texttt{gas\_reserves}_{t} + \phi_3 \; \texttt{coal\_share}_{k,2000} \cdot \texttt{gas\_reserves}_{t} + \nu_{kt} \\
-    Y_{kt} &= \alpha + \beta \widehat{D}_{kt} + \gamma X_{kt} + \gamma_k + \psi_t + \varepsilon_{kt}
-\end{align*}
+
+\begin{align}
+    \label{eq:struc}
+    Y_{kt} &= {D}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt} \\ %this is the target model/structural equation, what we would run if we had a reliable measure of "deindustrialization"
+    \label{eq:instr}
+    Z_{kt} &= \texttt{coal\_share}_{k,2000} \cdot \texttt{gas\_reserves}_{t} \\ %this is the Bartik instrument
+    \label{eq:1st}
+    D_{kt} &= Z_{kt}\phi + X_{kt}\tilde{\gamma} + \tilde{\kappa}_k + \tilde{\tau}_t + \tilde{\varepsilon}_{kt}\\ %stage 1, tildes just denote they may not be the same as in structural model
+    \\ %stage 2
+\end{align}
+
+Equation \ref{eq:struc} is the structural model where $Y_{kt}$ is a crime outcome, $\gamma_k$ are county fixed effects, $\psi_t$ are time fixed effects, and $X_{kt}$ is a vector of covariates, including \tk{demographics, etc.?}.  $D_{kt}$ is the extent of deindustrialization, which we cannot measure directly and may be endogenous.
+
+Equation \ref{eq:instr} is a \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) shift-share instrument for deindustrialization that proxies exposure (i.e. vulnerability) to coal firms in county $k$ exiting the market via an interaction between \texttt{coal\_share} and \texttt{gas\_reserves}.  It is appropriate to include only one industry in the shift-share formula when the shifts (shocks) happen in only in that industry \citep{borusyak_2025}.  In our instrument, only the natural gas industry experiences a shock.
+\texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2000, which proxies coal dependence of county $k$.  Time-independence allows this measure to be exogenous to a gas shock.  
+\texttt{gas\_reserves} is nation-wide gas production in year $t$, which proxies the level of the gas shock.
+
+Assumptions we need to make and defend to identify causality with a Bartik instrument:
+\begin{enumerate}
+    \item Strict Exogeneity: Shares are exogenous to changes in the error term
+    \item Relevance: Testable.
+    \item ``The Bartik instrument assumes a pooled exposure research design, where the shares measure differential exposure to common shocks, and identification is based on exogeneity of the shares'' \citep{goldsmith-pinkham_2020}.
+\end{enumerate}
 
 \section{Summary Statistics}
 
+
+%------------------------------------------------------------------------------%
+\bibliographystyle{apalike}
+\bibliography{09literature/bibliography.bib}
+
 \end{document}
+
+%------------------------------------------------------------------------------%
+OLD
+Model
+    %D_{kt} &= \mu + \phi_1 \; \texttt{coal\_share}_{k,2000} + \phi_2 \; \texttt{gas\_reserves}_{t} + \phi_3 \; \texttt{coal\_share}_{k,2000} \cdot \texttt{gas\_reserves}_{t} + \nu_{kt} \\
+    %Y_{kt} &= \alpha + \beta \widehat{D}_{kt} + \gamma X_{kt} + \gamma_k + \psi_t + \varepsilon_{kt}

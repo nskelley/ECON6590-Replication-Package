@@ -15,6 +15,7 @@
 % \RequirePackage{listings}
 \RequirePackage{array}
 % \RequirePackage{authblk}
+\RequirePackage{setspace}
 
 \pgfplotsset{compat=1.18}
  
