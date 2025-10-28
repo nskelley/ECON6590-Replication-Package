@@ -9,10 +9,14 @@
 \RequirePackage[dvipsnames]{xcolor}
 % Links
 \RequirePackage[colorlinks=true, allcolors={blue}]{hyperref}
-\RequirePackage{amssymb, amsfonts, amsmath, mathrsfs, enumitem, tcolorbox, bbm, bm, graphicx, fullpage, parskip, mathtools, float, amsthm, xfrac, babel}
+\RequirePackage{amssymb, amsfonts, amsmath, mathrsfs, enumitem, tcolorbox, bbm, bm, graphicx, fullpage, parskip, mathtools, float, amsthm, xfrac, csquotes}
+\RequirePackage[american]{babel}
 % References
+\RequirePackage[backend=biber,
+    style=apa, 
+    natbib=true,]{biblatex}
 % \RequirePackage[round]{natbib}
-\RequirePackage[natbibapa]{apacite}
+% \RequirePackage[natbibapa]{apacite}
 % \RequirePackage[makeroom]{cancel}
 % Figures/graphics
 \RequirePackage{tikz}
