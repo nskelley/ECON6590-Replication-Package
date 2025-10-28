@@ -8,7 +8,8 @@
 \RequirePackage[utf8x]{inputenc}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{amssymb, amsfonts, amsmath, mathrsfs, enumitem, tcolorbox, bbm, bm, graphicx, fullpage, parskip, mathtools, float, amsthm, xfrac, babel}
-\RequirePackage[round]{natbib}
+% \RequirePackage[round]{natbib}
+\RequirePackage[natbibapa]{apacite}
 % \RequirePackage[makeroom]{cancel}
 \RequirePackage{tikz}
 \RequirePackage{pgfplots}
