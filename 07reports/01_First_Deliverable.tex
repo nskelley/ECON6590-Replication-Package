@@ -31,7 +31,34 @@
 \section{Introduction}
 Our broad question of interest is ``How does deindustrialization impact crime outcomes?''  Specifically, we plan to examine the collapse of the coal industry in Appalachia, where coal was a significant industry up until the rise of natural gas in the United States in the early 2000's.  
 
+Prior research has explored the effect of the coal decline on social effects. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. Similarly, \textcite{young_2023} and \textcite{metcalf_2019} disagree on whether the decline of the coal industry led to an increase in opioid use. One possible mechanism is that decreasing mining activity resulted in more despair, increasing opioid use, while the other is that it resulted in the elimination of mining jobs whose injuries led to high opioid use. With this in mind, we pay close attention to drug-related justice outcomes.
+
 \section{Design and Data}
+
+\subsection{New summary}
+
+\textbf{Natural gas-coal threat to identification}
+
+A threat to our identification strategy is that counties with large coal-mining sectors often transition to natural gas production from coal, and many natural-gas-producing counties were previously dependent on coal mining.
+- We argue that while counties may substitute \emph{production} of one type of energy for the other, \emph{jobs} are not easily substitutable: 
+- Coal mining and natural gas production require different skills and complementary capital investments, and pose different risks to workers.
+- Furthermore, search frictions in the labor market imply that workers who lose their jobs as coal miners, even if optimal matches for natural gas producers, will experience a period of unemployment between jobs and may never successfully match (e.g., because they drop out of the labor force).
+
+A possible mechanism for our proposed effect of de-industrialization on crime is increased drug---especially opioid---addiction among the unemployed and those who develop chronic conditions (specifically, chronic pain or respiratory illnesses) through workplace hazards. Workers moving from coal mining to natural gas production will
+- (1) not be subject to the same hazards at work (e.g., coal dust, risk of mine collapse, reduced exposure to light and sunlight) after transitioning, and
+- (2) not "reverse" an addiction developed during the period of unemployment once offered a job. (Getting a job may be motivation to "get clean," but overcoming addiction is hardly a quick and easy change that workers will be able to implement immediately on taking a new job).
+
+\textbf{Testing for substitution between natural gas and coal employment}
+
+To test for coal and natural gas jobs being perfect (one-to-one) and relatively frictionless substitutes, we can evaluate the relationship between coal and natural gas employment within each county-year grouping. If we perform the OLS regression
+\[
+    G_{kt} = \alpha + \beta C_{kt} + \varepsilon_{kt},
+\]
+where $k$ denotes the county, $t$ denotes the year, $C_{kt}$ denotes the \emph{number} of coal mining jobs within county $k$ in year $t$, and $G_{kt}$ denotes the number of natural gas jobs in $k$ and $t$, then under one-to-one, frictionless substitution, we would expect $\beta = -1$.
+
+\textbf{Testing relative dangers}
+
+One method of quantifying the relative dangers present in coal mining work compared to natural gas production is to examine federal- and state-level regulations on each industry (e.g., pages of OSHA regulations that apply specifically to each sector). Workplace injury and mortality statistics and worker compensation claims could provide similar opportunities for comparison. There are also unobserved hazards associated with each type of energy production that rarely manifest at the workplace---cancer and illnesses caused by exposure to harmful ambient gases (methane, benzyne, and other cancer- and respiratory-illness-causing volatile organic compounds) and particulate pollutants (coal dust) chief among them.
 
 \subsection{Data}
 
@@ -49,17 +76,23 @@ For county $k$ and year $t$, 2SLS specification:
     \label{eq:struc}
     Y_{kt} &= {D}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt} \\ %this is the target model/structural equation, what we would run if we had a reliable measure of "deindustrialization"
     \label{eq:instr}
-    Z_{kt} &= \texttt{coal\_share}_{k,2000} \cdot \texttt{gas\_reserves}_{t} \\ %this is the Bartik instrument
+    Z_{kt} &= \texttt{coal\_share}_{k,2000} \cdot \texttt{coal\_growth}_{t} \\ %this is the Bartik instrument
     \label{eq:1st}
-    D_{kt} &= Z_{kt}\phi + X_{kt}\tilde{\gamma} + \tilde{\kappa}_k + \tilde{\tau}_t + \tilde{\varepsilon}_{kt}\\ %stage 1, tildes just denote they may not be the same as in structural model
-    \\ %stage 2
+    D_{kt} &= Z_{kt}\phi + X_{kt}\tilde{\gamma} + \tilde{\kappa}_k + \tilde{\tau}_t + \tilde{\varepsilon}_{kt} \\ 
+    %stage 1, tildes just denote they may not be the same as in structural model
+    \label{eq:2nd}
+    Y_{kt} &=  \hat{{D}}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt}  %stage 2
 \end{align}
 
 Equation \ref{eq:struc} is the structural model where $Y_{kt}$ is a crime outcome, $\gamma_k$ are county fixed effects, $\psi_t$ are time fixed effects, and $X_{kt}$ is a vector of covariates, including \tk{demographics, etc.?}.  $D_{kt}$ is the extent of deindustrialization, which we cannot measure directly and may be endogenous.
 
-Equation \ref{eq:instr} is a \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) shift-share instrument for deindustrialization that proxies exposure (i.e. vulnerability) to coal firms in county $k$ exiting the market via an interaction between \texttt{coal\_share} and \texttt{gas\_reserves}.  It is appropriate to include only one industry in the shift-share formula when the shifts (shocks) happen in only in that industry \citep{borusyak_2025}.  In our instrument, only the natural gas industry experiences a shock.
-\texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2000, which proxies coal dependence of county $k$.  Time-independence allows this measure to be exogenous to a gas shock.  
-\texttt{gas\_reserves} is nation-wide gas production in year $t$, which proxies the level of the gas shock.
+Equation \ref{eq:instr} is a \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) shift-share instrument for deindustrialization that proxies exposure (i.e. vulnerability) to coal firms in county $k$ exiting the market via an interaction between \texttt{coal\_share} and \texttt{coal\_growth}.  It is appropriate to include only one industry in the shift-share formula when the shifts (shocks) happen only in that industry \citep{borusyak_2025}.  In our instrument, coal experiences a negative shock directly in response to the natural gas shock.
+\texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2000, which proxies coal dependence of county $k$.  %Time-independence allows this measure to be exogenous to growth in future years.  
+\texttt{coal\_growth} is the national-level growth of coal production, which is location-independent.  Note this measure will be negative in the case of a collapsing industry. 
+
+In order for the instrumented model to be interpreted causally, \\
+
+\tk{what assumption does the following break?} We acknowledge that there is correlation between coal-producing and gas-producing counties, so our instrument does not capture deindustrialization precisely.  However, entry-level coal and natural gas jobs are fundamentally different, requiring different skills and posing different safety risks. \tk{job descriptions}. Additionally, there is a transition period as natural gas firms enter after coal firms begin downsizing and/or exiting \tk{how long?}.  
 
 Assumptions we need to make and defend to identify causality with a Bartik instrument:
 \begin{enumerate}
@@ -81,7 +114,14 @@ Assumptions we need to make and defend to identify causality with a Bartik instr
 \end{document}
 
 %------------------------------------------------------------------------------%
-% OLD
-% Model
-    %D_{kt} &= \mu + \phi_1 \; \texttt{coal\_share}_{k,2000} + \phi_2 \; \texttt{gas\_reserves}_{t} + \phi_3 \; \texttt{coal\_share}_{k,2000} \cdot \texttt{gas\_reserves}_{t} + \nu_{kt} \\
-    %Y_{kt} &= \alpha + \beta \widehat{D}_{kt} + \gamma X_{kt} + \gamma_k + \psi_t + \varepsilon_{kt}
+
+10/28/2025 Notes
+Problem: perfect overlap in coal and gas counties production
+jobs aren't one-to-one coal to nat gas
+there's a transition cost
+if outcomes jump up and back down maybe that's the 
+no longer addicted cuz now there's a job for me! <--- NO!
+safety of coal mines
+nationwide gas for robustness
+
+Now we are doing "classic" Bartik
