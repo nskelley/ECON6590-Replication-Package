@@ -7,7 +7,7 @@
 # ---------------------------- Updated 27 Oct 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
-need <- c("here", "tidyverse", "data.table")
+need <- c("here", "tidyverse", "data.table", "arrow")
 have <- need %in% rownames(installed.packages())
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
@@ -43,9 +43,39 @@ qcew_outer <- full_join(county_coal, county_overall,
          rel_coal_estabs = coal_annual_estabs / tot_annual_estabs) |>
   mutate(across(where(is.numeric), ~ ifelse(is.nan(.x) | is.infinite(.x), NA, 
                                             .x)))
+rm(county_coal, county_overall)
 
 length(unique(qcew_outer$area_fips[qcew_outer$rel_coal_emp >= 1e-5]))
+length(unique(qcew_outer$area_fips[qcew_outer$rel_coal_emp >= 0.02]))
 length(unique(qcew_outer$area_fips[qcew_outer$year == 2009]))
+
+county_fips <- unique(qcew_outer$area_fips[qcew_outer$year == 2009])
+
+oldSize <- mem.maxVSize()
+mem.maxVSize(1e11)
+cjars <- fread(here("01data/county/county_data.csv")) |>
+  filter(cohort_year >= 2006, cohort_year <= 2019, fips %in% county_fips) |>
+  select(-matches(c("hud","ssi", "proc_time", "above_poverty", "medicaid", 
+                    "medicare", "mortality")))
+
+length(unique(cjars$fips))
+
+cjars.1 <- cjars |>
+  filter(if_any(everything(), ~ !is.na(.)))
+
+cjars.2 <- cjars.1 |>
+  filter(off_type == 0) |>
+  select(cohort_year, fips, age_group, sex, race, repeat_contact, fe_rate,
+         inc_rate, mi_rate)
+
+cjars_counties_yay <- cjars.2 |>
+  pull(fips) |>
+  unique()
+
+qcew_nonzero_coal <- unique(qcew_outer$area_fips[qcew_outer$rel_coal_emp >= 1e-5])
+qcew_worthwhile_coal <- unique(qcew_outer$area_fips[qcew_outer$rel_coal_emp >= 0.02])
+
+sum(qcew_worthwhile_coal %in% cjars_counties_yay)
 
 qcew_outer |>
   filter(!is.na(rel_coal_emp),
