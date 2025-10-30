@@ -20,9 +20,7 @@ here::i_am(paste(scriptFolder, scriptName, sep = "/"))
 rm(list = ls())
 # ------------------------------------------------------------------------------
 
-# test <- fread("https://www.bls.gov/cew/about-data/downloadable-file-layouts/quarterly/naics-based-quarterly-layout-csv.csv")
-
-qcew <- fread(here("01data/bls/combined",
+qcew <- fread(here("01data/supplemental/QCEW/combined",
                        "combined_qcew_relevant_industry.csv.gz"))
 
 county_coal <- qcew |>

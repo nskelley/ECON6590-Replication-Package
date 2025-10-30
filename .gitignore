@@ -49,11 +49,11 @@
 # Misc
 *.cls
 
-# Allow subsample data
-!05prepdata/demo_subsamples/*.csv
+# Allow prepdata
+!05prepdata/**.csv
 
-# Allow BLS relevant-industry data
-!01data/bls/combined/combined_qcew_relevant_industry.csv.gz
+# Allow real GDP by industry data
+!01data/supplemental/GDP/*.xlsx
 
 # Literature review
 09literature/**/*

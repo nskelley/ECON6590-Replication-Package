@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd 01data/bls/raw/
+cd 01data/supplemental/QCEW/raw/
 
 for ((YEAR = 1998; YEAR <= 2023; YEAR++))
 do
