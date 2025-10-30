@@ -51,7 +51,14 @@ county_fips <- unique(qcew_outer$area_fips[qcew_outer$year == 2009])
 
 oldSize <- mem.maxVSize()
 mem.maxVSize(1e11)
-cjars <- fread(here("01data/county/county_data.csv")) |>
+
+cols_to_drop <- fread(here("01data/county/county_data.csv"), nrows = 2) |>
+  select(matches(c("hud","ssi", "proc_time", "above_poverty", "medicaid", 
+                   "medicare", "mortality"))) |>
+  names()
+
+save(cols_to_drop, file = here("04work/fread_cjars_county_cols_to_drop.Rdata"))
+
   filter(cohort_year >= 2006, cohort_year <= 2019, fips %in% county_fips) |>
   select(-matches(c("hud","ssi", "proc_time", "above_poverty", "medicaid", 
                     "medicare", "mortality")))

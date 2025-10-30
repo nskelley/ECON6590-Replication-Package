@@ -79,7 +79,7 @@ qcew_nat <- qcew_nat.raw |>
   select(-contains("otyauto"))
 
 fwrite(qcew_nat, here("05prepdata/qcew_derived",
-                      "yearly_nationwide_coal_empl.csv"))
+                      "nationwide_coal_empl_by_year.csv"))
 
 # Coal employment share by county, 2000
 # area_fips
@@ -102,7 +102,7 @@ qcew_county <- qcew_county.raw |>
                   NA, coal_emplvl_2002 / tot_emplvl_2002))
 
 fwrite(qcew_county, here("05prepdata/qcew_derived",
-                         "county_coal_emp_share_2002.csv"))
+                         "coal_emp_share_2002_by_county.csv"))
 
 # Coal and gas employment levels by state over time
 # year
@@ -124,7 +124,7 @@ qcew_state <- qcew_nat.raw |>
               names_glue = "{industry_code}_state_emplvl")
 
 fwrite(qcew_state, here("05prepdata/qcew_derived",
-                        "year_coal_gas_emp_by_state.csv"))
+                        "coal_gas_emp_by_state-year.csv"))
 
 # Robustness check showing that coal jobs are not replaced 1:1 by natural gas
 # jobs (actually appear to be complements overall? could look for 
