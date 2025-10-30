@@ -2,7 +2,7 @@
 
 \addbibresource{09literature/bibliography.bib}
 
-\title{ECON6590 Final Project: First Deliverable}
+\title{Criminal Mines: Evaluating the effects of the coal mining industry on incarceration and drug-related crime}
 \author{Robert Betancourt\\Connor Bulgrin\\Jenny Duan\\Nicholas Skelley\\Adeline Sutton}
 
 \date{October 2025}
@@ -64,7 +64,7 @@ One method of quantifying the relative dangers present in coal mining work compa
 
 \subsubsection{Employment share}
 
-We measure the share of county employment accounted for by the coal industry using the Quarterly Census of Wages and Employment (QCEW) data from the U.S. Bureau of Labor Statistics (BLS). QCEW data are available at the county-year-industry-ownership level, where ownership delineates between public (government) and private ownership, and industries are available as NAICS codes down to the ``national industry''\footnote{\tk{cite \url{https://www.census.gov/programs-surveys/economic-census/year/2017/economic-census-2017/guidance/understanding-naics.html}}} level.
+We measure the share of county employment accounted for by the coal industry using the Quarterly Census of Wages and Employment (QCEW) data from the U.S. Bureau of Labor Statistics (BLS). QCEW data are available at the county-year-industry-ownership level, where ownership delineates between public (government) and private ownership, and industries are available as NAICS codes down to the ``national industry'' \citep{naics_2022} level.
 
 We use data for NAICS code 10 \tk{? possibly idiosyncratic coding} as the data representing overall wages and employment in the county, and data for NAICS code 2121 for coal-industry employment. NAICS code 2121 is defined as ``coal mining'' and includes sub-industries bituminous coal and lignite surface mining (212111), bituminous coal underground mining (212112), and anthracite mining (212113). \nb{In other words, three different types of coal to mine---anthracite, bituminous coal, and lignite coal---and two types of mines---surface and underground.}
 
@@ -90,7 +90,8 @@ Equation \ref{eq:instr} is a \citeauthor{bartik_1991}-style (\citeyear{bartik_19
 \texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2000, which proxies coal dependence of county $k$.  %Time-independence allows this measure to be exogenous to growth in future years.  
 \texttt{coal\_growth} is the national-level growth of coal production, which is location-independent.  Note this measure will be negative in the case of a collapsing industry. 
 
-In order for the instrumented model to be interpreted causally, \\
+In order for the instrumented model to be interpreted causally, the following assumptions apply: \\
+Beyond basic exogeneity, we must argue that there are properties of the shifts (coal growth rate) and shares (proportion of jobs that are in coal) that make the instrument uncorrelated with the error term (anything outside of ``deindustrialization'' that contributes to crime outcomes) \citep{borusyak_2025}.  Variation in the instrument comes primarily from exogenous shocks to the coal industry via the growth rate.  For example, the rise of natural gas directly coincides with declining coal growth rates.  So now we must argue that the natural gas shock and/or coal share is exogenous to crime outcomes.  Coal share may NOT be exogenous to crime outcomes, there may be differences in the type of people that perform coal jobs that make them different in their propensity to commit crime.  Or, the physical infrastructure in counties with more coal may make it more or less likely that crime is committed.  National coal growth rate 
 
 \tk{what assumption does the following break?} We acknowledge that there is correlation between coal-producing and gas-producing counties, so our instrument does not capture deindustrialization precisely.  However, entry-level coal and natural gas jobs are fundamentally different, requiring different skills and posing different safety risks. \tk{job descriptions}. Additionally, there is a transition period as natural gas firms enter after coal firms begin downsizing and/or exiting \tk{how long?}.  
 
