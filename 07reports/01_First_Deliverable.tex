@@ -92,7 +92,7 @@ where $Y_{kt}$ denotes the outcome of interest (e.g., the county crime rate),
 $D_{kt}$ is the measure of local deindustrialization (the change in coal employment), 
 $X_{kt}$ is a vector of county-level control variables, 
 $\kappa_k$ are county fixed effects, and $\tau_t$ are year fixed effects. 
-The instrument is defined as 
+The instrument is a \cite{bartik_1991}-style instrument defined as 
 $Z_{kt} = \texttt{coal\_share}_{k,2002} \cdot \texttt{coal\_growth}_t$, 
 where $\texttt{coal\_share}_{k,2002}$ is county $k$'s baseline dependence on coal employment 
 (measured as the share of total employment in coal mining in the year 2002), and 
@@ -105,47 +105,14 @@ $\sum_k \texttt{coal\_share}_{k,2002} = 1$ in each period.
 \noindent\textbf{Identification Assumptions}
 
 \begin{enumerate}
-    \item \textbf{Relevance:} $\text{Cov}(Z_{kt}, D_{kt} \mid X_{kt}, \kappa_k, \tau_t) \neq 0.$ The instrument (coal dependence × national growth) actually shifts local coal employment.
-    \item \textbf{Exogeneity of shocks:} $\text{coal\_growth}_t$ is uncorrelated with county-level shocks to $\varepsilon_{kt}.$ (i.e. National coal trends aren’t driven by county-level crime or local conditions.)
+    \item \textbf{Relevance:} $\text{Cov}(Z_{kt}, D_{kt} \mid X_{kt}, \kappa_k, \tau_t) \neq 0.$ The instrument (coal dependence × national growth) actually shifts local coal employment.  It makes sense that there is correlation between exposure to coal shocks and the decline of the coal sector in a county because the more dependent a county is on coal, the more affected the local economy will be by coal shocks.  %\tk{We test for this in the data and summary statistics section.}
+    \item \textbf{Exogeneity of shocks:} $\text{coal\_growth}_t$ is uncorrelated with county-level shocks to $\varepsilon_{kt}.$ (i.e. National coal trends aren’t driven by county-level crime or local conditions.)  This is a reasonable assumption to make since a county is so small relative to the country that it is unlikely for crime conditions in the county to cause a national shock.  %we can check for outliers in the data.  If there is low variance in crime conditions across counties and high variance in coal production, it's unlikely crime conditoins in a county are influencing coal prod
     \item \textbf{Predetermined exposure:} $\text{coal\_share}_{k,2002}$ is measured prior to the study period and not affected by future outcomes.
     \item \textbf{Exclusion restriction:} $Z_{kt}$ affects $Y_{kt}$ only through $D_{kt}$. The Bartik instrument affects crime outcomes only through changes in coal employment, and not through other channels.
     \item \textbf{Stable unit treatment value assumption (SUTVA):} Outcomes in county $k$ are unaffected by coal shocks in other counties. \nb{Note that SUTVA is very much violated here because there should be substantial spillover in outcomes for people living in counties \emph{near} where coal job losses occurred.}
     \item \textbf{Monotonicity:} Higher $\text{coal\_growth}_t$ weakly increases $D_{kt}$ for all $k$. When national coal jobs rise, every coal-dependent county moves in the same direction (no “defiers”). This may not hold, but I wonder if the Dechaisemartin (2017) (more compliers than defiers at all times) assumption can help bail us out!
 \end{enumerate}
 
-\nb{CONNOR's ASSUMPTIONS ABOVE THIS LINE! ADDIE's ARE BELOW THIS LINE}
-\newline
-For county $k$ and year $t$, 2SLS specification:
-
-\begin{align}
-    \label{eq:struc}
-    Y_{kt} &= {D}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt} \\ %this is the target model/structural equation, what we would run if we had a reliable measure of "deindustrialization"
-    \label{eq:instr}
-    Z_{kt} &= \texttt{coal\_share}_{k,2002} \cdot \texttt{coal\_growth}_{t} \\ %this is the Bartik instrument
-    \label{eq:1st}
-    D_{kt} &= Z_{kt}\phi + X_{kt}\tilde{\gamma} + \tilde{\kappa}_k + \tilde{\tau}_t + \tilde{\varepsilon}_{kt} \\ 
-    %stage 1, tildes just denote they may not be the same as in structural model
-    \label{eq:2nd}
-    Y_{kt} &=  \hat{{D}}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt}  %stage 2
-\end{align}
-
-Equation \ref{eq:struc} is the structural model where $Y_{kt}$ is a crime outcome, $\gamma_k$ are county fixed effects, $\psi_t$ are time fixed effects, and $X_{kt}$ is a vector of covariates, including \tk{demographics, etc.?}.  $D_{kt}$ is the extent of deindustrialization, which we cannot measure directly and may be endogenous.
-
-Equation \ref{eq:instr} is a \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) shift-share instrument for deindustrialization that proxies exposure (i.e. vulnerability) to coal firms in county $k$ exiting the market via an interaction between \texttt{coal\_share} and \texttt{coal\_growth}.  It is appropriate to include only one industry in the shift-share formula when the shifts (shocks) happen only in that industry \citep{borusyak_2025}.  In our instrument, coal experiences a negative shock directly in response to the natural gas shock.
-\texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2002, which proxies coal dependence of county $k$.  %Time-independence allows this measure to be exogenous to growth in future years.  
-\texttt{coal\_growth} is the national-level growth of coal production, which is location-independent.  Note this measure will be negative in the case of a collapsing industry. 
-
-In order for the instrumented model to be interpreted causally, the following assumptions apply: \\
-Beyond basic exogeneity, we must argue that there are properties of the shifts (coal growth rate) and shares (proportion of jobs that are in coal) that make the instrument uncorrelated with the error term (anything outside of ``deindustrialization'' that contributes to crime outcomes) \citep{borusyak_2025}.  Variation in the instrument comes primarily from exogenous shocks to the coal industry via the growth rate.  For example, the rise of natural gas directly coincides with declining coal growth rates.  So now we must argue that the natural gas shock and/or coal share is exogenous to crime outcomes.  Coal share may NOT be exogenous to crime outcomes, there may be differences in the type of people that perform coal jobs that make them different in their propensity to commit crime.  Or, the physical infrastructure in counties with more coal may make it more or less likely that crime is committed.  National coal growth rate 
-
-\tk{what assumption does the following break?} We acknowledge that there is correlation between coal-producing and gas-producing counties, so our instrument does not capture deindustrialization precisely.  However, entry-level coal and natural gas jobs are fundamentally different, requiring different skills and posing different safety risks. \tk{job descriptions}. Additionally, there is a transition period as natural gas firms enter after coal firms begin downsizing and/or exiting \tk{how long?}.  
-
-Assumptions we need to make and defend to identify causality with a Bartik instrument:
-\begin{enumerate}
-    \item Strict Exogeneity: Shares are exogenous to changes in the error term
-    \item Relevance: Testable.
-    \item ``The Bartik instrument assumes a pooled exposure research design, where the shares measure differential exposure to common shocks, and identification is based on exogeneity of the shares'' \citep{goldsmith-pinkham_2020}.
-\end{enumerate}
 
 \section{Summary Statistics}
 
@@ -188,3 +155,38 @@ safety of coal mines
 nationwide gas for robustness
 
 Now we are doing "classic" Bartik
+
+\nb{CONNOR's ASSUMPTIONS ABOVE THIS LINE! ADDIE's ARE BELOW THIS LINE}
+\newline
+For county $k$ and year $t$, 2SLS specification:
+
+\begin{align}
+    \label{eq:struc}
+    Y_{kt} &= {D}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt} \\ %this is the target model/structural equation, what we would run if we had a reliable measure of "deindustrialization"
+    \label{eq:instr}
+    Z_{kt} &= \texttt{coal\_share}_{k,2002} \cdot \texttt{coal\_growth}_{t} \\ %this is the Bartik instrument
+    \label{eq:1st}
+    D_{kt} &= Z_{kt}\phi + X_{kt}\tilde{\gamma} + \tilde{\kappa}_k + \tilde{\tau}_t + \tilde{\varepsilon}_{kt} \\ 
+    %stage 1, tildes just denote they may not be the same as in structural model
+    \label{eq:2nd}
+    Y_{kt} &=  \hat{{D}}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt}  %stage 2
+\end{align}
+
+Equation \ref{eq:struc} is the structural model where $Y_{kt}$ is a crime outcome, $\gamma_k$ are county fixed effects, $\psi_t$ are time fixed effects, and $X_{kt}$ is a vector of covariates, including \tk{demographics, etc.?}.  $D_{kt}$ is the extent of deindustrialization, which we cannot measure directly and may be endogenous.
+
+Equation \ref{eq:instr} is a \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) shift-share instrument for deindustrialization that proxies exposure (i.e. vulnerability) to coal firms in county $k$ exiting the market via an interaction between \texttt{coal\_share} and \texttt{coal\_growth}.  It is appropriate to include only one industry in the shift-share formula when the shifts (shocks) happen only in that industry \citep{borusyak_2025}.  In our instrument, coal experiences a negative shock directly in response to the natural gas shock.
+\texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2002, which proxies coal dependence of county $k$.  %Time-independence allows this measure to be exogenous to growth in future years.  
+\texttt{coal\_growth} is the national-level growth of coal production, which is location-independent.  Note this measure will be negative in the case of a collapsing industry. 
+
+
+In order for the instrumented model to be interpreted causally, the following assumptions apply: \\
+Beyond basic exogeneity, we must argue that there are properties of the shifts (coal growth rate) and shares (proportion of jobs that are in coal) that make the instrument uncorrelated with the error term (anything outside of ``deindustrialization'' that contributes to crime outcomes) \citep{borusyak_2025}.  Variation in the instrument comes primarily from exogenous shocks to the coal industry via the growth rate.  For example, the rise of natural gas directly coincides with declining coal growth rates.  So now we must argue that the natural gas shock and/or coal share is exogenous to crime outcomes.  Coal share may NOT be exogenous to crime outcomes, there may be differences in the type of people that perform coal jobs that make them different in their propensity to commit crime.  Or, the physical infrastructure in counties with more coal may make it more or less likely that crime is committed.  National coal growth rate 
+
+\tk{what assumption does the following break?} We acknowledge that there is correlation between coal-producing and gas-producing counties, so our instrument does not capture deindustrialization precisely.  However, entry-level coal and natural gas jobs are fundamentally different, requiring different skills and posing different safety risks. \tk{job descriptions}. Additionally, there is a transition period as natural gas firms enter after coal firms begin downsizing and/or exiting \tk{how long?}.  
+
+Assumptions we need to make and defend to identify causality with a Bartik instrument:
+\begin{enumerate}
+    \item Strict Exogeneity: Shares are exogenous to changes in the error term
+    \item Relevance: Testable.
+    \item ``The Bartik instrument assumes a pooled exposure research design, where the shares measure differential exposure to common shocks, and identification is based on exogeneity of the shares'' \citep{goldsmith-pinkham_2020}.
+\end{enumerate}
