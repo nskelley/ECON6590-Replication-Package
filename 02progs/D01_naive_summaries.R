@@ -114,14 +114,15 @@ naive_regs <- sapply(1:nrow(regs_to_run), function(x) {
   return(lm(.eq, data = .df))
 })
 
-ind_var_lbl <- paste0("\\begin{minipage}{20mm}\n\t\\% change in coal ",
-                      "employment\n\\end{minipage}")
+ind_var_lbl <- paste0("\\begin{minipage}{30mm}\n\t\\raggedright\n\t\\% change ",
+                      "in coal employment\n\\end{minipage}")
+demo_ctl_lbl <- paste0("\\begin{minipage}{30mm}\n\t\\raggedright\n\t ",
+                       "Demographic controls\n\\end{minipage}\\vspace{0.5em}")
 
 felonies_tabulate <- c(18, 20, seq(2, 16, 2))
-stargazer::stargazer(naive_regs[[20]], type = "text")
 stargazer::stargazer(naive_regs[felonies_tabulate], 
                      keep = c("oty_annual_avg_emplvl_pct_chg_2121", "factor.+"),
-                     add.lines = list(c("Demographic controls", rep(c("No", "Yes"), 5))),
+                     add.lines = list(c(demo_ctl_lbl, rep(c("No", "Yes"), 5))),
                      covariate.labels = c(ind_var_lbl,
                                           "Violent offense",
                                           "Property offense",
@@ -133,4 +134,7 @@ stargazer::stargazer(naive_regs[felonies_tabulate],
                                        "Violent felonies", "Property felonies", 
                                        "Drug felonies"),
                      column.separate = rep(2, 5),
+                     column.sep.width = "0pt", dep.var.labels.include = FALSE,
+                     dep.var.caption = "",
+                     omit.table.layout = "n",
                      out = here("04work/felony_naive_table.tex"))

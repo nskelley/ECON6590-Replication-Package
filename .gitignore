@@ -48,6 +48,9 @@
 
 # Misc
 *.cls
+04work/ignore_me/
+**.fls
+**.fdb_latexmk
 
 # Allow prepdata
 !05prepdata/**.csv*
