@@ -126,18 +126,30 @@ Running a simple OLS regression of county crime rates (Y) on change in coal empl
 Figure \ref{fig:binscatter} below provides suggestive evidence that counties experiencing a significant drop in coal employment see higher crime outcomes. 
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{binscatter_offense.pdf}
-\caption{Felony Rates vs Coal Employment by Offense Type}
-\label{fig:binscatter}
+    \centering
+    \includegraphics[width=0.8\textwidth]{04work/early_figures/binscatter_offense.pdf}
+    \caption{Felony Rates vs. Coal Employment by Offense Type}
+    \label{fig:scatterplot}
 \end{figure}
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{line_chart_offense.pdf}
-\caption{Felony Rates Over Time by Offense Type}
-\label{fig:linechart}
+    \centering
+    \includegraphics[width=0.8\textwidth]{04work/early_figures/line_chart_offense.pdf}
+    \caption{Felony Rates Over Time by Offense Type}
+    \label{fig:linechart}
 \end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{04work/early_figures/binscatter_fe_rate.pdf}
+    \caption{Binned Scatterplot of Felony Rates by Changes in Coal Employment}
+    \label{fig:linechart}
+    \begin{minipage}{0.8\textwidth}
+        \small
+        \textit{Note:} Felony offenses per 100,000 residents, by county, plotted against percent changes in the share of jobs accounted for by coal mining within each county. Observations are weighted  by the county's average total employment during the year of observation and include controls for sex, race, age group, county, the share of jobs accounted for by coal mining in 2002, and the year of observation.
+    \end{minipage}
+\end{figure}
+
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
 % Date and time: Fri, Oct 31, 2025 - 18:35:51
