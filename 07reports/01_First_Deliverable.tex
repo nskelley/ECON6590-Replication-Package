@@ -110,7 +110,7 @@ $\sum_k \texttt{coal\_share}_{k,2002} = 1$ in each period.
     \item \textbf{Predetermined exposure:} $\text{coal\_share}_{k,2002}$ is measured prior to the study period and not affected by future outcomes.
     \item \textbf{Exclusion restriction:} $Z_{kt}$ affects $Y_{kt}$ only through $D_{kt}$. The Bartik instrument affects crime outcomes only through changes in coal employment, and not through other channels.
     \item \textbf{Stable unit treatment value assumption (SUTVA):} Outcomes in county $k$ are unaffected by coal shocks in other counties. \nb{Note that SUTVA is very much violated here because there should be substantial spillover in outcomes for people living in counties \emph{near} where coal job losses occurred.}
-    \item \textbf{Monotonicity:} Higher $\text{coal\_growth}_t$ weakly increases $D_{kt}$ for all $k$. When national coal jobs rise, every coal-dependent county moves in the same direction (no “defiers”). This may not hold, but I wonder if the Dechaisemartin (2017) (more compliers than defiers at all times) assumption can help bail us out!
+    \item \textbf{Monotonicity:} Higher $\text{coal\_growth}_t$ weakly increases $D_{kt}$ for all $k$. When national coal jobs rise, every coal-dependent county moves in the same direction (no “defiers”). \nb{This may not hold, but I wonder if the Dechaisemartin (2017) (more compliers than defiers at all times) assumption can help bail us out!}
 \end{enumerate}
 
 
@@ -122,11 +122,16 @@ Running a simple OLS regression of county crime rates (Y) on change in coal empl
 Figure \ref{fig:binscatter} below provides suggestive evidence that counties experiencing a significant drop in coal employment see higher (lower) crime outcomes. 
 
 \begin{figure}[!htp]
+    \centering
     \caption{\tk{Bin-scatter; bar chart/line graph}}
     \label{fig:binscatter}
 \end{figure}
 \tk{[SUMMARY STATS]}
 
+\begin{table}[!htp]
+    \centering
+    \caption{Na\"ive regression of }
+\end{table}
 The simple OLS regression of county crime rates on change in coal employment will give us a correlation between the two variables, but it will not give us a causal result due to endogeneity. De-industrialization (as measured by a drop in coal employment) and crime rates are most likely correlated with unobserved factors that affect both variables. That is to say our error term will be correlated with our de-industrialization treatment variable creating unobservable bias in our estimator. Potential unobservable factors that could be contributing to bias in our estimator could be pre-existing economic and social conditions that already exist in specific counties. Counties that are de-industrializing (seeing decline in coal employment) might have poor infrastructure or loss of other industries in that area that contribute to overall economic decline of that county and also contribute to crime rates. Demographic patterns for certain areas might also affect crime rates. For example, people who choose to migrate out of low economic areas might be people with a lower tendency to commit crimes while the people who stay might have a higher tendency to commit crimes. Education attainment is also a predictor of crime rates, and counties with populations that have lower education attainment are more vulnerable to de-industrialization as low skill jobs are easier to replace and these areas tend to lose jobs at a faster rate. Other sources of bias might be other potential government policies or social programs intended to help people who are experiencing job loss. These might be programs intended to up-skill workers or other programs designed to provide a social safety net for low-skilled workers experiencing job loss.
 
 For these reasons, we should not interpret the bivariate OLS regression as causal. Our \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) IV approach is designed to elicit a causal interpretation in order to better understand whether de-industrialization \textit{causes} crime in a county to increase.
