@@ -59,10 +59,6 @@ cols_to_drop <- fread(here("01data/county/county_data.csv"), nrows = 2) |>
 
 save(cols_to_drop, file = here("04work/fread_cjars_county_cols_to_drop.Rdata"))
 
-  filter(cohort_year >= 2006, cohort_year <= 2019, fips %in% county_fips) |>
-  select(-matches(c("hud","ssi", "proc_time", "above_poverty", "medicaid", 
-                    "medicare", "mortality")))
-
 length(unique(cjars$fips))
 
 cjars.1 <- cjars |>
