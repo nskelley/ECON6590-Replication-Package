@@ -50,10 +50,10 @@
 *.cls
 
 # Allow prepdata
-!05prepdata/**.csv
+!05prepdata/**.csv*
 
 # Allow real GDP by industry data
-!01data/supplemental/GDP/*.xlsx
+!01data/supplemental/GDP/*.csv
 
 # Literature review
 09literature/**/*
