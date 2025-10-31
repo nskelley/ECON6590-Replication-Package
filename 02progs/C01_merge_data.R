@@ -29,7 +29,8 @@ qcew_2002 <- fread(here("05prepdata/qcew_derived",
                         "coal_emp_share_2002_by_county.csv"))
 qcew_national <- fread(here("05prepdata", "nat_qcew_with_rgdp.csv"))
 
-cjars_qcew <- left_join(cjars, qcew_2002, by = c("fips" = "area_fips")) |>
+cjars_qcew <- left_join(cjars, select(qcew_2002, -year), 
+                        by = c("fips" = "area_fips")) |>
   filter(!is.na(coal_emp_share_2002)) |>
   left_join(qcew_national, by = c("cohort_year" = "year"))
 
