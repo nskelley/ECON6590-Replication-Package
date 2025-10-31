@@ -133,6 +133,22 @@ Figure \ref{fig:binscatter} below provides suggestive evidence that counties exp
     \centering
     \caption{Na\"ive regression of felony rates}
     \include{04work/felony_naive_table}
+    \begin{minipage}{0.96\textwidth}
+        \small\vspace{-1.5em}
+        \textit{Notes:} All regressions include county and year fixed effects. In ``Felony rate'' columns, the excluded group is the total/all offenses type. \\
+        $^* p<0.1$ \, $^{**} p<0.05$ \, $^{***} p<0.01$
+    \end{minipage}
+\end{sidewaystable}
+
+\begin{sidewaystable}[!htp]
+    \centering
+    \caption{Na\"ive regression of misdemeanor rates}
+    \include{04work/misdemeanor_naive_table}
+    \begin{minipage}{0.96\textwidth}
+        \small\vspace{-1.5em}
+        \textit{Notes:} All regressions include county and year fixed effects. In ``Misdemeanor rate'' columns, the excluded group is the total/all offenses type. \\
+        $^* p<0.1$ \, $^{**} p<0.05$ \, $^{***} p<0.01$
+    \end{minipage}
 \end{sidewaystable}
 
 The simple OLS regression of county crime rates on change in coal employment will give us a correlation between the two variables, but it will not give us a causal result due to endogeneity. De-industrialization (as measured by a drop in coal employment) and crime rates are most likely correlated with unobserved factors that affect both variables. That is to say our error term will be correlated with our de-industrialization treatment variable creating unobservable bias in our estimator. Potential unobservable factors that could be contributing to bias in our estimator could be pre-existing economic and social conditions that already exist in specific counties. Counties that are de-industrializing (seeing decline in coal employment) might have poor infrastructure or loss of other industries in that area that contribute to overall economic decline of that county and also contribute to crime rates. Demographic patterns for certain areas might also affect crime rates. For example, people who choose to migrate out of low economic areas might be people with a lower tendency to commit crimes while the people who stay might have a higher tendency to commit crimes. Education attainment is also a predictor of crime rates, and counties with populations that have lower education attainment are more vulnerable to de-industrialization as low skill jobs are easier to replace and these areas tend to lose jobs at a faster rate. Other sources of bias might be other potential government policies or social programs intended to help people who are experiencing job loss. These might be programs intended to up-skill workers or other programs designed to provide a social safety net for low-skilled workers experiencing job loss.
