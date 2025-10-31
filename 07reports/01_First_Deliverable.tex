@@ -36,7 +36,9 @@ Prior research has explored the effect of the coal decline on social effects. \t
 
 \section{Design and Data}
 
-\subsection{New summary}
+\subsection{Plan and Summary}
+
+We plan to investigate the relationship of deindustrialization via the decline of the coal industry in Appalachia.  Because deindustrialization is not exogenous, we instrument for it with a shift-share instrument that measures the exposure of a county to changes in the coal industry.  Counties with higher shares of jobs in coal are thus more vulnerable to fluctuations and permanent changes in the industry.
 
 \textbf{Natural gas-coal threat to identification}
 
@@ -110,28 +112,80 @@ $\sum_k \texttt{coal\_share}_{k,2002} = 1$ in each period.
     \item \textbf{Exogeneity of shocks:} $\text{coal\_growth}_t$ is uncorrelated with county-level shocks to $\varepsilon_{kt}.$ (i.e. National coal trends aren’t driven by county-level crime or local conditions.)  This is a reasonable assumption to make since a county is so small relative to the country that it is unlikely for crime conditions in the county to cause a national shock.  %we can check for outliers in the data.  If there is low variance in crime conditions across counties and high variance in coal production, it's unlikely crime conditoins in a county are influencing coal prod
     \item \textbf{Predetermined exposure:} $\text{coal\_share}_{k,2002}$ is measured prior to the study period and not affected by future outcomes.
     \item \textbf{Exclusion restriction:} $Z_{kt}$ affects $Y_{kt}$ only through $D_{kt}$. The Bartik instrument affects crime outcomes only through changes in coal employment, and not through other channels.
-    \item \textbf{Stable unit treatment value assumption (SUTVA):} Outcomes in county $k$ are unaffected by coal shocks in other counties. \nb{Note that SUTVA is very much violated here because there should be substantial spillover in outcomes for people living in counties \emph{near} where coal job losses occurred.}
-    \item \textbf{Monotonicity:} Higher $\text{coal\_growth}_t$ weakly increases $D_{kt}$ for all $k$. When national coal jobs rise, every coal-dependent county moves in the same direction (no “defiers”). \nb{This may not hold, but I wonder if the Dechaisemartin (2017) (more compliers than defiers at all times) assumption can help bail us out!}
+    \item \textbf{Stable unit treatment value assumption (SUTVA):} Outcomes in county $k$ are unaffected by coal shocks in other counties. \nb{Note that SUTVA is very much violated here because there should be substantial spillover in outcomes for people living in counties \emph{near} where coal job losses occurred.}  To explore this possibility, we will conduct analyses on counties bordering non-zero-coal-job counties.
+    \item \textbf{Monotonicity:} Higher $\text{coal\_growth}_t$ weakly increases $D_{kt}$ for all $k$. When national coal jobs rise, every coal-dependent county moves in the same direction (no “defiers”). DeChaisemartin (2017) claims that IV are still valid when ``one can reasonably assume that defiers' LATE has the
+    same sign as the reduced form effect of the instrument on the outcome, or that compliers’ and deﬁers’ LATEs do not differ too much''.  In our context, a defier would be a county that, after experiencing an negative shock to coal, increased industry.  For example, they might transition to natural gas production.  However, in most cases it is reasonable to assume that there is a transition cost and lag between coal firm exit and new firm entry, allowing the LATEs to be the same in the short run.  %\nb{This may not hold, but I wonder if the Dechaisemartin (2017) (more compliers than defiers at all times) assumption can help bail us out!}
 \end{enumerate}
 
 
 \section{Summary Statistics}
 
 
-Running a simple OLS regression of county crime rates (Y) on change in coal employment (X), gives us some descriptive summary statistics about how our crime outcome variable is related to changes in coal employment. In particular, we see crime rates increase (decrease) as the change in coal employment for a particular county declines. 
+Running a simple OLS regression of county crime rates (Y) on change in coal employment (X), gives us some descriptive summary statistics about how our crime outcome variable is related to changes in coal employment. In particular, we see crime rates increase in Figure 2 after 2010, which is when we see a drop in coal employment. 
 
-Figure \ref{fig:binscatter} below provides suggestive evidence that counties experiencing a significant drop in coal employment see higher (lower) crime outcomes. 
+Figure \ref{fig:binscatter} below provides suggestive evidence that counties experiencing a significant drop in coal employment see higher crime outcomes. 
 
-\begin{figure}[!htp]
-    \centering
-    \caption{\tk{Bin-scatter; bar chart/line graph}}
-    \label{fig:binscatter}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{binscatter_offense.pdf}
+\caption{Felony Rates vs Coal Employment by Offense Type}
+\label{fig:binscatter}
 \end{figure}
-\tk{[SUMMARY STATS]}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{line_chart_offense.pdf}
+\caption{Felony Rates Over Time by Offense Type}
+\label{fig:linechart}
+\end{figure}
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Fri, Oct 31, 2025 - 18:35:51
+\begin{table}[htbp]
+\centering
+\small
+\caption{Summary Statistics by Offense Type}
+\label{tab:summary_offense}
+\begin{tabular}{@{\extracolsep{5pt}} l c c c c} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Offense Category & N & \parbox{2.5cm}{\centering Felony Rate\\(per 100,000)} & \parbox{2.5cm}{\centering Incarceration Rate\\(per 100,000)} & \parbox{2.5cm}{\centering Misdemeanor Rate\\(per 100,000)} \\ 
+\hline \\[-1.8ex] 
+All Offenses & 66,822 & 1,080.11 & 365.86 & 4,332.17 \\ 
+Drug & 29,304 & 286.64 &  & 858.64 \\ 
+Property & 29,304 & 435.12 &  & 763.14 \\ 
+Violent & 29,304 & 217.72 &  & 675.62 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Fri, Oct 31, 2025 - 18:49:08
+\begin{table}[!htbp] \centering 
+  \caption{Coal Employment Summary Statistics} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Variable & Value \\ 
+\hline \\[-1.8ex] 
+Observations (County-Years) & 617 \\ 
+Unique Counties & 53 \\ 
+Year Range & 2006 - 2019 \\ 
+Mean Coal Emp Share & 0.02056286 \\ 
+SD Coal Emp Share & 0.05865409 \\ 
+Min Coal Emp Share & 0 \\ 
+Max Coal Emp Share & 0.2948573 \\ 
+Mean Nat Coal Jobs \% Chg & -1.999248 \\ 
+SD Nat Coal Jobs \% Chg & 15.16454 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
 
 \begin{sidewaystable}[!htp]
     \centering
     \caption{Na\"ive regressions of felony rates}
+    \label{tab:felony_naive}
     \include{04work/felony_naive_table}
     \begin{minipage}{0.96\textwidth}
         \small\vspace{-1.5em}
@@ -143,6 +197,7 @@ Figure \ref{fig:binscatter} below provides suggestive evidence that counties exp
 \begin{sidewaystable}[!htp]
     \centering
     \caption{Na\"ive regressions of misdemeanor rates}
+    \label{tab:misdemeanor_naive}
     \include{04work/misdemeanor_naive_table}
     \begin{minipage}{0.96\textwidth}
         \small\vspace{-1.5em}
