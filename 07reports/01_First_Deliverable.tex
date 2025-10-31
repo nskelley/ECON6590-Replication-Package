@@ -29,7 +29,7 @@
 \setstretch{1.5}
 
 \section{Introduction}
-Our broad question of interest is ``How does deindustrialization impact crime outcomes?''  Specifically, we plan to examine the collapse of the coal industry in Appalachia, where coal was a significant industry up until the rise of natural gas in the United States in the early 2000's.  
+Our broad question of interest is ``How does deindustrialization impact crime outcomes?''  Specifically, we plan to examine the collapse of the coal industry in Appalachia, where coal was a significant industry up until the rise of natural gas in the United States in the early 2002's.  
 
 Prior research has explored the effect of the coal decline on social effects. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. Similarly, \textcite{young_2023} and \textcite{metcalf_2019} disagree on whether the decline of the coal industry led to an increase in opioid use. One possible mechanism is that decreasing mining activity resulted in more despair, increasing opioid use, while the other is that it resulted in the elimination of mining jobs whose injuries led to high opioid use. With this in mind, we pay close attention to drug-related justice outcomes.
 
@@ -70,13 +70,52 @@ We use data for NAICS code 10 \tk{? possibly idiosyncratic coding} as the data r
 
 \subsection{Design and specification}
 
+\subsubsection{Theoretical Framework}
+
+
+For county $k$ and year $t$, the 2SLS specification is:
+
+\begin{align}
+    Y_{kt} &= D_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt} \tag{1} \\
+    Z_{kt} &= \text{coal\_share}_{k,2002} \cdot \text{coal\_growth}_t \tag{2} \\
+    D_{kt} &= Z_{kt}\phi + X_{kt}\tilde{\gamma} + \tilde{\kappa}_k + \tilde{\tau}_t + \tilde{\varepsilon}_{kt} \tag{3} \\
+    Y_{kt} &= \hat{D}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt} \tag{4}
+\end{align}
+
+where $Y_{kt}$ denotes the outcome of interest (e.g., the county crime rate), 
+$D_{kt}$ is the measure of local deindustrialization (the change in coal employment), 
+$X_{kt}$ is a vector of county-level control variables, 
+$\kappa_k$ are county fixed effects, and $\tau_t$ are year fixed effects. 
+The instrument is defined as 
+$Z_{kt} = \text{coal\_share}_{k,2002} \cdot \text{coal\_growth}_t$, 
+where $\text{coal\_share}_{k,2002}$ is county $k$'s baseline dependence on coal employment 
+(measured as the share of total employment in coal mining in the year 2002), and 
+$\text{coal\_growth}_t$ is the national growth rate of coal employment in year $t$, 
+and the baseline exposure term $\text{coal\_share}_{k,2002}$ is normalized such that 
+$\sum_k \text{coal\_share}_{k,2002} = 1$ in each period.
+
+\bigskip
+
+\noindent\textbf{Identification Assumptions}
+
+\begin{enumerate}
+    \item \textbf{Relevance:} $\text{Cov}(Z_{kt}, D_{kt} \mid X_{kt}, \kappa_k, \tau_t) \neq 0.$ The instrument (coal dependence × national growth) actually shifts local coal employment.
+    \item \textbf{Exogeneity of shocks:} $\text{coal\_growth}_t$ is uncorrelated with county-level shocks to $\varepsilon_{kt}.$ (i.e. National coal trends aren’t driven by county-level crime or local conditions.)
+    \item \textbf{Predetermined exposure:} $\text{coal\_share}_{k,2002}$ is measured prior to the study period and not affected by future outcomes.
+    \item \textbf{Exclusion restriction:} $Z_{kt}$ affects $Y_{kt}$ only through $D_{kt}$. The Bartik instrument affects crime outcomes only through changes in coal employment, and not through other channels.
+    \item \textbf{Stable unit treatment value assumption (SUTVA):} Outcomes in county $k$ are unaffected by coal shocks in other counties.
+    \item \textbf{Monotonicity:} Higher $\text{coal\_growth}_t$ weakly increases $D_{kt}$ for all $k$. When national coal jobs rise, every coal-dependent county moves in the same direction (no “defiers”). This may not hold, but I wonder if the Dechaisemartin (2017) (more compliers than defiers at all times) assumption can help bail us out!
+\end{enumerate}
+
+CONNOR's ASSUMPTIONS ABOVE THIS LINE! ADDIE's ARE BELOW THIS LINE
+\newline
 For county $k$ and year $t$, 2SLS specification:
 
 \begin{align}
     \label{eq:struc}
     Y_{kt} &= {D}_{kt}\beta + X_{kt}\gamma + \kappa_k + \tau_t + \varepsilon_{kt} \\ %this is the target model/structural equation, what we would run if we had a reliable measure of "deindustrialization"
     \label{eq:instr}
-    Z_{kt} &= \texttt{coal\_share}_{k,2000} \cdot \texttt{coal\_growth}_{t} \\ %this is the Bartik instrument
+    Z_{kt} &= \texttt{coal\_share}_{k,2002} \cdot \texttt{coal\_growth}_{t} \\ %this is the Bartik instrument
     \label{eq:1st}
     D_{kt} &= Z_{kt}\phi + X_{kt}\tilde{\gamma} + \tilde{\kappa}_k + \tilde{\tau}_t + \tilde{\varepsilon}_{kt} \\ 
     %stage 1, tildes just denote they may not be the same as in structural model
@@ -87,7 +126,7 @@ For county $k$ and year $t$, 2SLS specification:
 Equation \ref{eq:struc} is the structural model where $Y_{kt}$ is a crime outcome, $\gamma_k$ are county fixed effects, $\psi_t$ are time fixed effects, and $X_{kt}$ is a vector of covariates, including \tk{demographics, etc.?}.  $D_{kt}$ is the extent of deindustrialization, which we cannot measure directly and may be endogenous.
 
 Equation \ref{eq:instr} is a \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) shift-share instrument for deindustrialization that proxies exposure (i.e. vulnerability) to coal firms in county $k$ exiting the market via an interaction between \texttt{coal\_share} and \texttt{coal\_growth}.  It is appropriate to include only one industry in the shift-share formula when the shifts (shocks) happen only in that industry \citep{borusyak_2025}.  In our instrument, coal experiences a negative shock directly in response to the natural gas shock.
-\texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2000, which proxies coal dependence of county $k$.  %Time-independence allows this measure to be exogenous to growth in future years.  
+\texttt{coal\_share} is the proportion of the county's population employed by a coal firm in 2002, which proxies coal dependence of county $k$.  %Time-independence allows this measure to be exogenous to growth in future years.  
 \texttt{coal\_growth} is the national-level growth of coal production, which is location-independent.  Note this measure will be negative in the case of a collapsing industry. 
 
 In order for the instrumented model to be interpreted causally, the following assumptions apply: \\
@@ -105,8 +144,20 @@ Assumptions we need to make and defend to identify causality with a Bartik instr
 \section{Summary Statistics}
 
 
+Running a simple OLS regression of county crime rates (Y) on change in coal employment (X), gives us some descriptive summary statistics about how our crime outcome variable is related to changes in coal employment. In particular, we see crime rates increase (decrease) as the change in coal employment for a particular county declines. 
+
+Figure XX bin-scatter (bar chart/line graph) below provides suggestive evidence that counties experiencing a significant drop in coal employment see higher (lower) crime outcomes. 
+ [ SUMMARY STATS]
+
+The simple OLS regression of county crime rates on change in coal employment will give us a correlation between the two variables, but it will not give us a causal result due to endogeneity. De-industrialization (as measured by a drop in coal employment) and crime rates are most likely correlated with unobserved factors that affect both variables. That is to say our error term will be correlated with our de-industrialization treatment variable creating unobservable bias in our estimator. Potential unobservable factors that could be contributing to bias in our estimator could be pre-existing economic and social conditions that already exist in specific counties. Counties that are de-industrializing (seeing decline in coal employment) might have poor infrastructure or loss of other industries in that area that contribute to overall economic decline of that county and also contribute to crime rates. Demographic patterns for certain areas might also affect crime rates. For example, people who choose to migrate out of low economic areas might be people with a lower tendency to commit crimes while the people who stay might have a higher tendency to commit crimes. Education attainment is also a predictor of crime rates, and counties with populations that have lower education attainment are more vulnerable to de-industrialization as low skill jobs are easier to replace and these areas tend to lose jobs at a faster rate. Other sources of bias might be other potential government policies or social programs intended to help people who are experiencing job loss. These might be programs intended to up-skill workers or other programs designed to provide a social safety net for low-skilled workers experiencing job loss.
+
+For these reasons, we should not interpret the bivariate OLS regression as causal. Our \citeauthor{bartik_1991}-style (\citeyear{bartik_1991}) IV approach is designed to elicit a causal interpretation in order to better understand whether de-industrialization \textit{causes} crime in a county to increase.
+
+
+
 %------------------------------------------------------------------------------%
 
+\newpage
 %\bibliographystyle{apacite}
 %\nocite{*}
 %\bibliography{09literature/bibliography.bib}
