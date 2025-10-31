@@ -1,31 +1,17 @@
 \documentclass{10extra/creport}
 \usepackage{rotating}
+% Hacky way of removing the month from the bibliography dates
+\AtEveryBibitem{\clearfield{labelmonth}}
 
 \addbibresource{09literature/bibliography.bib}
 
 \title{Criminal Mines: Evaluating the effects of the coal mining industry on incarceration and drug-related crime}
-\author{Robert Betancourt\\Connor Bulgrin\\Jenny Duan\\Nicholas Skelley\\Adeline Sutton}
+\author{Robert Betancourt \qquad Connor Bulgrin \qquad Jenny Duan \\[0.5em] Nicholas Skelley \qquad Adeline Sutton}
 
 \date{October 2025}
 
 \begin{document}
 \maketitle
-
-\begin{tcolorbox}
-    \begin{itemize}
-        \item What is the causal question of interest? What are the $X$ and $Y$ variables? How are they measured, and where are you getting them from?
-        \item A brief motivation of why this question is interesting or important.
-        \item What research design do you propose to use to answer it?
-        \item What data do you propose to use?
-        \item Imagine you were just trying to answer this descriptively, not causally:
-        \begin{itemize}
-            \item Show summary statistics of key variables: main X and Y, plus important controls
-            \item Run the bivariate OLS regression of your Y variable on X. Then include a few basic controls.
-            \item Create a figure that illustrates this overall association (maybe it’s a binscatter or a bar chart, or something else---will all depend on your question). Show the figure with and without controls (if using, use Cattaneo et al. 2024 for the binscatter with controls)
-        \end{itemize}
-        \item Describe why these initial analyses may not give a causal answer to the question of interest. How will your proposed research design address this?
-    \end{itemize}
-\end{tcolorbox}
 
 \setstretch{1.5}
 
@@ -73,14 +59,13 @@ One method of quantifying the relative dangers present in coal mining work compa
 
 \subsubsection{Employment share}
 
-We measure the share of county employment accounted for by the coal industry using the Quarterly Census of Wages and Employment (QCEW) data from the U.S. Bureau of Labor Statistics (BLS). QCEW data are available at the county-year-industry-ownership level, where ownership delineates between public (government) and private ownership, and industries are available as NAICS codes down to the ``national industry'' \citep{naics_2022} level.
+We measure the share of county employment accounted for by the coal industry using the Quarterly Census of Wages and Employment (QCEW) data from the U.S. Bureau of Labor Statistics (BLS). QCEW data are available at the county-year-industry-ownership level, where ownership distinguishes between public (government) and private ownership, and industries are available as NAICS codes down to the ``national industry'' \citep{naics_2022} level.
 
-We use data for NAICS code 10 \tk{? possibly idiosyncratic coding} as the data representing overall wages and employment in the county, and data for NAICS code 2121 for coal-industry employment. NAICS code 2121 is defined as ``coal mining'' and includes sub-industries bituminous coal and lignite surface mining (212111), bituminous coal underground mining (212112), and anthracite mining (212113). \nb{In other words, three different types of coal to mine---anthracite, bituminous coal, and lignite coal---and two types of mines---surface and underground.}
+We use data for NAICS code 10, defined in the QCEW as representing all industries, as the data representing overall wages and employment in the county, and data for NAICS code 2121 for coal-industry employment. NAICS code 2121 is defined as ``coal mining'' and includes mining of all subtypes of coal---including bituminous, lignite, and anthracite---in both underground and aboveground mines.
 
 \subsection{Design and specification}
 
 \subsubsection{Theoretical Framework}
-
 
 For county $k$ and year $t$, the 2SLS specification is:
 
@@ -123,14 +108,7 @@ $\sum_k \texttt{coal\_share}_{k,2002} = 1$ in each period.
 
 Running a simple OLS regression of county crime rates (Y) on change in coal employment (X), gives us some descriptive summary statistics about how our crime outcome variable is related to changes in coal employment. In particular, we see crime rates increase in Figure 2 after 2010, which is when we see a drop in coal employment. 
 
-Figure \ref{fig:binscatter} below provides suggestive evidence that counties experiencing a significant drop in coal employment see higher crime outcomes. 
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{04work/early_figures/binscatter_offense.pdf}
-    \caption{Felony Rates vs. Coal Employment by Offense Type}
-    \label{fig:scatterplot}
-\end{figure}
+Figures \ref{fig:binscatter_felony} and \ref{fig:binscatter_misdemeanor} below provide suggestive evidence that counties experiencing a significant drop in coal employment may see slightly higher crime outcomes. 
 
 \begin{figure}[htbp]
     \centering
@@ -143,57 +121,69 @@ Figure \ref{fig:binscatter} below provides suggestive evidence that counties exp
     \centering
     \includegraphics[width=0.8\textwidth]{04work/early_figures/binscatter_fe_rate.pdf}
     \caption{Binned Scatterplot of Felony Rates by Changes in Coal Employment}\vspace{0.5em}
-    \label{fig:linechart}
+    \label{fig:binscatter_felony}
     
     \begin{minipage}{0.9\textwidth}
         \small
-        \textit{Note:} Felony offenses per 100,000 residents, by county, plotted against percent changes in the share of jobs accounted for by coal mining within each county. Observations are weighted  by the county's average total employment during the year of observation and include controls for sex, race, age group, county, the share of jobs accounted for by coal mining in 2002, and the year of observation. Quantile-based bins using \cite{binsreg}, per ??
+        \textit{Note:} Felony offenses per 100,000 residents, by county, plotted against percent changes in the share of jobs accounted for by coal mining within each county. Observations are weighted by the county's average total employment during the year of observation and include controls for sex, race, age group, county, the share of jobs accounted for by coal mining in 2002, and the year of observation. Quantile-based bins using \texttt{binsreg} \citep{binsreg}, following \cite{cattaneo_2024}.
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{04work/early_figures/binscatter_mi_rate.pdf}
+    \caption{Binned Scatterplot of Misdemeanor Rates by Changes in Coal Employment}\vspace{0.5em}
+    \label{fig:binscatter_misdemeanor}
+    
+    \begin{minipage}{0.9\textwidth}
+        \small
+        \textit{Note:} Misdemeanor offenses per 100,000 residents, by county, plotted against percent changes in the share of jobs accounted for by coal mining within each county. As in Figure \ref{fig:binscatter_felony}, observations include weights from average total employment and controls for demographics, time, and share of jobs accounted for by coal mining in 2002 and are summarized according to the procedure described by \cite{cattaneo_2024}.
     \end{minipage}
 \end{figure}
 
 
-% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Fri, Oct 31, 2025 - 18:35:51
 \begin{table}[htbp]
-\centering
-\small
-\caption{Summary Statistics by Offense Type}
-\label{tab:summary_offense}
-\begin{tabular}{@{\extracolsep{5pt}} l c c c c} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Offense Category & N & \parbox{2.5cm}{\centering Felony Rate\\(per 100,000)} & \parbox{2.5cm}{\centering Incarceration Rate\\(per 100,000)} & \parbox{2.5cm}{\centering Misdemeanor Rate\\(per 100,000)} \\ 
-\hline \\[-1.8ex] 
-All Offenses & 66,822 & 1,080.11 & 365.86 & 4,332.17 \\ 
-Drug & 29,304 & 286.64 &  & 858.64 \\ 
-Property & 29,304 & 435.12 &  & 763.14 \\ 
-Violent & 29,304 & 217.72 &  & 675.62 \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+    \centering
+    \small
+    \caption{Summary Statistics by Offense Type}
+    \label{tab:summary_offense}
+    \begin{tabular}{@{\extracolsep{5pt}} l c c c c} 
+        \\[-1.8ex]\hline 
+        \hline \\[-1.8ex] 
+        Offense Category & N & \parbox{2.5cm}{\centering Felony Rate} & \parbox{2.5cm}{\centering Incarceration Rate} & \parbox{2.5cm}{\centering Misdemeanor Rate} \\ 
+        \hline \\[-1.8ex] 
+        All Offenses & 66,822 & 1,080.11 & 365.86 & 4,332.17 \\ 
+        Drug & 29,304 & 286.64 &  & 858.64 \\ 
+        Property & 29,304 & 435.12 &  & 763.14 \\ 
+        Violent & 29,304 & 217.72 &  & 675.62 \\ 
+        \hline\hline \\[-1.8ex] 
+    \end{tabular}
+    \begin{minipage}{0.8\textwidth}
+        \textit{Note:} Summary statistics represent unweighted means over counties and years of interest, separated by offense type. Felony, incarceration, and misdemeanor rates denote the rate of each type of encounter within each county per 100,000 county residents.
+    \end{minipage}
 \end{table}
 
-% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Fri, Oct 31, 2025 - 18:49:08
+
 \begin{table}[!htbp] \centering 
   \caption{Coal Employment Summary Statistics} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}} cc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Variable & Value \\ 
-\hline \\[-1.8ex] 
-Observations (County-Years) & 617 \\ 
-Unique Counties & 53 \\ 
-Year Range & 2006 - 2019 \\ 
-Mean Coal Emp Share & 0.02056286 \\ 
-SD Coal Emp Share & 0.05865409 \\ 
-Min Coal Emp Share & 0 \\ 
-Max Coal Emp Share & 0.2948573 \\ 
-Mean Nat Coal Jobs \% Chg & -1.999248 \\ 
-SD Nat Coal Jobs \% Chg & 15.16454 \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table} 
+  \label{tab:summary_multivar} 
+    \begin{tabular}{@{\extracolsep{5pt}} lc} 
+        \\[-1.8ex]\hline 
+        \hline \\[-1.8ex] 
+        Variable & Value \\ 
+        \hline \\[-1.8ex] 
+        Unique Counties & 53 \\ 
+        Mean Coal Emp Share & 0.021 \\ 
+        SD Coal Emp Share & 0.059 \\
+        Min Coal Emp Share & 0 \\ 
+        Max Coal Emp Share & 0.295 \\ 
+        Mean Nat Coal Jobs \% Chg & -1.999 \\ 
+        SD Nat Coal Jobs \% Chg & 15.165 \\\hline
+        Year Range & 2006 -- 2019 \\
+        Observations (County-Years) & 617 \\ 
+        \hline\hline \\[-1.8ex] 
+    \end{tabular} 
+\end{table}
 
 \begin{sidewaystable}[!htp]
     \centering
