@@ -1,0 +1,71 @@
+\documentclass{10extra/creport}
+
+\addbibresource{09literature/bibliography.bib}
+
+\title{Criminal Mines: Evaluating the effects of the coal mining industry on incarceration and drug-related crime\\ Introduction and Literature Review}
+\author{Robert Betancourt\\Connor Bulgrin\\Jenny Duan\\Nicholas Skelley\\Adeline Sutton}
+
+\date{November 2025}
+
+\begin{document}
+\maketitle
+
+
+
+
+
+\section{Introduction}
+\subsection{Background}
+
+The past century has seen a sharp decline in the amount of coal mined and consumed. [INSERT SENTENCE ABOUT COAL MINED 1900-2000] The past two decades alone have seen a large drop due to decreased demand from the power sector. This was primarily caused by technological advances, which were associated with increased natural gas extraction, especially fracking. Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 billion short tons to 578 million, a 48.75\% decrease \parencite{us_eia}. In the same period, natural gas productivity has increased [INSERT AMOUNT IS HAS INCREASED BY 2001-2023].
+% https://www.eia.gov/coal/data/browser/#/topic/33?agg=2,0,1&geo=nvg1qag9vvlpns&linechart=COAL.PRODUCTION.TOT-US-TOT.A&columnchart=COAL.PRODUCTION.TOT-US-TOT.A&map=COAL.PRODUCTION.TOT-US-TOT.A&freq=A&start=2000&end=2023&ctype=linechart&ltype=pin&rtype=b&pin=&rse=0&maptype=0&rank=g&mntp=g
+
+In Appalachia, coal is king. In 2005, the coal industry provided an average wage in the top third of sectors nationwide [CITE ITKIN WHEN ZOTERO WORKING]. High wages, along with the opportunity for work, offers a lucrative opportunity despite the dangers associated with mine labor. \textcite{young_2023} reported that one interviewee described the importance of coal as follows, ``When things are good in the mine, things are good everywhere in the county.” Beginning in 2001, migration surged. Figure \ref{fig:change_in_pop} shows change in population during our period of interest. During the period from 2008 to 2019, the total income per county decreased from [INSERT] to [INSERT].
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{08manuscript/placeholder.png}
+    \caption{Source: [CITE BOWEN ET AL 2020 WHEN ZOTERO WORKING BUT WE SHOULD MAKE THIS OURSELVES]}
+    \label{fig:change_in_pop}
+\end{figure}
+
+Prior research has explored the effect of the coal decline on social effects. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. In order to determine which counties are the most vulnerable, \textcite{raimi_2022} create county-level socioeconomic vulnerability to energy transitions measures.
+
+A large portion of the literature has focused on opioid addiction in Appalachia. \textcite{young_2023} and \textcite{metcalf_2019} disagree on whether the decline of the coal industry led to an increase in opioid use. One possible mechanism is that decreasing mining activity resulted in more despair, increasing opioid use, while the other is that it resulted in the elimination of mining jobs whose injuries led to high opioid use. We expand on the above literature by paying close attention to drug-related crime and opioid mortality rates to better understand whether the decline of the coal industry contributed to the opioid crisis in Appalachia.
+
+
+This paper ties into the literature on whether poor economic conditions are linked causally with worse crime outcomes. [INSERT SOME OF THAT LITERATURE HERE]
+
+Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share belonging to coal causes an increase in various crime statistics, including violent, property, and drug-related crime.
+
+\subsection{Data}
+
+For our purposes, we define deindustrialization as ``the decrease in share of a county's industry belonging to coal."
+
+We measure the share of county employment accounted for by the coal industry using the Quarterly Census of Wages and Employment (QCEW) data from the U.S. Bureau of Labor Statistics (BLS). QCEW data are available at the county-year-industry-ownership level, where ownership delineates between public (government) and private ownership, and industries are available as NAICS codes down to the ``national industry'' \citep{naics_2022} level.
+
+We use data for NAICS code 10 \tk{? possibly idiosyncratic coding} as the data representing overall wages and employment in the county, and data for NAICS code 2121 for coal-industry employment. NAICS code 2121 is defined as ``coal mining'' and includes sub-industries bituminous coal and lignite surface mining (212111), bituminous coal underground mining (212112), and anthracite mining (212113). \nb{In other words, three different types of coal to mine---anthracite, bituminous coal, and lignite coal---and two types of mines---surface and underground.}
+% update this when the proposal is done
+
+%------------------------------------------------------------------------------%
+
+\newpage
+%\bibliographystyle{apacite}
+%\nocite{*}
+%\bibliography{09literature/bibliography.bib}
+\printbibliography
+
+\end{document}
+
+%------------------------------------------------------------------------------%
+
+10/28/2025 Notes
+Problem: perfect overlap in coal and gas counties production
+jobs aren't one-to-one coal to nat gas
+there's a transition cost
+if outcomes jump up and back down maybe that's the 
+no longer addicted cuz now there's a job for me! <--- NO!
+safety of coal mines
+nationwide gas for robustness
+
+Now we are doing "classic" Bartik
