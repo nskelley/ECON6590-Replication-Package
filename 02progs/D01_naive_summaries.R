@@ -114,12 +114,15 @@ naive_regs <- sapply(1:nrow(regs_to_run), function(x) {
   return(lm(.eq, data = .df))
 })
 
+ind_var_lbl <- paste0("\\begin{minipage}{20mm}\n\t\\% change in coal ",
+                      "employment\n\\end{minipage}")
+
 felonies_tabulate <- c(18, 20, seq(2, 16, 2))
 stargazer::stargazer(naive_regs[[20]], type = "text")
 stargazer::stargazer(naive_regs[felonies_tabulate], 
                      keep = c("oty_annual_avg_emplvl_pct_chg_2121", "factor.+"),
                      add.lines = list(c("Demographic controls", rep(c("No", "Yes"), 5))),
-                     covariate.labels = c("\\% change in coal employment",
+                     covariate.labels = c(ind_var_lbl,
                                           "Violent offense",
                                           "Property offense",
                                           "Drug offense"),
