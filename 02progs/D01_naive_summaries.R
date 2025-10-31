@@ -20,6 +20,7 @@ here::i_am(paste(scriptFolder, scriptName, sep = "/"))
 rm(list = ls())
 # ------------------------------------------------------------------------------
 
+## Data setup
 df_analysis <- fread(here("05prepdata/intermed_qcew_cjars.csv.gz"))
 
 qcew_county <- fread(here("01data/supplemental/QCEW/combined",
@@ -41,6 +42,8 @@ df_naif <- left_join(df_analysis, qcew_county,
   filter(!is.na(oty_annual_avg_emplvl_pct_chg_2121)) |>
   mutate(fips = as.character(fips))
 
+
+## Playing with graphs
 df_naif |>
   group_by(eq_bin = round(oty_annual_avg_emplvl_pct_chg_2121 / 10) * 10,
            off_type) |>
@@ -54,12 +57,6 @@ df_naif |>
        y = "felony rate") +
   theme_bw() +
   theme(legend.position = "top")
-
-
-df_naif |>
-  filter(oty_annual_avg_emplvl_pct_chg_2121 >= 100) |>
-  select(cohort_year, fips, annual_avg_emplvl_10, ends_with("_2121")) |>
-  View()
 
 t <- df_naif |>
   filter(off_type != 0) %>%
@@ -81,7 +78,6 @@ df_naif |>
   geom_smooth(method = "lm", se = FALSE) +
   geom_point(data = t$data.plot, aes(x = x, y = ))
 
-t$data.plot |> View()
 t$bins_plot +
   labs(x = "% change in average coal employment",
        y = "Misdemeanor rate",
@@ -91,6 +87,7 @@ t$bins_plot +
 
 
 
+## Regressions
 offense_type <- c(0, 1, 2, 3, NA)
 controls <- c("fips + cohort_year",
               "sex + race + age_group + fips + cohort_year")
