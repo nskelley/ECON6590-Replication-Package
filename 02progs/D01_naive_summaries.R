@@ -119,4 +119,5 @@ stargazer::stargazer(naive_regs[[20]], type = "text")
 stargazer::stargazer(naive_regs[felonies_tabulate], 
                      keep = c("oty_annual_avg_emplvl_pct_chg_2121", "factor.+"),
                      add.lines = list(c("Demographic controls", rep(c("No", "Yes"), 5))),
+                     header = FALSE, float = FALSE,
                      out = here("04work/felony_naive_table.tex"))
