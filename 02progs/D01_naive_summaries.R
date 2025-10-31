@@ -86,6 +86,7 @@ t$bins_plot +
   theme(legend.position = "top")
 
 
+fwrite(df_naif, here("05prepdata/naive_tables_combined_data.csv"))
 
 ## Regressions
 offense_type <- c(0, 1, 2, 3, NA)
