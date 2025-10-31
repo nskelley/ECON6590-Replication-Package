@@ -69,10 +69,11 @@ for (var in c("mi_rate", "fe_rate")) {
   # Create binscatter/binsreg
   .bs <- binsreg(x = oty_annual_avg_emplvl_pct_chg_2121,
                  y = out,
-                 w = ~ cohort_year + sex + race + age_group + fips,
+                 w = ~ cohort_year + sex + race + age_group + fips + 
+                   coal_emp_share_2002,
                  data = plot_base_df,
                  by = off_type,
-                 weight = coal_emp_share_2002,
+                 weight = annual_avg_emplvl_10,
                  randcut = 1,
                  binspos = "qs",
                  nbins = 15,
@@ -89,7 +90,7 @@ for (var in c("mi_rate", "fe_rate")) {
     mutate(by = factor(by, levels = 1:3, labels = c("Violent", "Property", 
                                                     "Drug"))) |>
     ggplot(aes(x = x, y = fit, color = by)) +
-    geom_point(size = 2) +
+    geom_point(size = 3) +
     scale_x_continuous(limits = c(-25, 25)) +
     labs(x = "% change in coal employment share",
          y = ifelse(var == "mi_rate",
