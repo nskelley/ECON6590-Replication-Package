@@ -36,5 +36,6 @@ cjars_qcew <- left_join(cjars, select(qcew_2002, -year),
 
 # Save intermediate data (pre-ACS merge)
 fwrite(cjars_qcew, here("05prepdata/intermed_qcew_cjars.csv.gz"))
+fwrite(cjars_qcew, here("05prepdata/intermed_qcew_cjars.csv"))
 
 # Merge ACS data into CJARS

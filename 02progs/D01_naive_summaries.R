@@ -36,16 +36,42 @@ qcew_county <- fread(here("01data/supplemental/QCEW/combined",
 
 nrow(unique(qcew_county, by = c("year", "area_fips")))
 
-df_naif <- left_join(df_analysis, qcew_county, by = c("fips" = "area_fips",
-                                                      "cohort_year" = "year"))
-ggplot(df_naif, aes(x = oty_annual_avg_emplvl_pct_chg_2121,
-                    y = inc_rate)) +
-  geom_point()
+df_naif <- left_join(df_analysis, qcew_county, 
+                     by = c("fips" = "area_fips", "cohort_year" = "year")) |>
+  filter(!is.na(oty_annual_avg_emplvl_pct_chg_2121))
 
+df_naif |>
+  group_by(eq_bin = round(oty_annual_avg_emplvl_pct_chg_2121 / 10) * 10,
+           off_type) |>
+  summarise(out = weighted.mean(fe_rate, coal_emp_share_2002, na.rm = TRUE),
+            size = coal_emp_share_2002) |>
+  ggplot(aes(x = eq_bin, y = out, color = factor(off_type), size = size)) +
+  geom_point() +
+  labs(x = "% change in county coal employment share",
+       y = "felony rate") +
+  theme_bw() +
+  theme(legend.position = "top")
 
-x <- runif(500); y <- sin(x)+rnorm(500)
-## Binned scatterplot
-t <- binsreg(x = df_naif$oty_annual_avg_emplvl_pct_chg_2121,
-             y = df_naif$inc_rate)
+qcew_county |>
+  filter(area_fips == "17055") |>
+  View()
 
-t$bins_plot
+df_naif |>
+  filter(oty_annual_avg_emplvl_pct_chg_2121 >= 100) |>
+  select(cohort_year, fips, annual_avg_emplvl_10, ends_with("_2121")) |>
+  View()
+
+t <- binsreg(x = oty_annual_avg_emplvl_pct_chg_2121,
+             y = mi_rate,
+             w = select(df_naif, cohort_year, sex, race, age_group, fips),
+             data = df_naif,
+             by = off_type,
+             randcut = 1,
+             nbins = 15)
+
+t$bins_plot +
+  labs(x = "% change in average coal employment",
+       y = "Misdemeanor rate",
+       color = "Offense type") +
+  scale_x_continuous(limits = c(-75, 75)) +
+  theme(legend.position = "top")
