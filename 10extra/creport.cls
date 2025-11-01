@@ -9,7 +9,7 @@
 \RequirePackage[dvipsnames]{xcolor}
 % Links
 \RequirePackage[colorlinks=true, allcolors={blue}]{hyperref}
-\RequirePackage{amssymb, amsfonts, amsmath, mathrsfs, enumitem, tcolorbox, bbm, bm, graphicx, fullpage, parskip, mathtools, float, amsthm, xfrac, csquotes}
+\RequirePackage{amssymb, amsfonts, amsmath, mathrsfs, enumitem, tcolorbox, bbm, bm, graphicx, fullpage, mathtools, float, amsthm, xfrac, csquotes}
 \RequirePackage[american]{babel}
 % References
 \RequirePackage[backend=biber,
