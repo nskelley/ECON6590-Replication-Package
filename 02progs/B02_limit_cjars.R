@@ -38,3 +38,5 @@ cjars <- cjars.raw |>
 
 fwrite(cjars, here("05prepdata/baseline_cjars_limited.csv.gz"))
 mem.maxVSize(oldSize)
+
+# Hello world
