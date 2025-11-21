@@ -1,17 +1,27 @@
-\documentclass{10extra/creport}
+\documentclass{10extra/workingpaper}
 
 \usepackage{indentfirst}
 
 \addbibresource{09literature/bibliography.bib}
 
-\title{Criminal Mines: Evaluating the effects of the coal mining industry on incarceration and drug-related crime\\ Introduction and Literature Review}
-\author{Robert Betancourt \qquad Connor Bulgrin \qquad Jenny Duan \\[0.5em] Nicholas Skelley \qquad Adeline Sutton}
+\title{Criminal Mines: Evaluating the effects of the coal mining industry on incarceration and drug-related crime\\[0.5em]{\Large Introduction and Literature Review}}
+\author[*]{Robert Betancourt}
+\author[*]{Connor Bulgrin}
+\author[$\dagger$]{Jenny Duan}
+\author[*]{Nicholas Skelley}
+\author[*]{Adeline Sutton}
 
-\date{November 2025}
+\affil[*]{\normalsize Department of Economics, Cornell University}
+\affil[$\dagger$]{\normalsize Jeb E. Brooks School of Public Policy, Cornell University}
+% \keywods
+% \jel{K14, L71, O13, O14, O33}
+
+\date{Last updated: \today}
 
 \begin{document}
-\maketitle
 
+\maketitle
+% \maketitlepage
 
 
 \setstretch{1.5}
@@ -19,7 +29,7 @@
 \section{Introduction}
 \subsection{Background}
 
-The past century has seen a sharp decline in the amount of coal mined and consumed. \tk{[INSERT SENTENCE ABOUT COAL MINED 1900-2000]} The past two decades alone have seen a large drop due to decreased demand from the power sector. This was primarily caused by technological advances, which were associated with increased natural gas extraction, especially fracking. Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 billion short tons to 578 million, a 48.75\% decrease \parencite{coal_data_browser_eia}. In the same period, natural gas growth withdrawals have increased from 24.5 million (million cubic feet) to 45.6 million. \tk{cite natural gas gross withdrawals}.
+The past century has seen a sharp decline in the amount of coal mined and consumed. \tk{[INSERT SENTENCE ABOUT COAL MINED 1900-2000]} The past two decades alone have seen a large drop due to decreased demand from the power sector. This was primarily caused by technological advances, which were associated with increased natural gas extraction, especially fracking. Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 billion short tons to 578 million, a 48.75\% decrease \parencite{coal_data_browser_eia}. In the same period, natural gas growth withdrawals have increased from 24.5 million (million cubic feet) to 45.6 million \parencite{u.s.energyinformation_2025}.
 % https://www.eia.gov/coal/data/browser/#/topic/33?agg=2,0,1&geo=nvg1qag9vvlpns&linechart=COAL.PRODUCTION.TOT-US-TOT.A&columnchart=COAL.PRODUCTION.TOT-US-TOT.A&map=COAL.PRODUCTION.TOT-US-TOT.A&freq=A&start=2000&end=2023&ctype=linechart&ltype=pin&rtype=b&pin=&rse=0&maptype=0&rank=g&mntp=g
 %https://www.eia.gov/dnav/ng/hist/n9010us2a.htm
 
@@ -32,15 +42,20 @@ In Appalachia, coal is king. In 2005, the coal industry provided an average wage
     \label{fig:change_in_pop}
 \end{figure}
 
-Prior research has explored the effect of the coal decline on social effects. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. In order to determine which counties are the most vulnerable, \textcite{raimi_2022} create county-level measures for socioeconomic vulnerability to energy transitions. We repeat their same method to create pre-period measures to use as a robustness check for our main results.\footnote{\tk{I've added to FP brainstorm that this should be a robustness check, vulnerability scores would make for a nice shift share instrument. We just have to repeat their method on pre-period data.}}
+Prior research has explored the effect of the coal decline on social effects. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. In order to determine which counties are the most vulnerable, \textcite{raimi_2022} create county-level measures for socioeconomic vulnerability to energy transitions. We repeat their same method to create pre-period measures to use as a robustness check for our main results.
 
 A large portion of the literature has focused on opioid addiction in Appalachia. \textcite{young_2023} and \textcite{metcalf_2019} disagree on whether the decline of the coal industry led to an increase in opioid use. One possible mechanism is that decreasing mining activity resulted in more despair, increasing opioid use, while the other is that it resulted in the elimination of mining jobs whose injuries led to high opioid use. We expand on the above literature by paying close attention to drug-related crime and opioid mortality rates to better understand whether the decline of the coal industry contributed to the opioid crisis in Appalachia.
 
-This paper ties into the literature on whether poor economic conditions are causally linked to worse crime outcomes. School quality has been well documented to be associated with a reduction in crime (\tk{cite Deming 2011, Hjalmarsson 2015, Meghir 2011, Bennett 2018, Lochner 2004}). Our paper explores the mechanism by which deindustrialization contributes to an employment shock and outmigration, which then leads to lower local revenues, and hence, decreased educational funding.
+This paper ties into the literature on whether poor economic conditions are causally linked to worse crime outcomes. School quality has been well documented to be associated with a reduction in crime (\cite{deming_2011}; \cite{hjalmarsson_2015}; \cite{meghir_2011}; \cite{bennett_2018}; \cite{lochner_2004}). Our paper explores the mechanism by which deindustrialization contributes to an employment shock and outmigration, which then leads to lower local revenues, and hence, decreased educational funding.
 
-Some literature has also examined the relationship between deindustrialization, health outcomes, and crime statistics. \tk{cite Nostrati 2018} found that between 2001 and 2014 in the U.S., deindustrialization and incarcaration reduced the lifespan of the poor by around 2.5 years. \tk{[INSERT SOME MORE OF THAT LITERATURE HERE]} Arguably the most similar paper to ours is \tk{cite White 2006} who examined deindustrialization between 1970 and 1990 in the 100 largest US cities, finding inconsistencies in correlations between the combination of deindustrialization and increased poverty with increases in various crime measures.
+Some literature has also examined the relationship between deindustrialization, health outcomes, and crime statistics. \textcite{nosrati_2018} found that between 2001 and 2014 in the U.S., deindustrialization and incarcaration reduced the lifespan of the poor by around 2.5 years. \tk{[INSERT SOME MORE OF THAT LITERATURE HERE]} Arguably the most similar paper to ours is \textcite{white_1999} who examined deindustrialization between 1970 and 1990 in the 100 largest US cities, finding inconsistencies in correlations between the combination of deindustrialization and increased poverty with increases in various crime measures.
 
 Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share belonging to coal causes an increase in various crime statistics, including violent, property, and drug-related crime.
+
+\subsection{De-industrialization and Exposure Shock}
+Most other papers that look at declines in industrialization or manufacturing that use exposure shocks use exposure as a continuous variable. \cite{howard2024universities} and \cite{glaeser2003rise} both use baseline manufacturing employment shares as a measure for manufacturing exposure in different years. For robustness checks, \cite{howard2024universities} define high exposure shock as above-median manufacturing employment share among specific counties in 1978 (the peak of U.S manufacturing employment). Similarly \cite{gagliardi2023rust} looks at the effect of de-industrialization on cities in six countries and defines the de-industrialization exposure shock 
+as a city's share of manufacturing employment in the year of its country's manufacturing peak. Low and high exposure cities are defined by using terciles of the distribution. Former manufacturing hubs are defined as cities with an initial manufacturing employment share in the top tercile of their country's distribution while middle and bottom terciles are used for comparison. \cite{autor2013china} analyze the effects of rising Chinese import competition between 1990 and 2007 on US local labor markets, exploiting cross-market variation in import exposure stemming from initial differences in industry specialization. They define exposure as local industry employment shares in time t and compare percentiles (25th and 75th percentiles) as well as the median to contextualize magnitudes of exposure. 
+
 
 \subsection{Data}
 
