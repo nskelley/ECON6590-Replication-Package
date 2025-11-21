@@ -1,0 +1,76 @@
+\documentclass{10extra/workingpaper}
+
+\usepackage{indentfirst}
+
+\addbibresource{09literature/bibliography.bib}
+
+\title{Criminal Mines: Evaluating the effects of the coal mining industry on incarceration and drug-related crime\\[0.5em]{\Large Methodology}}
+\author[*]{Robert Betancourt}
+\author[*]{Connor Bulgrin}
+\author[$\dagger$]{Jenny Duan}
+\author[*]{Nicholas Skelley}
+\author[*]{Adeline Sutton}
+\affil[*]{\normalsize Department of Economics, Cornell University}
+\affil[$\dagger$]{\normalsize Jeb E. Brooks School of Public Policy, Cornell University}
+% \keywods
+% \jel{K14, L71, O13, O14, O33}
+
+\date{Last updated: \today}
+
+\begin{document}
+\maketitle
+
+\setstretch{1.5} % 1.5 spacing
+
+\section{Background}
+Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 billion short tons to 578 million, a 48.75\% decrease \parencite{coal_data_browser_eia}. In the same period, natural gas growth withdrawals have increased from 24.5 million (million cubic feet) to 45.6 million \parencite{u.s.energyinformation_2025}. Prior research has explored the effect of the coal decline on social effects. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. We contribute to the literature by studying the relationship between coal deindustrialization and crime at the county level using a difference-in-differences approach that aims to eliminate spillover effects.
+
+Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share belonging to coal causes an increase in various crime statistics, including violent, property, and drug-related crime.
+
+\section{Methodology}
+We use an event study to estimate the impacts of production decline after a county's largest peak in coal production.  The year immediately follow the peak is the event, so event time is measured in years prior to or after the initial decline. Our estimating equation is as follows: 
+
+\textbf{Estimating equation}
+\[
+    y_{kt} = \alpha + \sum_{j\neq -1} \big( \beta_j \cdot \delta_{kt} \cdot \mathbbm{1}[j = t] \big) + \theta_{t} + \phi_{k} + \varepsilon_{kt}
+\]
+
+\begin{itemize}
+    \item $y_{kt}$ is an outcome in county \textit{k} in calendar year \textit{t}. 
+    \item For event time $j$, $j\equiv-1$ in the year of the county $k$'s coal production global (within time span of interest, omitting counties with edge maxima) maximum.
+    \item $\delta_{kt}$ is the treatment intensity/dose---the \emph{percent change} in coal production in county $k$ in time $t$ relative to $t-1$.  This allows us to investigate heterogeneity in treatment effects by how quickly production declines.
+    \item $\theta_t$ and $\phi_k$ are calendar year and county fixed effects.
+\end{itemize}
+
+The dynamic treatment effects in this event study are $\beta_j$; this is the effect of a county's coal production decline on crime outcomes $j$ periods after the peak of production.
+
+\subsection{Assumptions}
+As this is an event study with continuous treatment intensities, it is subject to similar but stronger assumptions in order to interpret the treatment effect as causal (that is, the decline in the coal industry drives changes in crime).  These are:
+
+\begin{enumerate}
+\item \textbf{No anticipation} This would imply that agents did not foresee a decline in coal production and as a result changed their criminal behavior.
+\item \textbf{Strong parallel trends} 
+\end{enumerate}
+
+\section{Data}
+
+\begin{itemize}
+    \item CJARS columns to keep: 
+    \begingroup
+    \ttfamily
+        fips, cohort\_year, sex, race, age\_group, off\_type, repeat\_contact, fe\_rate, N\_fe\_rate, mi\_rate, N\_mi\_rate, inc\_rate, N\_inc\_rate, par\_rate, N\_par\_rate, pro\_rate, N\_pro\_rate
+    \endgroup
+\end{itemize}
+
+
+\section{Results}
+
+\section{Discussion and Plans for Robustness}
+
+state year fixed effects (for robustness because state level policy that responds to recessions)
+
+
+\newpage
+\printbibliography
+
+\end{document}
