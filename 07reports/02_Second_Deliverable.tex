@@ -28,10 +28,12 @@ Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 
 Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share belonging to coal causes an increase in various crime statistics, including violent, property, and drug-related crime.
 
 \section{Methodology}
-We use an event study to estimate the impacts of production decline after a county's largest peak in coal production.  The year immediately follow the peak is the event, so event time is measured in years prior to or after the initial decline. We measure dynamic treatment effects in order to see how coal production decline impacts a county over time.  That is, in each year after the initial decline, how is that initial decline still impacting a county?
+We use an event study to estimate the impacts of production decline after a county's largest peak in coal production.  The year immediately follow the peak is the event, so event time is measured in years prior to or after the initial decline. We measure dynamic treatment effects in order to see how coal production decline impacts a county over time.  That is, in each year after the initial decline, \tk{how is that initial decline still impacting a county?}
 
 \textbf{More about continuous treatment event studies}
- 
+The parameters of interest and accompanying assumptions are conceptually very similar to standard binary event studies.  In a standard event study, the treatment is an event; a unit is untreated before the event and treated after.  The potential outcomes are $Y_{kt}(0)$ for individual unit \textit{k}'s outcome in time \textit{t} if \textit{k} was untreated and $Y_{kt}(1)$ if \textit{i} were treated.  We can extend this to the continuous case where $Y_{kt}(d)$ is the outcome of \textit{k} in time \textit{t} had the individual received ``dose'' \textit{d}.  In our context, $Y_{kt}(d)$ would be county \textit{k}'s crime outcome in year \textit{t} if they had an initial decline in coal production from their peak of \tk{slope} \textit{d}.
+
+Our estimating equation is as follows: 
 
 \textbf{Estimating equation}
 \[
@@ -81,12 +83,18 @@ I think strong parallel trends may be supported by observing no pre-trends in th
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{06figures/graphs/summary/hist_peak_calyr_all.pdf}
+    \includegraphics[width=0.8\linewidth]{06figures/graphs/summary/hist_peak_calyr_all.pdf}
+    \begin{minipage}{0.8\linewidth}
+        \footnotesize\textit{Notes}: \nb{Includes all counties, including those whose peak production years are the first year they were observed in CJARS.}
+    \end{minipage}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{06figures/graphs/summary/hist_peak_calyr_interior.pdf}
+    \includegraphics[width=0.8\linewidth]{06figures/graphs/summary/hist_peak_calyr_interior.pdf}
+    \begin{minipage}{0.8\linewidth}
+        \footnotesize\textit{Notes}: \nb{Includes only counties whose peak production years are strictly in the interior of their CJARS observations.}
+    \end{minipage}
 \end{figure}
 
 \section{Discussion and Plans for Robustness}
