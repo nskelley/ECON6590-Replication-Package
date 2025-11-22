@@ -14,6 +14,9 @@
 % Links
 \RequirePackage[colorlinks=true, allcolors={blue}]{hyperref}
 \RequirePackage{amssymb, amsfonts, amsmath, mathrsfs, enumitem, tcolorbox, bbm, bm, graphicx, fullpage, mathtools, float, amsthm, xfrac, csquotes}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+
 \RequirePackage[american]{babel}
 
 % References
