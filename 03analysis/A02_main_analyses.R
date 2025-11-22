@@ -113,9 +113,11 @@ event_studies <- lapply(1:nrow(all_es), function(rowi) {
          y = .row$ylab)
   
   ggsave(filename = here("06figures/graphs/event_study/",
-                         paste0("ES_", select(.row, ends_with("_comp"), 
+                         paste0("ES_", 
+                                paste0(select(.row, ends_with("_comp"), 
                                               ends_with("_lbl"))[1, ],
-                                ".pdf", collapse = "_")),
+                                       collapse = "_"),
+                                ".pdf")),
          height = figure_scales$height, width = figure_scales$width,
          units = figure_scales$units)
   return(list(plot = .plt,
