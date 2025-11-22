@@ -28,7 +28,11 @@ Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 
 Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share belonging to coal causes an increase in various crime statistics, including violent, property, and drug-related crime.
 
 \section{Methodology}
-We use an event study to estimate the impacts of production decline after a county's largest peak in coal production.  The year immediately follow the peak is the event, so event time is measured in years prior to or after the initial decline. Our estimating equation is as follows: 
+We use an event study to estimate the impacts of production decline after a county's largest peak in coal production.  The year immediately follow the peak is the event, so event time is measured in years prior to or after the initial decline. We measure dynamic treatment effects in order to see how coal production decline impacts a county over time.  
+
+\textbf
+
+Our estimating equation is as follows: 
 
 \textbf{Estimating equation}
 \[
@@ -39,7 +43,7 @@ We use an event study to estimate the impacts of production decline after a coun
 \begin{itemize}
     \item $y_{kt}$ is an outcome in county \textit{k} in calendar year \textit{t}. 
     \item For event time $j$, $j\equiv-1$ in the year of the county $k$'s coal production global (within time span of interest, omitting counties with edge maxima) maximum.
-    \item $\delta_{kt}$ is the treatment intensity/dose---the \emph{percent change} in coal production in county $k$ in time $t$ relative to $t-1$.  This allows us to investigate heterogeneity in treatment effects by how quickly production declines.
+    \item $\delta_{kt}$ is the treatment intensity/dose---the \emph{percent change} in coal production in county $k$ in time $t$ relative to event time $-1$.  This allows us to investigate heterogeneity in treatment effects by how quickly production declines.
     \item $\theta_t$ and $\phi_k$ are calendar year and county fixed effects.
 \end{itemize}
 
@@ -50,8 +54,18 @@ As this is an event study with continuous treatment intensities, it is subject t
 
 \begin{enumerate}
 \item \textbf{No anticipation} This would imply that agents did not foresee a decline in coal production and as a result changed their criminal behavior.
-\item \textbf{Strong parallel trends} 
+\item \textbf{Strong parallel trends} \nb{Parallel trends without \emph{strong} PT is still causal, but it identifies ATT and has selection problems; with strong PT, we identify ATE, per \cite{callaway_2024a}}
 \end{enumerate}
+
+\begingroup
+\itshape\color{purple}
+I think strong parallel trends may be supported by observing no pre-trends in the following specification (slightly different from the estimating specification):
+\[
+    y_{kt} = \eta + \sum_{j \neq -1} \big( \beta_j \cdot \mathbbm{1}[j = t] \big) + \gamma_t \cdot \mathbb{E}[\delta_{kt} \mid t > g] + \theta_t + \phi_k + \varepsilon_{kt}.
+\]
+\endgroup
+
+\nb{Another robustness check may be to identify a post-peak average slope for coal production (via OLS) and use that slope as the dosage so that the dose doesn't change over time.}
 
 \section{Data}
 
@@ -65,6 +79,16 @@ As this is an event study with continuous treatment intensities, it is subject t
 
 
 \section{Results}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{06figures/graphs/summary/hist_peak_calyr_all.pdf}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{06figures/graphs/summary/hist_peak_calyr_interior.pdf}
+\end{figure}
 
 \section{Discussion and Plans for Robustness}
 

@@ -34,8 +34,8 @@
 \RequirePackage{authblk}
 \RequirePackage{setspace}
 
-\newcommand{\tk}[1]{{\color{red} TK: #1}}
-
+\newcommand{\nb}[1]{{\textit{\color{purple}#1}}}
+\newcommand{\tk}[1]{{\color{red}\textbf{TK: }#1}}
 
 \def\@theabstract{}
 \def\@keywords{}
