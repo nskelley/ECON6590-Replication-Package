@@ -30,8 +30,13 @@ Our broad question of interest is ``How does deindustrialization impact crime ou
 \section{Methodology}
 We use an event study to estimate the impacts of production decline after a county's largest peak in coal production.  The year immediately follow the peak is the event, so event time is measured in years prior to or after the initial decline. We measure dynamic treatment effects in order to see how coal production decline impacts a county over time.  That is, in each year after the initial decline, \tk{how is that initial decline still impacting a county?}
 
-\textbf{More about continuous treatment event studies}
-The parameters of interest and accompanying assumptions are conceptually very similar to standard binary event studies.  In a standard event study, the treatment is an event; a unit is untreated before the event and treated after.  The potential outcomes are $Y_{kt}(0)$ for individual unit \textit{k}'s outcome in time \textit{t} if \textit{k} was untreated and $Y_{kt}(1)$ if \textit{i} were treated.  We can extend this to the continuous case where $Y_{kt}(d)$ is the outcome of \textit{k} in time \textit{t} had the individual received ``dose'' \textit{d}.  In our context, $Y_{kt}(d)$ would be county \textit{k}'s crime outcome in year \textit{t} if they had an initial decline in coal production from their peak of \tk{slope} \textit{d}.
+\textbf{More about continuous treatment event studies}  The following adapts the description from \cite{callaway_2024a} to our purpose.
+
+ 
+%Potential outcomes and treatment effects
+In a standard event study, the treatment is an event; a unit is untreated before the event and treated after.  The potential outcomes are $Y_{kt}(0)$ for individual unit \textit{k}'s outcome in time \textit{t} if \textit{k} was untreated and $Y_{kt}(1)$ if \textit{i} were treated.  We can extend this to the continuous case where $Y_{kt}(d)$ is the outcome of \textit{k} in time \textit{t} had the individual received ``dose'' \textit{d}.  In our context, $Y_{kt}(d)$ would be county \textit{k}'s crime outcome in year \textit{t} if they had an initial decline in coal production from their peak of \tk{slope} \textit{d}.  
+
+While in a standard event study the treatment effect is the difference between the treated and untreated potential outcomes, in the continuous case there are two types of causal effects: the level treatment effect and the causal response.  The level treatment effect of dose \textit{d} is the difference in the potential outcome given the individual received dosage \textit{d} and the potential outcome given the individual was untreated: $Y_{kt}(d)-Y_{kt}(0)$.  The causal response of dose \textit{d} is the slope of the level treatment effect at \textit{d} with respect to the dosage: $Y'_{kt}(d)$; this measures the effect of increasing the dosage incrementally.  In our context, the level treatment effect at \textit{d} would be the difference in the potential outcomes of a county when they had a decline of \textit{d} compared to if they had no decline, while the causal response at \textit{d} would be how the outcome of county \textit{k} would change if they had a decline of $d+\epsilon$ compared to the actual dose \textit{d}, which gets at how impactful having higher rates of decline is.  
 
 Our estimating equation is as follows: 
 
@@ -94,6 +99,22 @@ I think strong parallel trends may be supported by observing no pre-trends in th
     \includegraphics[width=0.8\linewidth]{06figures/graphs/summary/hist_peak_calyr_interior.pdf}
     \begin{minipage}{0.8\linewidth}
         \footnotesize\textit{Notes}: \nb{Includes only counties whose peak production years are strictly in the interior of their CJARS observations.}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{06figures/graphs/summary/coal_peak_unweighted.pdf}
+    \begin{minipage}{0.8\linewidth}
+        \footnotesize\textit{Notes}: \nb{Average county-level $z$-scores---within each county, the coal production quantity in number of SDs from the mean, averaged by year. No weights (see next/weighted fig). Dashed lines 95\% confidence interval.}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{06figures/graphs/summary/coal_peak_prod-wt.pdf}
+    \begin{minipage}{0.8\linewidth}
+        \footnotesize\textit{Notes}: \nb{Average county-level $z$-scores---within each county, the coal production quantity in number of SDs from the mean, averaged by year. Weighted by the raw quantity of coal produced in the county at event time $-1$. Dashed lines 95\% confidence interval (probably done wrong because I didn't do anything to account for the weights but such is life).}
     \end{minipage}
 \end{figure}
 
