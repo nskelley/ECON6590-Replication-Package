@@ -27,20 +27,24 @@ Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 
 
 Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share belonging to coal causes an increase in various crime statistics, including violent, property, and drug-related crime.
 
+\subsection{De-industrialization and Exposure Shock}
+Most other papers that look at declines in industrialization or manufacturing that use exposure shocks use exposure as a continuous variable. \textcite{howard2024universities} and \textcite{glaeser2003rise} both use baseline manufacturing employment shares (the peak of U.S manufacturing employment) as a measure for manufacturing exposure in different years. Similarly \textcite{gagliardi2023rust} looks at the effect of de-industrialization on employment consequences in cities across six countries and uses the city's share of manufacturing employment in the year of its country’s manufacturing peak as treatment for subsequent changes in total employment.  Former manufacturing hubs are defined as cities with an initial manufacturing employment share in the top tercile of their country's distribution while middle and bottom terciles are used for comparison in their 2SLS regression using driving distance to historical colleges and universities as their IV. \textcite{autor2013china} analyze the effects of rising Chinese import competition between 1990 and 2007 on US local labor markets, exploiting cross-market variation in import exposure stemming from initial differences in industry specialization. They define exposure as local industry employment shares in time \(t\) and and exploits variation in local labor market exposure to Chinese import competition. 
+
 \section{Methodology}
 We use an event study to estimate the impacts of production decline after a county's largest peak in coal production.  The year immediately follow the peak is the event, so event time is measured in years prior to or after the initial decline. We measure dynamic treatment effects in order to see how coal production decline impacts a county over time.  That is, in each year after the initial decline, \tk{how is that initial decline still impacting a county?}
 
-\textbf{More about continuous treatment event studies}  The following adapts the description from \cite{callaway_2024a} to our purpose.
+\subsection{More about continuous treatment event studies}  The standard binary treatment event study is easily extended to the continuous treatment case.  The following adapts the description from \cite{callaway_2024a} to our purpose.
 
- 
-%Potential outcomes and treatment effects
+\subsubsection{Potential outcomes and treatment effects}
 In a standard event study, the treatment is an event; a unit is untreated before the event and treated after.  The potential outcomes are $Y_{kt}(0)$ for individual unit \textit{k}'s outcome in time \textit{t} if \textit{k} was untreated and $Y_{kt}(1)$ if \textit{i} were treated.  We can extend this to the continuous case where $Y_{kt}(d)$ is the outcome of \textit{k} in time \textit{t} had the individual received ``dose'' \textit{d}.  In our context, $Y_{kt}(d)$ would be county \textit{k}'s crime outcome in year \textit{t} if they had an initial decline in coal production from their peak of \tk{slope} \textit{d}.  
 
 While in a standard event study the treatment effect is the difference between the treated and untreated potential outcomes, in the continuous case there are two types of causal effects: the level treatment effect and the causal response.  The level treatment effect of dose \textit{d} is the difference in the potential outcome given the individual received dosage \textit{d} and the potential outcome given the individual was untreated: $Y_{kt}(d)-Y_{kt}(0)$.  The causal response of dose \textit{d} is the slope of the level treatment effect at \textit{d} with respect to the dosage: $Y'_{kt}(d)$; this measures the effect of increasing the dosage incrementally.  In our context, the level treatment effect at \textit{d} would be the difference in the potential outcomes of a county when they had a decline of \textit{d} compared to if they had no decline, while the causal response at \textit{d} would be how the outcome of county \textit{k} would change if they had a decline of $d+\epsilon$ compared to the actual dose \textit{d}, which gets at how impactful having higher rates of decline is.
 
-The two parameters of interest then are the average level treatment effects and the average causal responses.
+\subsubsection{Parameters of interest}
+The two parameters of interest then are the average level treatment effects and the average causal responses.  We consider the case where once an individual is treated with a particular dose, they remain treated with that dose thereafter.  Let \textit{g} denote the time the individual becomes treated.
+The average treatment effect of dosage \textit{d} is $$ATE(g,t,d) = \mathbb{E}[Y_{kt}(g,d) - Y_{kt}(0)|G=g]$$  and the average causal response is $$ACR(g,t,d) = \frac{\partial ATE(g,t,d)}{\partial d} = \frac{\partial Y_{ktg}}{\partial d}$$ Under some assumptions (discussed in \ref{sec:assumps}), the ATE parameter is identified by $\beta_j$ in the estimating equation below.  
 
-Our estimating equation is as follows: 
+\subsection{Specification}
 
 \textbf{Estimating equation}
 \[
@@ -57,7 +61,7 @@ Our estimating equation is as follows:
 
 The dynamic treatment effects in this event study are $\beta_j$; this is the effect of a county's coal production decline on crime outcomes $j$ periods after the peak of production.
 
-\subsection{Assumptions}
+\subsection{Assumptions} \label{sec:assumps}
 As this is an event study with continuous treatment intensities, it is subject to similar but stronger assumptions in order to interpret the treatment effect as causal (that is, the decline in the coal industry drives changes in crime).  These are:
 
 \begin{enumerate}
