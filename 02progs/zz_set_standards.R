@@ -29,13 +29,13 @@ figure_scales <- list(
 
 theme_paper <- list(
   theme_classic(),
-  theme(panel.grid.major = element_line(linewidth = 0.05, color = "#888"),
-        panel.grid.minor.x = element_line(linewidth = 0.05, color = "#888"))
+  theme(panel.grid.major = element_line(linewidth = 0.05, color = "#bbb"),
+        panel.grid.minor.x = element_line(linewidth = 0.05, color = "#bbb"))
 )
 theme_paper_histogram <- list(
   theme_classic(),
-  theme(panel.grid.major.y = element_line(linewidth = 0.05, color = "#888"),
-        panel.grid.minor.y = element_line(linewidth = 0.05, color = "#888"),
+  theme(panel.grid.major.y = element_line(linewidth = 0.05, color = "#bbb"),
+        panel.grid.minor.y = element_line(linewidth = 0.05, color = "#bbb"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 )
