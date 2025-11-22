@@ -32,6 +32,7 @@ theme_paper <- list(
   theme(panel.grid.major = element_line(linewidth = 0.05, color = "#bbb"),
         panel.grid.minor.x = element_line(linewidth = 0.05, color = "#bbb"))
 )
+
 theme_paper_histogram <- list(
   theme_classic(),
   theme(panel.grid.major.y = element_line(linewidth = 0.05, color = "#bbb"),
@@ -40,7 +41,15 @@ theme_paper_histogram <- list(
         panel.grid.minor.x = element_blank())
 )
 
+ref_lines <- list(
+  geom_vline(xintercept = -1, color = "red", linewidth = 0.4, 
+             linetype = "dashed"),
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.4,
+             linetype = "solid")
+)
+
 save(figure_scales,
      theme_paper_histogram,
      theme_paper,
+     ref_lines,
      file = here("04work/standards/figure_standards.RData"))
