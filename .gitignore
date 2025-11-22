@@ -54,6 +54,7 @@
 
 # Allow prepdata
 !05prepdata/**.csv*
+05prepdata/old/
 
 # Allow real GDP by industry data
 !01data/supplemental/GDP/*.csv
