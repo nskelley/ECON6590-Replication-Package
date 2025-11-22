@@ -46,7 +46,7 @@ coal_cjars <- inner_join(cjars, coal, by = c("cohort_year" = "year", "fips")) |>
   filter(last_year != peak_coal_prod_year) |>
   ungroup() |>
   # Event time and log production
-  mutate(event_time = peak_coal_prod_year - cohort_year - 1,
+  mutate(event_time = cohort_year - peak_coal_prod_year - 1,
          log_coal_prod = log(tot_coal_prod))
 
 
