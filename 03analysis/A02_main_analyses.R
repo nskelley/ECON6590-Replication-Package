@@ -92,10 +92,12 @@ event_studies <- lapply(1:nrow(all_es), function(rowi) {
            abs(event_time) <= .row$req_periods) |>
     feols(.formula,
           data = _,
-          cluster = ~ fips) |>
+          cluster = ~ fips)
+  .nobs <- .es$nobs
+  .es <- .es |>
     tidy() |>
     mutate(event_time = str_extract(term, "-?\\d+"))
-  
+    
   .plt <- .es |>
     rbind(ref_row) |>
     mutate(ci_min = estimate + qnorm(0.025) * std.error,
@@ -109,7 +111,7 @@ event_studies <- lapply(1:nrow(all_es), function(rowi) {
     scale_x_continuous(breaks = -5:5) +
     ref_lines +
     theme_paper +
-    labs(x = "Years since coal production peak)",
+    labs(x = "Years since coal production peak",
          y = .row$ylab)
   
   ggsave(filename = here("06figures/graphs/event_study/",
@@ -121,5 +123,8 @@ event_studies <- lapply(1:nrow(all_es), function(rowi) {
          height = figure_scales$height, width = figure_scales$width,
          units = figure_scales$units)
   return(list(plot = .plt,
-              coefs = .es))
+              coefs = .es,
+              obs = .nobs))
 })
+
+obs <- sapply(event_studies, "[[", "obs")
