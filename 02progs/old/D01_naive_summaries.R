@@ -106,8 +106,6 @@ for (var in c("mi_rate", "fe_rate")) {
          plot = .plot, width = 8, height = 6, units = "in")
 }
 
-
-
 fwrite(df_naif, here("05prepdata/naive_tables_combined_data.csv"))
 
 ## Regressions
