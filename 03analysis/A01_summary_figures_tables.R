@@ -84,7 +84,7 @@ ggsave(filename = here("06figures/graphs/summary/coal_peak_unweighted.pdf"),
   geom_point(size = 1) +
   scale_x_continuous(minor_breaks = seq(-20, 20, 5)) +
   theme_paper +
-  labs(x = "Event time (years since coal production peak)",
+  labs(x = "Years since coal production peak",
        y = "Average standardized production level")
 ggsave(filename = here("06figures/graphs/summary/coal_peak_prod-wt.pdf"),
        width = figure_scales$width, height = figure_scales$height,
@@ -104,6 +104,7 @@ ggsave(filename = here("06figures/graphs/summary/coal_peak_prod-wt.pdf"),
   labs(x = "Calendar year of peak coal production",
        y = "Frequency") +
   theme_paper_histogram
+
 ggsave(filename = here("06figures/graphs/summary/hist_peak_calyr_all.pdf"),
        width = figure_scales$width, height = figure_scales$height, 
        units = figure_scales$units, plot = .plot)
@@ -122,7 +123,10 @@ ggsave(filename = here("06figures/graphs/summary/hist_peak_calyr_all.pdf"),
   scale_x_continuous(expand = c(0, 0.5)) +
   labs(x = "Calendar year of peak coal production",
        y = "Frequency") +
+  guides(linetype = guide_legend(position = "bottom",
+                                 title = NULL)) +
   theme_paper_histogram
+
 ggsave(filename = here("06figures/graphs/summary/hist_peak_calyr_interior.pdf"),
        width = figure_scales$width, height = figure_scales$height, 
        units = figure_scales$units, plot = .plot)
