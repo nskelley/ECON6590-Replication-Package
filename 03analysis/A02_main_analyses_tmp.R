@@ -128,4 +128,7 @@ event_studies <- lapply(1:nrow(all_es), function(rowi) {
 })
 
 obs <- sapply(event_studies, "[[", "obs")
+<<<<<<< HEAD
 obs
+=======
+>>>>>>> d3654f68a549fb6080a30bd9b9f52d8622e104d3
