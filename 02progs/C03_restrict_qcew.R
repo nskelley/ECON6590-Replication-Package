@@ -1,15 +1,23 @@
-setwd("/Users/pubpol6090/ECON6590-Final-Project")
-
 # ------------------------------------------------------------------------------
 # --------------------------- ECON6590 Final Project ---------------------------
-# --- Calculate coal wage share (coal wages / all wages) by county and year  ---
+# --- Merge CJARS (outcomes) and coal production data.                       ---
+# --------------- Robert Betancourt, Connor Bulgrin, Jenny Duan, ---------------
+# --------------------- Nicholas Skelley, and Addie Sutton ---------------------
+# ---------------------------- Created 01 Dec 2025 -----------------------------
+# ---------------------------- Updated 01 Dec 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
-install.packages("nanoparquet")
-library(tidyverse)
-library(data.table)
-library(nanoparquet)
+need <- c("here", "tidyverse", "data.table", "nanoparquet")
+have <- need %in% rownames(installed.packages())
+if (any(!have)) install.packages(need[!have])
+invisible(lapply(need, library, character.only = TRUE))
 
+# WD default to detect script folder and then move as needed
+path <- rstudioapi::getSourceEditorContext()$path
+scriptFolder <- sub(".*/", "", dirname(path))
+scriptName <- basename(path)
+here::i_am(paste(scriptFolder, scriptName, sep = "/"))
+rm(list = ls())
 # ------------------------------------------------------------------------------
 
 # Coal industries
@@ -18,7 +26,7 @@ coal_industries <- c("2121",   # Coal mining
 
 # Find all parquet files
 parquet_files <- list.files(
-  "/Users/pubpol6090/ECON6590-Final-Project/01data/supplemental/QCEW/combined/all_parquet",
+  here("01data/supplemental/QCEW/combined/all_parquet"),
   pattern = "\\.parquet$",
   recursive = TRUE,
   full.names = TRUE
@@ -27,7 +35,8 @@ parquet_files <- list.files(
 # Read and combine all parquet files
 county_data <- rbindlist(lapply(parquet_files, read_parquet))
 
-# Filter to county-level data (exclude state/national aggregates ending in "000")
+# Filter to county-level data (exclude state/national aggregates ending in 
+# "000")
 county_data <- county_data[!grepl("000$", area_fips)]
 
 # Calculate wage share by county-year
@@ -43,4 +52,4 @@ wage_share[, coal_wage_share := coal_wages / all_wages]
 wage_share[all_wages == 0, coal_wage_share := NA]
 
 # Save as CSV
-fwrite(wage_share, "/Users/pubpol6090/ECON6590-Final-Project/05prepdata/county_coal_wage_share.csv")
+fwrite(wage_share, here("05prepdata/county_coal_wage_share.csv"))

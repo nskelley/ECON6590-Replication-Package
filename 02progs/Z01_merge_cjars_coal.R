@@ -1,10 +1,10 @@
 # ------------------------------------------------------------------------------
 # --------------------------- ECON6590 Final Project ---------------------------
-# --- Merge CJARS (outcomes) and coal production data.                       ---
+# --- Merge CJARS (outcomes), coal production, and coal wage bill data.      ---
 # --------------- Robert Betancourt, Connor Bulgrin, Jenny Duan, ---------------
 # --------------------- Nicholas Skelley, and Addie Sutton ---------------------
 # ---------------------------- Created 21 Nov 2025 -----------------------------
-# ---------------------------- Updated 22 Nov 2025 -----------------------------
+# ---------------------------- Updated 01 Dec 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
 need <- c("here", "tidyverse", "data.table")
