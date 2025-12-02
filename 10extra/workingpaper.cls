@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{workingpaper}[11nov2025 \LaTeX custom class for working paper formatting]
 
-\LoadClass[12pt, letterpaper]{article}
+\LoadClass[11pt, letterpaper]{article}
 
 %% Packages
 \RequirePackage[margin=1in]{geometry}
