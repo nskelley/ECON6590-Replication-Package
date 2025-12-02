@@ -1,14 +1,3 @@
-@article{autor2013china,
-  title={The China Syndrome: Local Labor Market Effects of Import Competition in the United States},
-  author={Autor, David H. and Dorn, David and Hanson, Gordon H.},
-  journal={American Economic Review},
-  volume={103},
-  number={6},
-  pages={2121--2168},
-  year={2013},
-  publisher={American Economic Association}
-}
-
 @book{bartik_1991,
   title = {Who {{Benefits}} from {{State}} and {{Local Economic Development Policies}}?},
   author = {Bartik, Timothy J.},
@@ -56,22 +45,6 @@
   file = {/Users/nicholasskelley/Zotero/storage/8PHTIWJN/Borusyak and Hull - 2023 - Nonrandom Exposure to Exogenous Shocks.pdf}
 }
 
-@article{gagliardi2023rust,
-  title={The Rust Belt's Silver Lining: Manufacturing Decline and the Rise of Higher Education},
-  author={Gagliardi, Loris and Moretti, Enrico and Serafinelli, Michel},
-  journal={Working Paper},
-  year={2023}
-}
-
-@article{glaeser2003rise,
-  title={The Rise of the Skilled City},
-  author={Glaeser, Edward L. and Saiz, Albert},
-  journal={Brookings-Wharton Papers on Urban Affairs},
-  pages={47--105},
-  year={2003},
-  publisher={Brookings Institution Press}
-}
-
 @article{goldsmith-pinkham_2020,
   title = {Bartik {{Instruments}}: {{What}}, {{When}}, {{Why}}, and {{How}}},
   shorttitle = {Bartik {{Instruments}}},
@@ -98,13 +71,6 @@
   abstract = {U.S. coal production has fallen sharply since its peak in 2008. Appalachia has disproportionately borne the impacts of this decline, experiencing significant reductions in coal production, mining employment, and mine operations. Previous research has linked coal mine closures to local economic downturns, as affected communities have experienced job losses, population decline, and reduced local tax revenues. However, the long-term implications remain uncertain, as some research suggests the presence of a natural resource curse in which regions dependent on resource extraction struggle with weak economic development. In this paper, we use quasi-experimental methods to examine the impact of mine closures on local poverty in Appalachia. Analyzing 65 counties with mine closures between 2005 and 2009, we find that, over a decade, mine closures led to at least a 4-6 percent average reduction (1-2 percentage points) in their county’s poverty rate. We find suggestive evidence that local poverty reduction was driven by population decline (via net outmigration), wage increases, and rising educational investment (via employment and attainment). Overall, we find limited evidence of local economic decline in counties experiencing mine closures.},
   language = {en},
   file = {/Users/nicholasskelley/Zotero/storage/6NID8SV6/Nason et al. - Reversing the Natural Resource Curse Coal Mine Closures and Poverty in Appalachia.pdf}
-}
-
-@article{howard2024universities,
-  title={Universities and the Great Reallocation},
-  author={Howard, Greg and Manuelli, Rodolfo},
-  journal={Working Paper},
-  year={2024}
 }
 
 @article{young_2023,
@@ -283,7 +249,7 @@
 }
 
 @misc{binsreg,
-  title = {\{\{binsreg\}\}: {{Binscatter Estimation}} and {{Inference}}},
+  title = {Binsreg: {{Binscatter Estimation}} and {{Inference}}},
   author = {Cattaneo, Matias D. and Crump, Richard K. and Farrell, Max H. and Feng, Yingjie},
   year = 2024,
   month = jul,
@@ -510,16 +476,16 @@
   file = {/Users/nicholasskelley/Zotero/storage/5V8IFJG2/Callaway et al. - 2024 - Event Studies with a Continuous Treatment.pdf}
 }
 
-@misc{callaway_2025,
-  title = {\{contdid\}: {{Difference-in-Differences}} with a {{Continuous Treatment}}},
+@misc{contdid_pkg,
+  title = {Contdid: {{Difference-in-Differences}} with a {{Continuous Treatment}}},
   author = {Callaway, Brantly and {Goodman-Bacon}, Andrew and Sant'Anna, Pedro H. C.},
   year = 2025,
   copyright = {GPL-3},
   annotation = {note: R package version 0.1.0}
 }
 
-@misc{callaway_2021,
-  title = {\{did\}: {{Differences}} in {{Differences}}},
+@misc{did_pkg,
+  title = {Did: {{Differences}} in {{Differences}}},
   author = {Callaway, Brantly and Sant'Anna, Pedro H. C.},
   year = 2021,
   copyright = {GPL-2},
@@ -531,4 +497,60 @@
   author = {Finlay, Keith and {Mueller-Smith}, Michael and {CJARS Team}},
   year = 2024,
   address = {University of Michigan}
+}
+
+@misc{fixest_pkg,
+  title = {Fixest: {{Fast Fixed-Effects Estimations}}},
+  shorttitle = {Fixest},
+  author = {Berge, Laurent},
+  year = 2019,
+  month = sep,
+  doi = {10.32614/CRAN.package.fixest},
+  urldate = {2025-11-22},
+  abstract = {Fast and user-friendly estimation of econometric models with multiple fixed-effects. Includes ordinary least squares (OLS), generalized linear models (GLM) and the negative binomial. The core of the package is based on optimized parallel C++ code, scaling especially well for large data sets. The method to obtain the fixed-effects coefficients is based on Berge (2018) {$<$}https://github.com/lrberge/fixest/blob/master/\_DOCS/FENmlm\_paper.pdf{$>$}. Further provides tools to export and view the results of several estimations with intuitive design to cluster the standard-errors.},
+  copyright = {GPL-3},
+  howpublished = {Comprehensive R Archive Network},
+  annotation = {note: R package version 0.13.2}
+}
+
+@misc{callaway_2025,
+  title = {Difference-in-{{Differences}} with a {{Continuous Treatment}}},
+  author = {Callaway, Brantly and {Goodman-Bacon}, Andrew and Sant'Anna, Pedro H. C.},
+  year = 2025,
+  month = jun,
+  number = {arXiv:2107.02637},
+  eprint = {2107.02637},
+  primaryclass = {econ},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2107.02637},
+  urldate = {2025-12-01},
+  abstract = {This paper analyzes difference-in-differences designs with a continuous treatment. We show that treatment effect on the treated-type parameters can be identified under a generalized parallel trends assumption that is similar to the binary treatment setup. However, interpreting differences in these parameters across different values of the treatment can be particularly challenging due to selection bias that is not ruled out by the parallel trends assumption. We discuss alternative, typically stronger, assumptions that alleviate these challenges. We also provide a variety of treatment effect decomposition results, highlighting that parameters associated with popular linear two-way fixed-effects specifications can be hard to interpret, \textbackslash emph\{even\} when there are only two time periods. We introduce alternative estimation procedures that do not suffer from these drawbacks and show in an application that they can lead to different conclusions.},
+  archiveprefix = {arXiv},
+  keywords = {Economics - Econometrics},
+  file = {/Users/nicholasskelley/Zotero/storage/4NRRA3WF/Callaway et al. - 2025 - Difference-in-Differences with a Continuous Treatment.pdf;/Users/nicholasskelley/Zotero/storage/W64SK9DM/2107.html}
+}
+
+@misc{curtis_2023,
+  type = {Working {{Paper}}},
+  title = {Workers and the {{Green-Energy Transition}}: {{Evidence}} from 300 {{Million Job Transitions}}},
+  shorttitle = {Workers and the {{Green-Energy Transition}}},
+  author = {Curtis, E. Mark and O'Kane, Layla and Park, R. Jisung},
+  year = 2023,
+  month = aug,
+  series = {Working {{Paper Series}}},
+  number = {31539},
+  eprint = {31539},
+  publisher = {National Bureau of Economic Research},
+  doi = {10.3386/w31539},
+  urldate = {2025-12-02},
+  abstract = {Using micro-data representing over 130 million online work profiles, we explore transitions into and out of jobs most likely to be affected by a transition away from carbon-intensive production technologies. Exploiting detailed textual data on job title, firm name, occupation, and industry to focus on workers employed in carbon-intensive (“dirty”) and non-carbon-intensive (“green”) jobs, we find that the rate of transition from dirty to green jobs is rising rapidly, increasing ten-fold over the period 2005-2021 including a significant uptick in EV-related jobs in recent years. Overall however, fewer than 1 percent of all workers who leave a dirty job appear to transition to a green job. We find that the persistence of employment within dirty industries varies enormously across local labor markets; in some states, over half of all transitions out of dirty jobs are into other dirty jobs. Older workers and those without a college education appear less likely to make transitions to green jobs, and more likely to transition to other dirty jobs, other jobs, or non-employment. When accounting for the fact that green jobs tend to have later start dates, it appears that green and dirty jobs have roughly comparable job durations.},
+  archiveprefix = {National Bureau of Economic Research},
+  file = {/Users/nicholasskelley/Zotero/storage/NTRGYFIF/Curtis et al. - 2023 - Workers and the Green-Energy Transition Evidence from 300 Million Job Transitions.pdf}
+}
+
+@article{colmer_,
+  title = {Transitional {{Costs}} and the {{Decline}} of {{Coal}}: {{Worker-Level Evidence}}},
+  author = {Colmer, Jonathan and Krause, Eleanor and Lyubich, Eva and Voorheis, John},
+  language = {en},
+  file = {/Users/nicholasskelley/Zotero/storage/4QNF5UJC/Colmer et al. - Transitional Costs and the Decline of Coal Worker-Level Evidence.pdf}
 }
