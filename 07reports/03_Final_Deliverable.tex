@@ -7,12 +7,13 @@
 \addbibresource{09literature/bibliography.bib}
 
 \title{Criminal Mines: Evaluating the effects of the coal mining industry on incarceration and drug-related crime}
-\author[ ]{Robert Betancourt}
-\author[ ]{Connor Bulgrin}
-\author[ ]{Jenny Duan}
-\author[ ]{Nicholas Skelley}
-\author[ ]{Adeline Sutton}
-\affil[ ]{}
+\author{Robert Betancourt\qquad Connor Bulgrin \qquad Jenny Duan\\ Nicholas Skelley \qquad Adeline Sutton}
+%\author[ ]{Robert Betancourt}
+%\author[ ]{Connor Bulgrin}
+%\author[ ]{Jenny Duan}
+%\author[ ]{Nicholas Skelley}
+%\author[ ]{Adeline Sutton}
+%\affil[ ]{}
 
 % \keywods
 % \jel{K14, L71, O13, O14, O33}
@@ -26,15 +27,16 @@
 
 \section{Background}
 
-Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 billion short tons to 578 million, a 48.75\% decrease \parencite{coal_data_browser_eia}. In the same period, natural gas growth withdrawals have increased from 24.5 million (million cubic feet) to 45.6 million \parencite{u.s.energyinformation_2025}. Prior research has explored the effect of the coal decline on social effects. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. We contribute to the literature by studying the relationship between coal deindustrialization and crime at the county level using a continuous treatment difference-in-differences approach based on \textcite{callaway_2024a}.
+Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 billion short tons to 578 million, a 48.75\% decrease \parencite{coal_data_browser_eia}. In the same period, natural gas growth withdrawals have increased from 24.5 million (million cubic feet) to 45.6 million \parencite{u.s.energyinformation_2025}. Prior research has explored the effect of the coal decline on financial outcomes and education. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. We contribute to the literature by studying the relationship between coal deindustrialization and crime at the county level using a continuous treatment difference-in-differences approach based on \textcite{callaway_2024a}.
 
-Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share belonging to coal causes an increase in various crime statistics, including violent, property, and drug-related crime.
+Of course, any study that examines the welfare effects of job losses should consider whether workers were successfully able to transition to other jobs; \tk{textcite Curtis et al 2023 and Colmer et al 2024} find that workers who leave carbon-intensive jobs are extremely unlikely to transition to non-carbon-intensive jobs. Because of this, employment changes at the time of deindustrialization should not be correlated with job gains due to increased natural gas production during the same period.
+
+Our broad question of interest is ``How does deindustrialization impact crime outcomes?'' More specifically, we test whether a decline in a county's share of coal production causes an increase in felony charges and misdemeanors.
 
 \subsection{De-industrialization and exposure shock}
 
 Most other papers that look at declines in industrialization or manufacturing that use exposure shocks use exposure as a continuous variable. \textcite{howard2024universities} and \textcite{glaeser2003rise} both use baseline manufacturing employment shares (the peak of U.S manufacturing employment) as a measure for manufacturing exposure in different years. Similarly, \textcite{gagliardi2023rust} looks at the effect of de-industrialization on employment consequences in cities across six countries and uses the city's share of manufacturing employment in the year of its country’s manufacturing peak as treatment for subsequent changes in total employment. Former manufacturing hubs are defined as cities with an initial manufacturing employment share in the top tercile of their country's distribution, while middle and bottom terciles are used for comparison in their 2SLS regression using driving distance to historical colleges and universities as an instrument. \textcite{autor2013china} analyze the effects of rising Chinese import competition between 1990 and 2007 on US local labor markets, exploiting cross-market variation in import exposure stemming from initial differences in industry specialization. They define exposure as local industry employment shares in time \(t\) and exploit variation in local labor market exposure to Chinese import competition. 
 
-\tk{add stuff from Deliverable 1 here, add motivation to Background}
 
 \section{Methodology}
 
@@ -45,16 +47,15 @@ We use a continuous event study to estimate the impacts of production decline af
 \subsection{Continuous treatment event studies} 
 
 The standard binary treatment event study can be extended to the continuous treatment case. The following adapts the description from \cite{callaway_2024a} to our purpose.
+In a standard event study, the treatment is an event; a unit is untreated before the event and treated after.  The potential outcomes are $Y_{kt}(0)$ for individual unit (county) $k$'s outcome in time $t$ if $k$ was untreated and $Y_{kt}(1)$ if $k$ were treated.  We can extend this to the continuous case where $Y_{kt}(d)$ is the outcome of $k$ in time $t$ had the county received ``dose'' $d$.  In our context, $Y_{kt}(d)$ would be county $k$'s crime outcome in year $t$ if they had an initial decline in coal production from their peak of \tk{slope} $d$.
 
-\subsubsection{Potential outcomes and treatment effects}
+While in a standard event study the treatment effect is the difference between the treated and untreated potential outcomes, in the continuous case there are two types of causal effects: the level treatment effect and the causal response.  The level treatment effect of dose $d$ is the difference in the potential outcome given the county received dosage $d$ and the potential outcome given the county was untreated: $Y_{kt}(d)-Y_{kt}(0)$.  The causal response of dose $d$ is the slope of the level treatment effect at $d$ with respect to the dosage: $Y'_{kt}(d)$; this measures the effect of increasing the dosage incrementally.  
+In our context, the level treatment effect at $d$ would be the difference in the potential outcomes of a county when they had a decline of \tk{slope} $d$ compared to if they had no decline, while the causal response at $d$ would be how the outcome of county $k$ would change if they had a decline of $d+\epsilon$ compared to the actual dose $d$, which gets at how impactful having higher rates of decline is.
 
-In a standard event study, the treatment is an event; a unit is untreated before the event and treated after.  The potential outcomes are $Y_{kt}(0)$ for individual unit $k$'s outcome in time $t$ if $k$ was untreated and $Y_{kt}(1)$ if $i$ were treated.  We can extend this to the continuous case where $Y_{kt}(d)$ is the outcome of $k$ in time $t$ had the individual received ``dose'' $d$.  In our context, $Y_{kt}(d)$ would be county $k$'s crime outcome in year $t$ if they had an initial decline in coal production from their peak of slope $d$.
-
-While in a standard event study the treatment effect is the difference between the treated and untreated potential outcomes, in the continuous case there are two types of causal effects: the level treatment effect and the causal response.  The level treatment effect of dose $d$ is the difference in the potential outcome given the individual received dosage $d$ and the potential outcome given the individual was untreated: $Y_{kt}(d)-Y_{kt}(0)$.  The causal response of dose $d$ is the slope of the level treatment effect at $d$ with respect to the dosage: $Y'_{kt}(d)$; this measures the effect of increasing the dosage incrementally.  In our context, the level treatment effect at $d$ would be the difference in the potential outcomes of a county when they had a decline of $d$ compared to if they had no decline, while the causal response at $d$ would be how the outcome of county $k$ would change if they had a decline of $d+\epsilon$ compared to the actual dose $d$, which gets at how impactful having higher rates of decline is.
-
+\begin{comment}
 \subsubsection{Parameters of interest}
 
-The two parameters of interest then are the average level treatment effects and the average causal responses.  We consider the case where once an individual is treated with a particular dose, they remain treated with that dose thereafter.  Let $g$ denote the time the individual becomes treated.
+The two parameters of interest then are the average level treatment effects and the average causal responses.  We consider the case where once a county is treated with a particular dose, they remain treated with that dose thereafter.  Let $g$ denote the time the individual becomes treated.
 The average treatment effect (ATE) of dosage $d$ is
 \[
     ATE(g,t,d) = \mathbb{E}[Y_{kt}(g,d) - Y_{kt}(0)|G=g],
@@ -64,6 +65,7 @@ and the average causal response is
     ACR(g,t,d) = \frac{\partial ATE(g,t,d)}{\partial d} = \frac{\partial Y_{ktg}}{\partial d}.
 \]
 Under assumptions discussed in \ref{sec:assumps}, the ATE parameter is identified by $\beta_j$ in the estimating equation below.  
+\end{comment} %old ATE/ACR in continuous DiD parameters
 
 \subsection{Specification}
 
@@ -75,7 +77,7 @@ Under assumptions discussed in \ref{sec:assumps}, the ATE parameter is identifie
 \begin{itemize}
     \item $y_{kt}$ is an outcome in county $k$ in calendar year $t$. 
     \item For event time $j$, $j\equiv-1$ in the year of the county $k$'s coal production global (within time span of interest, omitting counties with edge maxima) maximum.
-    \item $\delta_{kt}$ is the treatment intensity/dose---the \emph{percent change} in coal production in county $k$ in time $t$ relative to event time $-1$.  This allows us to investigate heterogeneity in treatment effects by how quickly production declines.
+    \item $\delta_{kt}$ is the treatment intensity/dose---the \emph{percent change} in coal production in county $k$ in time $t$ relative to event time $-1$.  This allows us to investigate heterogeneity in treatment effects by how quickly production declines. \tk{@Nick how does this enter the estimation?}
     \item $\theta_t$ and $\phi_k$ are calendar year and county fixed effects.
 \end{itemize}
 
@@ -86,11 +88,11 @@ The dynamic treatment effects in this event study are $\beta_j$; this is the eff
 As this is an event study with continuous treatment intensities, it is subject to similar but stronger assumptions in order to interpret the treatment effect as causal (that is, the decline in the coal industry drives changes in crime). These are:
 
 \begin{enumerate}
-\item \textbf{No anticipation} This would imply that agents did not foresee a decline in coal production and changed their behavior as a result.
+\item \textbf{No anticipation} This would imply that agents (counties) did not foresee a decline in coal production and changed their behavior as a result.
 \item \textbf{Strong parallel trends} Strong parallel trends ``says that the average evolution of outcomes for the entire population if all experienced dose $d$ is equal to the path of outcomes that dose group $d$ actually experienced'' \parencite{callaway_2024a}.  In comparison, the parallel trends assumption in an event study says that the evolution of outcomes of treated and untreated individuals would be the same in the absence of treatment. Under the assumption of parallel trends but not \emph{strong} parallel trends, the event study identifies the average treatment on the treated (ATT) and is subject to selection concerns. According to \textcite{callaway_2024}, these selection concerns preclude causal interpretation because observed low-dose outcomes are not valid counterfactuals for what high-dose individuals would experience at the low dose. % this has a similar flavor to the negative weights problem
 \end{enumerate}
 
-Based on the event study figures in \ref{fig:binscatter_felony} and \ref{fig:binscatter_misdemeanor}, the lack of a significant difference from the rates in each year leading up to the peak suggests that counties pre-decline have similar trends in their crime outcomes. This lends evidence to support the above assumptions.\footnote{We stumbled upon this recent work on continuous difference-in-differences methods and assumptions relatively recently and are still in the process of identifying the best ways to go about justifying the strong parallel trends assumption, a task made somewhat more challenging given the recency of these developments in the methodology and the sparsity of empirical work applying these new methods} If there had been anticipation, we would expect to see a jump in coefficients on outcomes right before event time 0. If there had not been parallel trends, we would expect to see significant coefficients before 0 (this would mean that there is a differential effect between treated and untreated groups even before treatment).
+Based on the event study figures in \ref{fig:binscatter_felony} and \ref{fig:binscatter_misdemeanor}, the lack of a significant difference from the rates in each year leading up to the peak suggests that counties pre-decline have similar trends in their crime outcomes. This lends evidence to support the above assumptions.\footnote{We stumbled upon this recent work on continuous difference-in-differences methods and assumptions relatively recently and are still in the process of identifying the best ways to go about justifying the strong parallel trends assumption, a task made somewhat more challenging given the recency of these developments in the methodology and the sparsity of empirical work applying these new methods} While we cannot identify parallel trends from no anticipation, if there had been either, we would expect to see significant coefficients before event time $0$.  %If this were the case, this pattern could mean that behavior changed before the event (anticipation), or there is a differential effect between treated and untreated groups even before treatment (no parallel trends).
 
 \begin{comment}
 \begingroup
@@ -102,12 +104,13 @@ I think strong parallel trends may be supported by observing no pre-trends in th
 \endgroup
 
 \nb{Another robustness check may be to identify a post-peak average slope for coal production (via OLS) and use that slope as the dosage so that the dose doesn't change over time.}
-\end{comment}
+\end{comment} %notes on strong parallel trends
 
 \section{Data}
 
-Our data come from three primary sources. From CJARS, we obtain criminal justice outcomes aggregated by county, cohort year, sex, race, and binned age group. Table \ref{tab:cjars_vars} provides detailed variable definitions for the CJARS measures used in our analyses. To capture more detailed demographic and economic characteristics at the county level, we supplement with data from the American Community Survey (ACS) on age, sex, race, educational attainment, and wage and salary income. Finally, data on coal production by county come from detailed, mine-level data from the U.S. Energy Information Administration (EIA) and Mine Safety and Health Administration (MSHA). We aggregate coal data to the county-year level and obtain county-level raw coal production quantities for each year from 1983 to 2023. Our primary outcome variables are felony and misdemeanor rates, measured as the number of criminal charges per 100,000 county residents.
+Our data come from three primary sources. From CJARS, we obtain criminal justice outcomes aggregated by county, cohort year, sex, race, and binned age group. To capture more detailed demographic and economic characteristics at the county level, we supplement with data from the American Community Survey (ACS) on age, sex, race, educational attainment, and wage and salary income. Finally, data on coal production by county come from detailed, mine-level data from the U.S. Energy Information Administration (EIA) and Mine Safety and Health Administration (MSHA). We aggregate coal data to the county-year level and obtain county-level raw coal production quantities for each year from 1983 to 2023. Our primary outcome variables are felony and misdemeanor rates, measured as the number of criminal charges per 100,000 county residents.
 
+\begin{comment}
 \begin{table}[!htp]
     \centering
     \caption{CJARS Variable Definitions}
@@ -136,7 +139,13 @@ Our data come from three primary sources. From CJARS, we obtain criminal justice
         N\_pro\_rate & Resident population for probation statistic \\
         \bottomrule
     \end{tabular}
+
+    \begin{minipage}
+        \footnotesize
+        \item \textit{Notes:} This table lists the relevant variables to our analysis from the CJARS data. The variables \texttt{fips} through \tk{\texttt{repeat_contact}} are covariates while \textttt{fe_rate} through \texttt{N_pro_rate} are outcome variables.
+    \end{minipage}
 \end{table}
+\end{comment} %old CJARS variable table
 
 \subsection{Event study window}
 
@@ -144,62 +153,52 @@ Our data come from three primary sources. From CJARS, we obtain criminal justice
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        % \includegraphics[width=\linewidth]{06figures/graphs/}
-        \caption{\tk{}}
+        \includegraphics[width=\linewidth]{06figures/graphs/n_counties_by_window.pdf}
+        \caption{Unique counties}
         % \label{fig:}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        % \includegraphics[width=\linewidth]{06figures/graphs/}
-        \caption{\tk{}}
+        \includegraphics[width=\linewidth]{06figures/graphs/n_obs_by_window.pdf} \tk{@Nick, where are the squares?}
+        \caption{Unique county-years}
         % \label{fig:}
     \end{subfigure}
-    \caption{\tk{}}\medskip
+    \caption{Optimal Event Window}\medskip
     
     \begin{minipage}{0.9\linewidth}
-        \footnotesize\textit{Notes}: \tk{}
+        \footnotesize\textit{Notes}: Panel (a) shows how many unique counties exist in the data at each window size.  Circles represent all counties with coal data and squares represent counties that exist in the CJARS data.  For example, when we consider three years before a peak and three years after, there are 50 counties with coal production data and approximately 20 counties with CJARS data.  Panel (b) shows how many observations are in the data at each 
     \end{minipage}
 \end{figure}
+
+\begin{table}[!htp]
+    \centering
+    \caption{States Represented in Balanced Sample}
+
+    \tk{Add table} %For Figure 1 - is 1b also the balanced sample? I would assume no because I don’t think you have 2025 data from CJARS and yet you have some 2020 calendar years? Might also be useful to do this graph for the balanced sample you use to estimate the event study?  Similarly maybe also show Figure 2 for the balanced sample?
+\end{table}
 
 \section{Results}
 
-Descriptively, we include Figure \ref{fig:hist_peak_calyr_all} to provide the number of counties with peak coal production for each calendar year. For the purposes of our event study, and because CJARS observations are sometimes missing for smaller counties, we also include Figure \ref{fig:hist_peak_calyr_interior}, which describes counts of peak coal production for each calendar year, restricted to counties whose peak production years are strictly in the interior of their CJARS observations. We observe that within the full analysis sample, peak coal production appears to occur disproportionately before 2010. The years of peak coal production, however, are dispersed broadly over the available range, lending credibility to the assumption that there are no exogenous, contemporaneous shocks that may confound our interpretation of any effect observed in the event study.
-
-\begin{figure}[!htp]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{06figures/graphs/summary/hist_peak_calyr_all.pdf}
-        \caption{Analysis Sample}
-        \label{fig:hist_peak_calyr_all}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{06figures/graphs/summary/hist_peak_calyr_interior.pdf}
-        \caption{CJARS Interiors Only}
-        \label{fig:hist_peak_calyr_interior}
-    \end{subfigure}
-    \caption{Distribution of Calendar Years of Peak Coal Production}\medskip
-    
-    \begin{minipage}{0.9\linewidth}
-        \footnotesize\textit{Notes}: Histograms showing the distributions of calendar years in which counties achieved their peak coal production. The interiors-only figure, Figure \ref{fig:hist_peak_calyr_interior}, shows the distribution for the analysis sample of counties, restricted further to exclude counties whose peak production years are their first year observed in the CJARS data.
-    \end{minipage}
-\end{figure}
+\subsection{Coal Peak Description}
+Descriptively, we include Figure \ref{fig:hist_peak_calyr_all} to provide the number of counties with peak coal production for each calendar year. For the purposes of our event study, and because CJARS observations are sometimes missing for smaller counties, we also include Figure \ref{fig:hist_peak_calyr_interior}, which describes counts of peak coal production for each calendar year, restricted to counties whose peak production years are strictly in the interior of their CJARS observations. We observe that within the full analysis sample, peak coal production appears to occur disproportionately before 2010. The years of peak coal production, however, are dispersed broadly over the available range, lending credibility to the assumption that there are no exogenous, contemporaneous shocks that may confound our interpretation of any effect observed in the event study. 
 
 Figure \ref{fig:coal_peak_unweighted} shows the average county-level $z$-scores without weights. Coal production varies widely across counties, so we normalize coal production within each county using the within-county $z$-score of production quantity. An event time of \(0\) indicates the first year after each county's coal production peak. As expected, this figure indicates that average coal production increases up to event time \(-1\) and then declines. Figure \ref{fig:coal_peak_prod-wt} depicts the same figure where each county is weighted by the raw quantity of coal produced in the county at event time \(-1\). Notably, the average rate at which production increases before reaching peak production is visually similar to the rate of decline after the peak. This observation raises the concern that if coal production affects crime outcomes symmetrically for increases and decreases in production, then we may either observe significant pre-event trends or no post-event trends, the latter of which occurs.
 
+\subsection{Main Analysis}
 \begin{figure}[!htp]
     \centering
+    \tk{Change to analysis sample vs. all counties}
+    
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\linewidth]{06figures/graphs/summary/coal_peak_unweighted.pdf}
-        \caption{Unweighted Means}
+        \caption{All Counties}
         \label{fig:coal_peak_unweighted}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{06figures/graphs/summary/coal_peak_prod-wt.pdf}
-        \caption{Weighted Means}
+        % \includegraphics[width=\linewidth]{06figures/graphs/summary/coal_peak_prod-wt.pdf}
+        \caption{Analysis Sample}
         \label{fig:coal_peak_prod-wt}
     \end{subfigure}
     \caption{Average County-Level $z$-Scores}\label{fig:coal_peak}\medskip
@@ -209,11 +208,18 @@ Figure \ref{fig:coal_peak_unweighted} shows the average county-level $z$-scores 
     \end{minipage}
 \end{figure}
 
-Figures \ref{fig:binscatter_felony} and \ref{fig:binscatter_misdemeanor} depict our event studies of interest. They present the average change in the annual charge rate (number of charges per 100,000 residents) relative to the year in which coal production was the highest. In both of these, the lack of a significant difference from the rates in each year before event time \(0\) is evidence that pre-trends hold. Similarly, the lack of a jump in average change in the years leading up to event time \(0\) is evidence that our no anticipation assumption holds.
+Figures \ref{fig:binscatter_felony} and \ref{fig:binscatter_misdemeanor} depict our event studies of interest. They present the average change in the annual charge rate (number of charges per 100,000 residents) relative to the year in which coal production was the highest. %In both of these, the lack of a significant difference from the rates in each year before event time \(0\) is evidence that pre-trends hold. Similarly, the lack of a jump in average change in the years leading up to event time \(0\) is evidence that our no anticipation assumption holds.
 
-Figure \ref{fig:binscatter_felony} suggests that the number of years since the peak in coal production did not have a significant effect on the rate of felony charges. At first glance, Figure \ref{fig:binscatter_misdemeanor} indicates that the number of years since the peak may have had a slight increase on the rate of misdemeanor charges. However, for many of these years, we cannot reject the null at a 95\% confidence interval. We are also skeptical of the validity of the parallel trends assumptions, as visual inspection suggests that the misdemeanor rate may have been increasing prior to the event time and merely continued afterwards.
+Figure \ref{fig:binscatter_felony} suggests that the number of years since the peak in coal production did not have a significant effect on the rate of felony charges. At first glance, Figure \ref{fig:binscatter_misdemeanor} indicates that the number of years since the peak may have had a slight increase on the rate of misdemeanor charges. However, for many of these years, we cannot reject the null at a 95\% confidence interval. We are also skeptical of the validity of the parallel trends assumptions, as visual inspection suggests that the misdemeanor rate may have been increasing prior to the event time and merely continued afterwards.  Lastly, it is important to recall that the continuous treatment event study uses the initial coal production decline (treatment) as a fixed measure throughout the post-period, so our interpretation is limited such that any effects can only be attributed to the first dip in production after the peak.  We discuss this further in Section \ref{sec:robustness}, and use the difference in slope magnitudes pre- and post-peak as a robustness check in the following section. %Section \ref{sec:slopemags}.
 
 These findings are inconsistent with much of the literature. For instance, \textcite{welch_2020} find that coal deindustrialization negatively impacted local education revenue, which makes our null finding unexpected. Similarly, \textcite{schept_2022} argues that the pattern of extraction, crisis, and profiteering contributed to rising incarceration rates in Central Appalachia. Our results suggest that the deindustrialization of coal in the US did not substantially impact felony and misdemeanor crime rates. However, these results should be interpreted with caution. Among other concerns and opportunities for more robust analysis discussed in Section \ref{sec:robustness}, the relatively small sample of counties we can observe (212 counties in the panel with valid felony rates, and 207 counties in the same panel for misdemeanors) leaves us unable to reliably detect small effects.
+
+\subsection{Robustness Check} \label{sec:slopemags}
+\tk{Rambachan and Roth for misdemeanor pretrend}
+
+\tk{Add slope magnitude difference robustness check}
+
+Describe the results
 
 \begin{figure}[!htp]
     \centering
@@ -237,11 +243,16 @@ These findings are inconsistent with much of the literature. For instance, \text
     \end{minipage}
 \end{figure}
 
+\begin{table}[!htp]
+    \centering
+    \caption{\tk{Difference-in-Differences Table}}
+\end{table}
+
 \section{Discussion}\label{sec:robustness}
 
 Although we find null results that suggest that the number of years since coal production peak (deindustrialization) did not have a significant impact on felony rates at the county level, our identification strategy faces several potential threats to validity, and further robustness checks are needed to confirm our findings.
 
-We first note that our continuous-treatment event study design assumes that the dose level remains constant after the event: that a unit is treated at dose $d$ and maintains that dose thereafter. In our setting, we are then identifying only the effect of the steepness of the initial decline in coal production, and not the trend in subsequent years. This restriction limits our interpretation, as it might be that after the initial decline, two counties with the same initial decline diverge such that one drops more sharply than the other (faster deindustrialization). Under the current specification, these two counties are assumed to have the same dose, even though their crime outcomes may change heterogeneously due to their later divergence. We plan to investigate dynamic dose strategies to flesh this possibility out, though this appears to be beyond the current frontier in the difference-in-differences literature.
+We first note that our continuous-treatment event study design assumes that the dose (coal decline slope) remains constant after the event: that a unit is treated at dose $d$ and maintains that dose thereafter. In our setting, we are then identifying only the effect of the steepness of the initial decline in coal production, and not the trend in subsequent years. This restriction limits our interpretation, as it might be that after the initial decline, two counties with the same initial decline diverge such that one drops more sharply than the other (faster deindustrialization). Under the main specification, these two counties are assumed to have the same dose, even though their crime outcomes may change heterogeneously due to their later divergence. \tk{Add robustness check discussion - slope magnitudes} %We plan to investigate dynamic dose strategies to flesh this possibility out, though this appears to be beyond the current frontier in the difference-in-differences literature.
 
 A key concern is that coal production and employment may decline due to broader macroeconomic conditions rather than industry-specific shocks. For instance, coal production may fall during recessions due to weakening global economic conditions and reduced energy demand, while criminal justice outcomes may also respond to these same macroeconomic factors through unemployment and economic distress. Specifically, in our data, we are concerned about the confounding effect of the 2008 financial crisis, as the global recession could plausibly affect both our treatment and outcome variables. The relationship between coal production peaks and crime could reflect common responses to business cycles rather than causal effects of deindustrialization. To address this threat, future robustness checks should include state-by-year fixed effects, which would absorb any state-level policy responses to recessions (such as changes in criminal justice enforcement or social safety net programs) as well as common macroeconomic shocks affecting all counties within a state. This would isolate effects from within-state, cross-county variation independent of state-level trends.
 
