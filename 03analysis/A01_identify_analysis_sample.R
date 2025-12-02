@@ -4,11 +4,14 @@
 # --------------- Robert Betancourt, Connor Bulgrin, Jenny Duan, ---------------
 # --------------------- Nicholas Skelley, and Addie Sutton ---------------------
 # ---------------------------- Created 26 Nov 2025 -----------------------------
-# ---------------------------- Updated 26 Nov 2025 -----------------------------
+# ---------------------------- Updated 02 Dec 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
 need <- c("here", "tidyverse", "data.table", "readxl")
 have <- need %in% rownames(installed.packages())
+if ("tabtex" %in% need & !("tabtex" %in% installed.packages())) {
+  devtools::install_github("nskelley/tabtex")
+}
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
 
@@ -93,12 +96,16 @@ rownames(window_obs) <- NULL
   ggplot(aes(x = window, y = nobs, linetype = obs_type, shape = obs_type)) +
   geom_point() +
   geom_line() +
-  scale_linetype_manual(values = c("dashed", "solid")) +
+  scale_linetype_manual(values = c("22", "solid")) +
   scale_shape_manual(values = c(19, 15)) +
   labs(x = "Event study window size",
        y = "Num. unique units",
        linetype = "Unit types",
        shape = "Unit types") +
+  guides(linetype = guide_legend(position = "top",
+                                 title = NULL),
+         shape = guide_legend(position = "top",
+                              title = NULL)) +
   theme_paper
 
 ggsave(filename = here("06figures/graphs/n_counties_by_window.pdf"),
@@ -106,12 +113,19 @@ ggsave(filename = here("06figures/graphs/n_counties_by_window.pdf"),
        units = figure_scales$units, plot = .plot)
 
 ## Plot numbers of observations (unique valid cohort-*years*) by window size
-.plot <- ggplot(window_obs, aes(x = window, y = nvalid * 2 * window)) +
-  geom_point() +
+.plot <- ggplot(window_obs, aes(x = window, y = nvalid * 2 * window,
+                                linetype = TRUE)) +
+  geom_point(shape = 15) +
   geom_line() +
   labs(x = "Event study window size",
        y = "Num. unique county-years") +
-  theme_paper
+  theme_paper +
+  guides(linetype = guide_legend(position = "top",
+                                 title = NULL,
+                                 override.aes = list(alpha = 0),
+                                 theme = theme(
+                                   legend.text = element_text(color = NA)
+                                   )))
 
 ggsave(filename = here("06figures/graphs/n_obs_by_window.pdf"),
        width = figure_scales$width, height = figure_scales$height,
@@ -153,8 +167,12 @@ analysis_coal |>
   mutate(state_fips = str_sub(fips, 1, 2)) |>
   left_join(fips_xwalk, by = "state_fips") |>
   group_by(state_fips, state_name) |>
-  summarise(nobs = n()) ## TK need to rewrite tabtex to create just a tabular
-
+  summarise(nobs = n()) |>
+  ungroup() |>
+  select(-state_fips) |>
+  tabtex::tabtex(out = here("06figures/tables/state_frequency.tex"),
+                 headings = c("state_name" = "State",
+                              "nobs" = "Frequency"))
 
 ## ECDF of peak coal production years --- analysis panel vs. all coal counties
 analysis_coal |>

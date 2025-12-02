@@ -30,7 +30,6 @@ coal <- fread(here("05prepdata/coal_production_by_county.csv"),
               colClasses = list("character" = "fips")) |>
   rename_with(~ sub("(\\_prod)$", "_coal_prod", .x))
 
-
 ## Merge and prep data
 coal_cjars <- inner_join(cjars, coal, by = c("cohort_year" = "year", "fips")) |>
   # For each county, identify (1) first year in data, (2) last year in data,
@@ -39,6 +38,12 @@ coal_cjars <- inner_join(cjars, coal, by = c("cohort_year" = "year", "fips")) |>
   mutate(first_year = min(cohort_year),
          last_year = max(cohort_year),
          coal_prod_max = max(tot_coal_prod),
+         county_pop = case_when(N_fe_rate == N_mi_rate ~ N_fe_rate, 
+                                is.na(N_fe_rate) & !is.na(N_mi_rate) ~ 
+                                  N_mi_rate,
+                                !is.na(N_fe_rate) & is.na(N_mi_rate) ~
+                                  N_fe_rate,
+                                TRUE ~ NA),
          peak_coal_prod_year = 
            unique(cohort_year[tot_coal_prod == coal_prod_max])[1]) |>
   # Remove counties for which production is always increasing 
@@ -48,7 +53,6 @@ coal_cjars <- inner_join(cjars, coal, by = c("cohort_year" = "year", "fips")) |>
   # Event time and log production
   mutate(event_time = cohort_year - peak_coal_prod_year - 1,
          log_coal_prod = log(tot_coal_prod))
-
 
 ## Create a codebook for the remaining data with summary stats/tables
 
