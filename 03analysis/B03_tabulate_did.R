@@ -55,7 +55,7 @@ left_join(.tb[[1]], .tb[[2]], by = "rown") |>
   # Reformat numbers for LaTeX
   mutate(across(where(is.numeric), 
                 ~ ifelse(rown == "Obs.", paste0("$", sprintf("%.f", .x), "$"),
-                         paste0("$", sprintf("%.2f", .x), "$")))) |>
+                         paste0("$", sprintf("%4.2f", .x), "$")))) |>
   # Save table as a tabular in a .tex file
   tabtex::tabtex(out = here("06figures/tables/event_study_table.tex"),
                  headings = c("rown" = "", "felony" = "Felony charges",
