@@ -15,7 +15,7 @@ This replication package is divided into six subfolders that follow the process 
 | `03analysis/` | Contains all scripts used to analyze the data that result in tables or figures referenced in the text. |
 | `04work/` | Contains raw output and intermediate R objects. |
 | `05prepdata/` | Contains cleaned and prepared data sets used for further cleaning and for analysis. Data in `05prepdata/` contain suffixes indicating which script produced them. E.g., the suffix "\_02-A01" indicates that the data were produced by the script in `02progs/` with the "A01_" prefix. |
-| `06figures` | Contains the final exhibits used in the paper and reports. |
+| `06figures/` | Contains the final exhibits used in the paper and reports. |
 
 ## Running the Code
 
