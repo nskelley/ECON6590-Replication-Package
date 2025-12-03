@@ -9,9 +9,6 @@
 # Packages
 need <- c("here", "tidyverse", "data.table", "readxl")
 have <- need %in% rownames(installed.packages())
-if ("tabtex" %in% need & !("tabtex" %in% installed.packages())) {
-  devtools::install_github("nskelley/tabtex")
-}
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
 
@@ -150,31 +147,6 @@ analysis_coal <- coal_cjars |>
   ungroup()
 
 fwrite(analysis_coal, here("05prepdata/CJARS-Coal_Analysis_Sample_03-A01.csv"))
-
-
-## Tabulate states where analysis counties are located
-# 2-digit FIPS code to state name crosswalk
-fips_xwalk <- read_excel(here("01data/helper/fips_xwalk.xlsx"),
-                         col_types = rep("text", 3)) |>
-  mutate(fips = ifelse(str_length(fips) == 4, paste0("0", fips), fips),
-         state_fips = str_sub(fips, 1, 2)) |>
-  filter(grepl("000$", fips)) |>
-  select(state_fips, state_name = county_name)
-
-# Create table of states where the analysis counties are located
-analysis_coal |>
-  select(fips) |>
-  unique() |>
-  mutate(state_fips = str_sub(fips, 1, 2)) |>
-  left_join(fips_xwalk, by = "state_fips") |>
-  group_by(state_fips, state_name) |>
-  summarise(nobs = n()) |>
-  ungroup() |>
-  select(-state_fips) |>
-  tabtex::tabtex(out = here("06figures/tables/state_frequency.tex"),
-                 headings = c("state_name" = "State",
-                              "nobs" = "Frequency"))
-
 
 ## ECDF of peak coal production years --- analysis panel vs. all coal counties
 .plot <- analysis_coal |>

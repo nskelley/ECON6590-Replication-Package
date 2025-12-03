@@ -27,6 +27,10 @@ cjars_load <- c("fips", "cohort_year", "sex", "race", "age_group", "off_type",
 oldSize <- mem.maxVSize()
 mem.maxVSize(1e11)
 
+# cjars.raw <- fread(here("01data/county/county_data.csv"), 
+#                    select = cjars_load,
+#                    colClasses = c(fips = "character"))
+
 cjars.raw <- fread(here("01data/Replication_CJARS.csv.gz"))
 
 cjars <- cjars.raw |>
