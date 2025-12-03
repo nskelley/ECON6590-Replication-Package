@@ -159,13 +159,13 @@ Our data come from three primary sources. From the Criminal Justice Administrati
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{06figures/graphs/n_counties_by_window.pdf}
+        \includegraphics[width=\linewidth]{06figures/graphs/sample/n_counties_by_window.pdf}
         \caption{Unique counties}
         \label{fig:counties_in_windows}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{06figures/graphs/n_obs_by_window.pdf}
+        \includegraphics[width=\linewidth]{06figures/graphs/sample/n_obs_by_window.pdf}
         \caption{Unique county-years}
         \label{fig:cy_in_windows}
     \end{subfigure}
@@ -256,7 +256,13 @@ Describe the results
 \begin{table}[!htp]
     \centering
     \caption{\tk{Difference-in-Differences Table}}
+    \include{06figures/tables/event_study_table_tmp}
+
+    \begin{minipage}{0.8\linewidth}
+        \footnotesize\textit{Notes}: \tk{Hello world!}
+    \end{minipage}
 \end{table}
+
 
 \section{Discussion}\label{sec:robustness}
 
@@ -265,6 +271,29 @@ Although we find null results that suggest that the number of years since coal p
 We first note that our continuous-treatment event study design assumes that the dose (coal decline slope) remains constant after the event: that a unit is treated at dose $d$ and maintains that dose thereafter. In our setting, we are then identifying only the effect of the steepness of the initial decline in coal production, and not the trend in subsequent years. This restriction limits our interpretation, as it might be that after the initial decline, two counties with the same initial decline diverge such that one drops more sharply than the other (faster de-industrialization). Under the main specification, these two counties are assumed to have the same dose, even though their crime outcomes may change heterogeneously due to their later divergence. \tk{Add robustness check discussion - slope magnitudes} %We plan to investigate dynamic dose strategies to flesh this possibility out, though this appears to be beyond the current frontier in the difference-in-differences literature.
 
 A key concern is that coal production and employment may decline due to broader macroeconomic conditions rather than industry-specific shocks. For instance, coal production may fall during recessions due to weakening global economic conditions and reduced energy demand, while criminal justice outcomes may also respond to these same macroeconomic factors through unemployment and economic distress. Specifically, in our data, we are concerned about the confounding effect of the 2008 financial crisis, as the global recession could plausibly affect both our treatment and outcome variables. The relationship between coal production peaks and crime could reflect common responses to business cycles rather than causal effects of de-industrialization. To address this threat, future robustness checks should include state-by-year fixed effects, which would absorb any state-level policy responses to recessions (such as changes in criminal justice enforcement or social safety net programs) as well as common macroeconomic shocks affecting all counties within a state. This would isolate effects from within-state, cross-county variation independent of state-level trends.  
+
+\begin{figure}[!htp]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{06figures/graphs/event_study/ES_felony_slopedose.pdf}
+        \caption{Felony Charges}
+        \label{fig:es_slope_felony}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{06figures/graphs/event_study/ES_misdemeanor_slopedose.pdf}
+        \caption{Misdemeanor Charges}
+        \label{fig:es_slope_misdemeanor}
+    \end{subfigure}
+
+    \caption{Event Studies of Crime Rates Using Alternative Dose}\label{fig:es_slopedose}\medskip
+    
+    \begin{minipage}{0.9\linewidth}
+        \footnotesize\textit{Notes}: \tk{Change in slope used as dosage}
+    \end{minipage}
+\end{figure}
+
 
 Our use of coal production as the treatment variable, rather than coal employment, presents another limitation. Coal production can increase due to technological improvements in productivity per worker, even as employment declines. Our hypothesized mechanisms connecting de-industrialization to crime outcomes are labor market disruptions, including unemployment and transitions; coal employment would be a more direct measure of the industry shock, albeit one more subject to local endogeneity. U.S. coal employment peaked in the early 1900s, well before our CJARS data coverage, which begins in cohort year 2000. This temporal mismatch means our event study may misidentify the timing of unemployment effects. Counties that reached peak coal production in our data may have experienced decades of declining coal employment prior. Future robustness checks should incorporate coal industry wage bill data, which would better capture employment-specific effects by weighting employment changes by compensation levels. This approach would help isolate the influence of industrial \emph{employment} on crime. Additionally, if we can get access to longer-run crime data, using peak coal employment rather than peak production would provide a more direct test of the effect of de-industrialization on crime outcomes.
 
