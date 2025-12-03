@@ -1,5 +1,9 @@
 # Replication Package for: Criminal Mines
 
+## Downloading
+
+To download this replication package from GitHub, you can either run `git clone "https://github.com/nskelley/ECON6590-Replication-Package"` in the terminal on your local device, or you can select `Code > Download Zip` from the [repository's home page on GitHub](https://www.github.com/nskelley/ECON6590-Replication-Package).
+
 ## Package Organization
 
 This replication package is divided into six subfolders that follow the process of developing results from raw data to production-ready tables and figures.
