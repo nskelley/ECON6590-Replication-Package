@@ -1,7 +1,5 @@
 # Data files
 *.dta
-*.xlsx
-*.xls
 *.rds
 *.qs
 *.sav
