@@ -55,6 +55,7 @@ This replication package depends on R version 4.5.2 (2025-10-31) -- "[Not] Part 
 | `stringr` | `1.6.0` |
 | `broom` | `1.0.10` |
 | `fixest` | `0.13.2` |
+| `R.utils` | `2.13.0` |
 
 #### `here`
 
