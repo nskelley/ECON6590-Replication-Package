@@ -12,11 +12,7 @@ have <- need %in% rownames(installed.packages())
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
 
-# WD default to detect script folder and then move as needed
-path <- rstudioapi::getSourceEditorContext()$path
-scriptFolder <- sub(".*/", "", dirname(path))
-scriptName <- basename(path)
-here::i_am(paste(scriptFolder, scriptName, sep = "/"))
+here::i_am("02progs/Z01_merge_cjars_coal.R")
 rm(list = ls())
 # ------------------------------------------------------------------------------
 
@@ -26,7 +22,7 @@ cjars <- fread(here("05prepdata/CJARS_Limited_02-B01.csv.gz"),
                colClasses = list("character" = "fips"))
 
 # Load coal
-coal <- fread(here("05prepdata/Coal-Production-by-County_02-A02.csv"),
+coal <- fread(here("05prepdata/Coal-Production-by-County_02-A01.csv"),
               colClasses = list("character" = "fips")) |>
   rename_with(~ sub("(\\_prod)$", "_coal_prod", .x))
 

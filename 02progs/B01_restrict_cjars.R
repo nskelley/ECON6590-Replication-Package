@@ -12,11 +12,7 @@ have <- need %in% rownames(installed.packages())
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
 
-# WD default to detect script folder and then move as needed
-path <- rstudioapi::getSourceEditorContext()$path
-scriptFolder <- sub(".*/", "", dirname(path))
-scriptName <- basename(path)
-here::i_am(paste(scriptFolder, scriptName, sep = "/"))
+here::i_am("02progs/B01_restrict_cjars.R")
 rm(list = ls())
 # ------------------------------------------------------------------------------
 
@@ -31,12 +27,7 @@ cjars_load <- c("fips", "cohort_year", "sex", "race", "age_group", "off_type",
 oldSize <- mem.maxVSize()
 mem.maxVSize(1e11)
 
-# Load CJARS and filter to relevant years
-cjars.raw <- fread(here("01data/county/county_data.csv"), 
-                   select = cjars_load,
-                   colClasses = c(fips = "character"))
-
-# cjars.raw <- fread(here("01data/repl_smaller/Replication_CJARS.csv.gz"))
+cjars.raw <- fread(here("01data/Replication_CJARS.csv.gz"))
 
 cjars <- cjars.raw |>
   filter(if_any(ends_with("_rate"), ~ !is.na(.)),

@@ -14,11 +14,7 @@ have <- need %in% rownames(installed.packages())
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
 
-# WD default to detect script folder and then move as needed
-path <- rstudioapi::getSourceEditorContext()$path
-scriptFolder <- sub(".*/", "", dirname(path))
-scriptName <- basename(path)
-here::i_am(paste(scriptFolder, scriptName, sep = "/"))
+here::i_am("02progs/A01_prep_raw_coal.R")
 rm(list = ls())
 # ------------------------------------------------------------------------------
 
@@ -35,7 +31,7 @@ rows <- lapply(1983:2023, function(x) {
     .ext <- ".xlsx"
   }
   
-  .df <- read_excel(here("01data/eia_coal/",
+  .df <- read_excel(here("01data/eia_coal",
                          .dir,
                          paste0("coalpublic", x, .ext)),
                     skip = 3) |>
@@ -139,8 +135,7 @@ coal_num <- coal_fips |>
             tot_prod = sum(coal_prod_n, na.rm = TRUE)) |>
   ungroup()
 
-
 ## Save raw coal data
 data.table::fwrite(coal_num,
                    file = here("05prepdata",
-                               "Coal-Production-by-County_02-A02.csv"))
+                               "Coal-Production-by-County_02-A01.csv"))

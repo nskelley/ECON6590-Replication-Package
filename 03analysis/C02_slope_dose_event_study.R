@@ -12,11 +12,7 @@ have <- need %in% rownames(installed.packages())
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
 
-# WD default to detect script folder and then move as needed
-path <- rstudioapi::getSourceEditorContext()$path
-scriptFolder <- sub(".*/", "", dirname(path))
-scriptName <- basename(path)
-here::i_am(paste(scriptFolder, scriptName, sep = "/"))
+here::i_am("03analysis/C02_slope_dose_event_study.R")
 rm(list = ls())
 # ------------------------------------------------------------------------------
 

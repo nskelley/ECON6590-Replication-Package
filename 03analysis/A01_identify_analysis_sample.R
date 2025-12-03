@@ -15,11 +15,7 @@ if ("tabtex" %in% need & !("tabtex" %in% installed.packages())) {
 if (any(!have)) install.packages(need[!have])
 invisible(lapply(need, library, character.only = TRUE))
 
-# WD default to detect script folder and then move as needed
-path <- rstudioapi::getSourceEditorContext()$path
-scriptFolder <- sub(".*/", "", dirname(path))
-scriptName <- basename(path)
-here::i_am(paste(scriptFolder, scriptName, sep = "/"))
+here::i_am("03analysis/A01_identify_analysis_sample.R")
 rm(list = ls())
 # ------------------------------------------------------------------------------
 
