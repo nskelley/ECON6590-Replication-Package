@@ -1,5 +1,6 @@
 # `here` package setup for local directory management
 if (!("here" %in% utils::installed.packages())) install.packages("here")
+if (!("R.utils" %in% utils::installed.packages())) install.packages("R.utils")
 here::i_am("00_run_all_code.R")
 setwd(here::here())
 
