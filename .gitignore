@@ -30,7 +30,6 @@
 # Directories to ignore
 **/old/
 
-
 # Editor files
 .vscode/
 .idea/
