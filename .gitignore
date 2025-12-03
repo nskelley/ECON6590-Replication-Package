@@ -1,5 +1,4 @@
 # Data files
-*.csv*
 *.dta
 *.xlsx
 *.xls
@@ -28,12 +27,9 @@
 **.DS_Store
 ._*
 
-# Specific folders
-**old/
-10extra
-07reports
-08manuscript
-09literature
+# Directories to ignore
+**/old/
+
 
 # Editor files
 .vscode/
@@ -63,12 +59,4 @@
 !05prepdata/**.csv*
 05prepdata/old/
 
-# Allow real GDP by industry data
-!01data/supplemental/GDP/*.csv
-
-# Literature review
-09literature/**/*
-!09literature/*.bib
-!09literature/*.xlsx
-09literature/~*.xlsx
 .Rproj.user
