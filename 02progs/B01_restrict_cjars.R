@@ -4,7 +4,7 @@
 # --------------- Robert Betancourt, Connor Bulgrin, Jenny Duan, ---------------
 # --------------------- Nicholas Skelley, and Addie Sutton ---------------------
 # ---------------------------- Created 30 Oct 2025 -----------------------------
-# ---------------------------- Updated 21 Nov 2025 -----------------------------
+# ---------------------------- Updated 02 Dec 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
 need <- c("here", "tidyverse", "data.table")
@@ -30,16 +30,18 @@ cjars_load <- c("fips", "cohort_year", "sex", "race", "age_group", "off_type",
 # Adjust R's memory allocation
 oldSize <- mem.maxVSize()
 mem.maxVSize(1e11)
+
 # Load CJARS and filter to relevant years
 cjars.raw <- fread(here("01data/county/county_data.csv"), 
                    select = cjars_load,
                    colClasses = c(fips = "character"))
 
+# cjars.raw <- fread(here("01data/repl_smaller/Replication_CJARS.csv.gz"))
+
 cjars <- cjars.raw |>
   filter(if_any(ends_with("_rate"), ~ !is.na(.)),
          if_all(c("sex", "race", "age_group", "repeat_contact"), ~ .x == 0))
 
-# table(cjars$cohort_year)
+fwrite(cjars, here("05prepdata/CJARS_Limited_02-B01.csv.gz"))
 
-fwrite(cjars, here("05prepdata/cjars_to_use.csv.gz"))
 mem.maxVSize(oldSize)

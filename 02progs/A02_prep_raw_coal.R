@@ -6,7 +6,7 @@
 # --------------- Robert Betancourt, Connor Bulgrin, Jenny Duan, ---------------
 # --------------------- Nicholas Skelley, and Addie Sutton ---------------------
 # ---------------------------- Created 21 Nov 2025 -----------------------------
-# ---------------------------- Updated 22 Nov 2025 -----------------------------
+# ---------------------------- Updated 02 Dec 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
 need <- c("here", "tidyverse", "data.table", "readxl")
@@ -142,4 +142,5 @@ coal_num <- coal_fips |>
 
 ## Save raw coal data
 data.table::fwrite(coal_num,
-                   file = here("05prepdata/coal_production_by_county.csv"))
+                   file = here("05prepdata",
+                               "Coal-Production-by-County_02-A02.csv"))

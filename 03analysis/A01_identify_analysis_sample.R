@@ -24,7 +24,7 @@ rm(list = ls())
 # ------------------------------------------------------------------------------
 
 ## Load coal + CJARS data
-coal_cjars <- fread(here("05prepdata/cjars_coal_combined.csv"),
+coal_cjars <- fread(here("05prepdata/CJARS-Coal_Prepped_02-Z01.csv"),
                     colClasses = list("character" = "fips")) |>
   group_by(fips) |>
   mutate(min_event_time = min(event_time),
@@ -108,7 +108,8 @@ rownames(window_obs) <- NULL
                               title = NULL)) +
   theme_paper
 
-ggsave(filename = here("06figures/graphs/n_counties_by_window.pdf"),
+ggsave(filename = here("06figures/graphs/sample",
+                       "n_counties_by_window.pdf"),
        width = figure_scales$width, height = figure_scales$height,
        units = figure_scales$units, plot = .plot)
 
@@ -127,7 +128,8 @@ ggsave(filename = here("06figures/graphs/n_counties_by_window.pdf"),
                                    legend.text = element_text(color = NA)
                                    )))
 
-ggsave(filename = here("06figures/graphs/n_obs_by_window.pdf"),
+ggsave(filename = here("06figures/graphs/sample/",
+                       "n_obs_by_window.pdf"),
        width = figure_scales$width, height = figure_scales$height,
        units = figure_scales$units, plot = .plot)
 
@@ -150,6 +152,9 @@ analysis_coal <- coal_cjars |>
   filter(n() == 1 + chosen_window * 2) |>
   # Get the number of unique observations (counties)
   ungroup()
+
+fwrite(analysis_coal, here("05prepdata/CJARS-Coal_Analysis_Sample_03-A01.csv"))
+
 
 ## Tabulate states where analysis counties are located
 # 2-digit FIPS code to state name crosswalk
@@ -174,8 +179,9 @@ analysis_coal |>
                  headings = c("state_name" = "State",
                               "nobs" = "Frequency"))
 
+
 ## ECDF of peak coal production years --- analysis panel vs. all coal counties
-analysis_coal |>
+.plot <- analysis_coal |>
   mutate(analysis_panel = TRUE) |>
   select(fips, analysis_panel) |>
   unique() |>
@@ -196,3 +202,7 @@ analysis_coal |>
   theme_paper +
   theme(legend.position = "bottom")
 
+ggsave(filename = here("06figures/graphs/sample",
+                       "peak_years_ecdf.pdf"),
+       width = figure_scales$width, height = figure_scales$height,
+       units = figure_scales$units, plot = .plot)

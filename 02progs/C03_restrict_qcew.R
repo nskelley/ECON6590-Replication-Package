@@ -4,7 +4,7 @@
 # --------------- Robert Betancourt, Connor Bulgrin, Jenny Duan, ---------------
 # --------------------- Nicholas Skelley, and Addie Sutton ---------------------
 # ---------------------------- Created 01 Dec 2025 -----------------------------
-# ---------------------------- Updated 01 Dec 2025 -----------------------------
+# ---------------------------- Updated 02 Dec 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
 need <- c("here", "tidyverse", "data.table", "nanoparquet")
@@ -33,16 +33,21 @@ parquet_files <- list.files(
 )
 
 # Read and combine all parquet files
+old_mem <- mem.maxVSize()
+mem.maxVSize(1e11)
 county_data <- rbindlist(lapply(parquet_files, read_parquet))
 
 # Filter to county-level data (exclude state/national aggregates ending in 
 # "000")
 county_data <- county_data[!grepl("000$", area_fips)]
+mem.maxVSize(old_mem)
 
 # Calculate wage share by county-year
 wage_share <- county_data[, .(
-  coal_wages = sum(total_annual_wages[industry_code %in% coal_industries], na.rm = TRUE),
-  all_wages = sum(total_annual_wages[industry_code == "10"], na.rm = TRUE)
+  coal_wages = sum(total_annual_wages[industry_code %in% coal_industries], 
+                   na.rm = TRUE),
+  all_wages = sum(total_annual_wages[industry_code == "10"], 
+                  na.rm = TRUE)
 ), by = .(area_fips, year)]
 
 # Calculate coal wage share
@@ -52,4 +57,4 @@ wage_share[, coal_wage_share := coal_wages / all_wages]
 wage_share[all_wages == 0, coal_wage_share := NA]
 
 # Save as CSV
-fwrite(wage_share, here("05prepdata/county_coal_wage_share.csv"))
+fwrite(wage_share, here("05prepdata/County-Coal-Wage-Share_02-C03.csv"))

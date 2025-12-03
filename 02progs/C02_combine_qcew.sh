@@ -19,7 +19,7 @@ COPY (
     annual_avg_wkly_wage,
     avg_annual_pay
   FROM read_csv_auto(
-         '01data/supplemental/QCEW/*annual*/*.csv',
+         '01data/supplemental/QCEW/raw/*annual*/*.csv',
          header = true,
          union_by_name = true
        )

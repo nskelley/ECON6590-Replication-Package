@@ -4,7 +4,7 @@
 # --------------- Robert Betancourt, Connor Bulgrin, Jenny Duan, ---------------
 # --------------------- Nicholas Skelley, and Addie Sutton ---------------------
 # ---------------------------- Created 21 Nov 2025 -----------------------------
-# ---------------------------- Updated 01 Dec 2025 -----------------------------
+# ---------------------------- Updated 02 Dec 2025 -----------------------------
 # ------------------------------------------------------------------------------
 # Packages
 need <- c("here", "tidyverse", "data.table")
@@ -22,11 +22,11 @@ rm(list = ls())
 
 ## Load data
 # Load CJARS
-cjars <- fread(here("05prepdata/cjars_to_use.csv.gz"),
+cjars <- fread(here("05prepdata/CJARS_Limited_02-B01.csv.gz"),
                colClasses = list("character" = "fips"))
 
 # Load coal
-coal <- fread(here("05prepdata/coal_production_by_county.csv"),
+coal <- fread(here("05prepdata/Coal-Production-by-County_02-A02.csv"),
               colClasses = list("character" = "fips")) |>
   rename_with(~ sub("(\\_prod)$", "_coal_prod", .x))
 
@@ -57,4 +57,4 @@ coal_cjars <- inner_join(cjars, coal, by = c("cohort_year" = "year", "fips")) |>
 ## Create a codebook for the remaining data with summary stats/tables
 
 ## Save data
-fwrite(coal_cjars, here("05prepdata/cjars_coal_combined.csv"))
+fwrite(coal_cjars, here("05prepdata/CJARS-Coal_Prepped_02-Z01.csv"))
