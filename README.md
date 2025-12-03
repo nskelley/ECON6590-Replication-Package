@@ -44,17 +44,17 @@ This replication package depends on R version 4.5.2 (2025-10-31) -- "[Not] Part 
 
 | Package | Version |
 | --- | --- |
-| `here` | 1.0.1 |
-| `tidyverse` | 2.0.0 |
-| `ggplot2` | 4.0.1 |
-| `dplyr` | 1.1.4 |
-| `tidyr` | 1.3.1 |
-| `data.table` | 1.17.8 |
-| `readr` | 2.1.5 |
-| `readxl` | 1.4.5 |
-| `stringr` | 1.6.0 |
-| `broom` | 1.0.10 |
-| `fixest` | 0.13.2 |
+| `here` | `1.0.1` |
+| `tidyverse` | `2.0.0` |
+| `ggplot2` | `4.0.1` |
+| `dplyr` | `1.1.4` |
+| `tidyr` | `1.3.1` |
+| `data.table` | `1.17.8` |
+| `readr` | `2.1.5` |
+| `readxl` | `1.4.5` |
+| `stringr` | `1.6.0` |
+| `broom` | `1.0.10` |
+| `fixest` | `0.13.2` |
 
 #### `here`
 
