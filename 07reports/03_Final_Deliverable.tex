@@ -29,8 +29,6 @@
 
 Between 2001 and 2023, aggregate coal productivity in the US has gone from 1.13 billion short tons to 578 million, a 48.75\% decrease \parencite{coal_data_browser_eia}. In the same period, natural gas growth withdrawals have increased from 24.5 million (million cubic feet) to 45.6 million \parencite{u.s.energyinformation_2025}. Prior research has explored the effect of the coal decline on financial outcomes and education. \textcite{blonz_2023} find decreased credit scores and increased use of credit, even when accounting for individuals who lost mining-related jobs. \textcite{welch_2020} study the impact of coal activity on local revenue, finding a decrease in local revenue for education per student. Naturally, we expect more poorly funded counties to have worse justice outcomes. A minority of the literature finds the opposite conclusion---for example, \textcite{nason_2025} find some evidence that long-term local reduction in poverty was due to outmigration, wage increases and increased educational investment. We contribute to the literature by studying the relationship between coal de-industrialization and crime at the county level using a continuous treatment difference-in-differences approach based on \textcite{callaway_2024a}.
 
-\tk{Push zotero to git and overleaf when you get a chance @Nick!}
-
 Most other papers that look at declines in industrialization or manufacturing using exposure shocks consider exposure to be a continuous variable. \textcite{howard2024universities} and \textcite{glaeser2003rise} both use baseline manufacturing employment shares (the peak of U.S manufacturing employment) as a measure for manufacturing exposure in different years. Similarly, \textcite{gagliardi2023rust} looks at the effect of de-industrialization on employment consequences in cities across six countries and uses the city's share of manufacturing employment in the year of its country’s manufacturing peak as treatment for subsequent changes in total employment. Former manufacturing hubs are defined as cities with an initial manufacturing employment share in the top tercile of their country's distribution, while middle and bottom terciles are used for comparison in their 2SLS regression using driving distance to historical colleges and universities as an instrument.
 
 Of course, any study that examines the welfare effects of job losses should consider whether workers were successfully able to transition to other jobs; \textcite{curtis_2023} and \textcite{colmer_2024} find that workers who leave carbon-intensive jobs are extremely unlikely to transition to non-carbon-intensive jobs. Because of this, employment changes at the time of de-industrialization should not be correlated with job gains due to increased natural gas production during the same period.
@@ -146,7 +144,7 @@ Our data come from three primary sources. From the Criminal Justice Administrati
 
     \begin{minipage}
         \footnotesize
-        \item \textit{Notes:} This table lists the relevant variables to our analysis from the CJARS data. The variables \texttt{fips} through \tk{\texttt{repeat_contact}} are covariates while \textttt{fe_rate} through \texttt{N_pro_rate} are outcome variables.
+        \item \textit{Notes:} This table lists the relevant variables to our analysis from the CJARS data. The variables \texttt{fips} through are covariates while \textttt{fe_rate} through \texttt{N_pro_rate} are outcome variables.
     \end{minipage}
 \end{table}
 \end{comment} %old CJARS variable table
@@ -183,7 +181,7 @@ Our data come from three primary sources. From the Criminal Justice Administrati
 
     \include{06figures/tables/state_frequency}
     \begin{minipage}{0.8\linewidth}
-        \footnotesize\textit{Notes}: \tk{Omg this table is so sad}
+        \footnotesize\textit{Notes}:
     \end{minipage}
     %For Figure 1 - is 1b also the balanced sample? I would assume no because I don’t think you have 2025 data from CJARS and yet you have some 2020 calendar years? Might also be useful to do this graph for the balanced sample you use to estimate the event study?  Similarly maybe also show Figure 2 for the balanced sample?
 \end{table}
@@ -197,6 +195,8 @@ Descriptively, we include Figure \ref{fig:hist_peak_calyr_all} to provide the nu
 Figure \ref{fig:coal_peak_unweighted} shows the average county-level $z$-scores without weights. Coal production varies widely across counties, so we normalize coal production within each county using the within-county $z$-score of production quantity. An event time of \(0\) indicates the first year after each county's coal production peak. As expected, this figure indicates that average coal production increases up to event time \(-1\) and then declines. Figure \ref{fig:coal_peak_prod-wt} depicts the same figure where each county is weighted by the raw quantity of coal produced in the county at event time \(-1\). Notably, the average rate at which production increases before reaching peak production is visually similar to the rate of decline after the peak. This observation raises the concern that if coal production affects crime outcomes symmetrically for increases and decreases in production, then we may either observe significant pre-event trends or no post-event trends, the latter of which occurs.
 
 \subsection{Main Analysis}
+
+\begin{comment}
 \begin{figure}[!htp]
     \centering
     \tk{Change to analysis sample vs. all counties}
@@ -219,19 +219,18 @@ Figure \ref{fig:coal_peak_unweighted} shows the average county-level $z$-scores 
         \footnotesize\textit{Notes}: Average county-level coal production quantity by year, expressed as within-county standard deviations from the county mean level of production (within-county $z$-scores). Dashed lines show unweighted 95\% confidence intervals using year-level standard errors. In the weighted graph, Figure \ref{fig:coal_peak_prod-wt}, annual means are weighted at the county level by the raw quantity of coal produced in the county at event time $-1$, the year of peak coal production.
     \end{minipage}
 \end{figure}
+\end{comment}
 
 Figures \ref{fig:binscatter_felony} and \ref{fig:binscatter_misdemeanor} depict our event studies of interest. They present the average change in the annual charge rate (number of charges per 100,000 residents) relative to the year in which coal production was the highest. %In both of these, the lack of a significant difference from the rates in each year before event time \(0\) is evidence that pre-trends hold. Similarly, the lack of a jump in average change in the years leading up to event time \(0\) is evidence that our no anticipation assumption holds.
 
 Figure \ref{fig:binscatter_felony} suggests that the number of years since the peak in coal production did not have a significant effect on the rate of felony charges. At first glance, Figure \ref{fig:binscatter_misdemeanor} indicates that the number of years since the peak may have had a slight increase on the rate of misdemeanor charges. However, for many of these years, we cannot reject the null at a 95\% confidence interval. We are also skeptical of the validity of the parallel trends assumptions, as visual inspection suggests that the misdemeanor rate may have been increasing prior to the event time and merely continued afterwards.  Lastly, it is important to recall that the continuous treatment event study uses the initial coal production decline (treatment) as a fixed measure throughout the post-period, so our interpretation is limited such that any effects can only be attributed to the first dip in production after the peak.  We discuss this further in Section \ref{sec:robustness}, and use the difference in slope magnitudes pre- and post-peak as a robustness check in the following section. %Section \ref{sec:slopemags}.
 
-These findings are inconsistent with much of the literature. For instance, \textcite{welch_2020} find that coal de-industrialization negatively impacted local education revenue, which makes our null finding unexpected. Similarly, \textcite{schept_2022} argues that the pattern of extraction, crisis, and profiteering contributed to rising incarceration rates in Central Appalachia. Our results suggest that the de-industrialization of coal in the US did not substantially impact felony and misdemeanor crime rates. However, these results should be interpreted with caution. Among other concerns and opportunities for more robust analysis discussed in Section \ref{sec:robustness}, the relatively small sample of counties we can observe (212 counties in the panel with valid felony rates, and \tk{are these numbers still right} 207 counties in the same panel for misdemeanors) leaves us unable to reliably detect small effects.
+These findings are inconsistent with much of the literature. For instance, \textcite{welch_2020} find that coal de-industrialization negatively impacted local education revenue, which makes our null finding unexpected. Similarly, \textcite{schept_2022} argues that the pattern of extraction, crisis, and profiteering contributed to rising incarceration rates in Central Appalachia. Our results suggest that the de-industrialization of coal in the US did not substantially impact felony and misdemeanor crime rates. However, these results should be interpreted with caution. Among other concerns and opportunities for more robust analysis discussed in Section \ref{sec:robustness}, the relatively small sample of counties we can observe (19 unique counties) leaves us unable to reliably detect small effects.
 
 \subsection{Robustness Check} \label{sec:slopemags}
 \tk{Rambachan and Roth for misdemeanor pretrend}
 
-\tk{Add slope magnitude difference robustness check}
-
-Describe the results
+\tk{Describe the results}
 
 \begin{figure}[!htp]
     \centering
@@ -254,16 +253,6 @@ Describe the results
         \footnotesize\textit{Notes}: Point estimates of $ATE$ parameters under our main, continuous-treatment event study specification that includes fixed effects for county and calendar year. Point estimates represent average change in the annual rate of charges (number of charges per 100,000 county residents) relative to the year in which the county's coal production was highest. Dashed lines show 95\% confidence intervals using standard errors clustered by county. Event time $-1$ is the year in which coal production was highest in the county. Estimates are computed for the minimal balanced sample of counties who are observed for at least five years on each side of their coal production peak ($N=212$ for felonies and $N=207$ for misdemeanors).
     \end{minipage}
 \end{figure}
-
-\begin{table}[!htp]
-    \centering
-    \caption{\tk{Difference-in-Differences Table}}
-    \include{06figures/tables/event_study_table}
-
-    \begin{minipage}{0.8\linewidth}
-        \footnotesize\textit{Notes}: \tk{Hello world!}
-    \end{minipage}
-\end{table}
 
 
 \section{Discussion}\label{sec:robustness}
@@ -301,6 +290,7 @@ Our use of coal production as the treatment variable, rather than coal employmen
 
 \clearpage
 \newpage
+\setstretch{1.5}
 \nocite{cjars_data}
 % \nocite{fixest_pkg}
 
