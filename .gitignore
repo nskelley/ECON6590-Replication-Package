@@ -28,6 +28,13 @@
 **.DS_Store
 ._*
 
+# Specific folders
+**old/
+10extra
+07reports
+08manuscript
+09literature
+
 # Editor files
 .vscode/
 .idea/
