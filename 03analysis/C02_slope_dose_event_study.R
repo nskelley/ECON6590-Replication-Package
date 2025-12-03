@@ -36,7 +36,7 @@ doses <- lapply(counties, function(x) {
     lm(log_coal_prod ~ event_time * I(event_time > -1), data = _) |>
     summary() |>
     tidy() |>
-    filter(term == "I(event_time > -1)TRUE") |>
+    filter(term == "event_time:I(event_time > -1)TRUE") |>
     mutate(estimate = estimate * -1) |>
     pull(estimate)
   
